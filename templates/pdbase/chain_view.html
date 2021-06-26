@@ -1,0 +1,18 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Chain {{chain}}{% endblock%}
+
+{% block 'content' %}
+    <h1><a href="{% url 'structure_view' pdb.code %}">PDB {{chain}}</a></h1>
+    <h3>{{ pdb.title }}</h3>
+    <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_deposited_chain_front_image-400x400.png" ></td>
+    <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-400x400.png" ></td>
+    <ul>
+        {% for res in chain.residues.all %}
+        <a href="{% url 'residue_view' chain.pdb.code chain.chain_id res.num %}">{{ res }}</a> |
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %} 
+{% block 'title'%}ALOKOMP project - about{%endblock%}
+{% block 'content' %} 
+<h1>About the project ALOKOMP</h1> 
+
+<h2>Full title: <em>ALLOsteric COMmunication Pathways in oligomeric enzymes</em></h2> 
+
+<p>
+    It is believed that allostery (a change in enzyme behaviour in one
+    place caused by some other change at a distant location) plays a key role in
+    enzyme mechanism, activation and inhibition, and is of paramount importance in
+    enzyme functioning. In sharp contrast with its significance, the mechanism of
+    allostery is still poorly understood in most enzymes. Current proposal will try
+    to tackle this problem in a innovative way, by combining several very different
+    methodologies that have seldom been used together in this context. As the 3D
+    structure coming from X-ray crystallography (XC) alone is not capable to
+    explain a fundamentally dynamic basis of allostery, it will serve as a basis
+    for molecular dynamics (MD) simulations. Resulting static (XC) and dynamic (MD)
+    data will be unified in a form of relational database. This database will be
+    ideally suited for identifying hidden connections (pathways) between different
+    enzyme regions, which is the basis of allostery. To address the complexity and
+    the amount of data contained in the database, this proposal will leverage
+    machine learning (ML) algorithms that will operate on this highly structured
+    data. Therefore, the overall scientific objective of the project is to uncover
+    the mechanism of allostery in oligomeric enzymes using a novel approach that
+    combines the information obtained by different techniques: XC, MD and ML. Along
+    with the mechanism of allostery, the project will try to understand the role of
+    oligomerization in connection with allostery. Finally, the proposed allosteric
+    mechanisms will be experimentally validated by mutating the most important
+    residues in allosteric pathways found by ML algorithms and observing the change
+    in enzyme behaviour upon mutations. This will then represent an ultimate proof
+    of the validity of the concept and algorithms found in this project and show
+    great prospect for their applicability in much broader domain of other enzymes.
+</p>
+
+<img src="/static/images/project.png" style="width:100%;" alt=""> 
+<caption>
+
+An overall scheme of the project. The project will rest upon three major
+pillars: X-ray data (XD), molecular dynamics (MD) and machine learning (ML).
+The data derived from XD and MD will be combined and related in the
+comprehensive relational database, which will be processed by ML to find highly
+correlated patterns as signatures of allosteric communication pathways.
+
+</caption>
+
+{% endblock %}

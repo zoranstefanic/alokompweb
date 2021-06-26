@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block 'title' %}ALOKOMP project - home{% endblock%}
+{% block 'content' %}
+    <h1 class="my-4">Welcome to the web page of the ALOKOMP project!</h1>
+
+      <h3>This is the homepage of the scientific project titled <em>Allosteric
+communication pathways in oligomeric enzymes</em> conducted at the <a
+href="http://www.irb.hr">Institute Ruđer Bošković</a> in Zagreb, Croatia. The
+project is financed by <a href="https://hrzz.hr/en/">Croatian science
+foundation</a> and lasts from 1.1.2020.-31.5.2024.</h3>
+
+<div class="row">
+  <div class="col-lg-4 col-sm-4 portfolio-item">
+    <div class="card">
+      <div class="card-body">
+        <a href="{% url 'news' %}">
+        <i class="bi bi-newspaper" style="font-size:4rem; color:#cd4;"></i>
+        <h3>Check out what is new on the project</h3>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-sm-4 portfolio-item">
+    <div class="card">
+      <div class="card-body">
+          <a href="{% url 'team' %}">
+            <i class="bi bi-people" style="font-size:4rem; color:#d3e;"></i>
+            <h3>Meat the members of the team</h3>
+          </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-sm-4 portfolio-item">
+    <div class="card">
+      <div class="card-body">
+          <a href="{% url 'about' %}">
+            <i class="bi bi-question" style="font-size:4rem; color:#ab4;"></i>
+            <h3>Find out more about the project</h3>
+          </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+<div class="row">
+  <div class="col-lg-6 col-sm-6 portfolio-item">
+    <div class="card">
+      <a href="#"><img class="card-img-top" src="/static/images/image1.jpg" alt=""></a>
+      <div class="card-body">
+        <a href="{% url 'pdbase_home' %}">
+        <i class="bi bi-stack" style="font-size:3rem; color:#3d4;"></i>
+        <h3>Browse the database of protein structures (PDBASE)</h3>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-sm-6 portfolio-item">
+    <div class="card">
+      <a href="http://alokomp.irb.hr:7474/"><img class="card-img-top" src="https://www.ebi.ac.uk/pdbe/pdbe-kb/static/img/PDBe-KB-logo-white.png" alt=""></a>
+      <div class="card-body">
+        <a href="http://alokomp.irb.hr:7474/">
+        <i class="bi bi-bounding-box" style="font-size:3rem; color:#3d4;"></i>
+        <h3>Check out the graph database of the whole PDB</h3>
+        </a>
+      </div>
+    </div>
+</div>
+</div>
+<!-- /.row -->
+
+{% endblock %}

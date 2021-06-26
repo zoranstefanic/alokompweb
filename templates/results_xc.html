@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block 'title' %}ALOKOMP project - X-ray crystallography{% endblock%}
+
+{% block 'content' %}
+   <h1> X-ray crystallography </h1>
+    <div class="row">
+      <div class="col-lg-12">
+            <h4 class="title">
+              <a href="#">X-ray crystallography</a>
+            </h4>
+            <p class="card-text">
+
+            The starting point of the project are high resolution X-ray structures of
+            enzymes and their complexes with their ligands (inhibitors). This includes
+            oligomeric enzymes that are already available in the home laboratory and for
+            which the crystallization protocols are well established: hexameric PNPs from
+            E. coli and H. pylori, trimeric PNPs from calf spleen, and dimeric
+            adenylosuccinate synthetase (AdSS) from H. pylori. The overall scheme of the
+            methodology of the project is given on the figure bellow. 
+
+            </p>
+            <img class="img-fluid" src="/static/images/project.png" alt="">
+            <h3> Design and implementation of relational database </h3>
+            <p>
+    
+                However, in addition to the structures determined in the home laboratory, all
+                known 3D structures of related oligomeric enzymes deposited in the PDB are
+                going to serve as an input for creating the central part of the project: a
+                comprehensive relational database of all the residues in all the related
+                structures, containing a multitude of parameters that describe each residue and
+                its environment. The key point is that in this approach no a priori importance
+                is attributed to any residues, treating them all as potentially significant for
+                specific functionality of the enzyme, such as transmitting allosteric
+                communication. Not only will each residue be related to its immediate
+                environment (close contacts, hydrogen bonds, disulphide bridges...), but
+                through these relations to other related enzymes, the environments themselves
+                will be related. Translating purely structural data available from the PDB into
+                such highly interconnected multidimensional representation of annotated
+                residues will yield immensely rich data structure, and the form of relational
+                database will provide extensive querying capabilities. In this way, a search
+                for not only primary sequence conservation, which is in essence one
+                dimensional, but for truly three dimensional and functional conservation which
+                underlies the similarity of the group of enzymes will become possible. The
+                database itself will be implemented as a PostgreSQL database as the most
+                feature rich, reliable open source database system, capable of containing vast
+                amounts of data. It will be filled with data derived from the PDB by automated
+                scripts written in Python programming language, which already contains a number
+                of ready libraries for handling PDB structures. The database schema and the
+                design of tables and relationships within it, will depend on the set of
+                features and parameters that will be selected to describe each residue, and
+                this will in turn require some initial experimenting with possible choices.
+                Another great advantage of relational database model is that only the most
+                immediate residue environment (i.e. nearest neighbours shell) has to be taken
+                into account and the arbitrary number of next level shells is automatically
+                included by the propagation of relationships which is built into the database
+                structure. This will allow very fast and cheap examination of distant
+                relationships which are thought to take place in allosteric communications.  As
+                a parallel development in the project, the whole database will be placed behind
+                the web application server with strong visualization capabilities. This will
+                serve multiple purposes: representation of enzymes’ 3D structures with easy
+                visualization of their properties and relationships to other enzymes; as a
+                window for human exploration of the communication pathways discovered by ML
+                methods; for searching the database manually for any property or residue; for
+                plotting and exploration of any correlations. This will be implementing using
+                Django web application framework and D3.js plotting library. As one of the
+                results of the project it is planned that this web server be fully operational
+                and publicly available.
+    
+                </p>
+      </div>
+    </div>
+{% endblock %}

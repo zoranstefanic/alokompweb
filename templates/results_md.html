@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block 'title' %}ALOKOMP project - MD simulations{% endblock%}
+
+{% block 'content' %}
+   <h1> Molecular dynamics simulations </h1>
+    <div class="row">
+      <div class="col-lg-12">
+            <h4 class="title">
+                Molecular dynamic simulations and structural alphabet
+            </h4>
+                <p> In order to capture the dynamic nature of enzymes, the static
+                data derived from the X-ray structures will be complemented by the data derived
+                from molecular dynamics (MD) simulations to reveal the signatures of
+                communication pathways. MD simulations will be conducted on several
+                representative structures from PNPs (hexameric and trimeric) and AdSS
+                (dimeric). The MD trajectories will be analysed by GSATools package [22] to
+                find possible allosteric hot-spots and communication pathways. MD simulations
+                will provide dynamic information on the residues that play a key role in
+                transferring information from one part of the enzyme to the other. MD
+                trajectories will be analysed in search of the correlations in residue
+                parameters during the MD trajectories, thus revealing otherwise undetectable
+                communication channels. This information will be compared with the information
+                previously present in the database of related enzymes. It is expected that
+                strong correlations should exist in static (X-ray) and dynamic (MD) data in the
+                database, confirming the importance of certain regions and in the enzymes.
+                Special attention in formulation of residue parameters that are going to be
+                used will be paid to differentiation between intra-monomer vs. inter-monomer
+                interfaces, as they are undoubtedly playing quite different roles in oligomeric
+                enzymes. Oligomeric enzymes in the vast majority of cases possess internal
+                symmetry, yet this symmetry is almost always only approximate in the crystal
+                structures. It is still unclear whether this is a result of crystal packing
+                interactions, or does it have some more fundamental significance. Recent
+                findings on some enzymes suggest that this asymmetry is indeed far from
+                accidental [48,49]. Having the residues in a relational database will make
+                possible the comparison of symmetry between all residue local environments and
+                fast identification of those parts that violate the symmetry. Whether this is
+                due to crystal packing influence, or if this is a genuine feature of certain
+                residues, will be immediately apparent as all the information is contained in
+                the database. Furthermore, the connection between this symmetry violations and
+                MD derived data will also be available at the same time, supporting the
+                importance of certain movements and conformational changes. All this will yield
+                new information on mechanism that underpins the information transfer between
+                the monomers in this particular class of oligomeric enzymes. Along the way new
+                programmatic methods will be established that will possibly be applicable to
+                other oligomeric proteins as well.  </p>
+                    
+            <img class="img-fluid" src="/static/images/bg8.jpg" alt="">
+    
+      </div>
+    </div>
+{% endblock %}

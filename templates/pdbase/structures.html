@@ -1,0 +1,30 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Structures list{% endblock%}
+
+{% block 'content' %}
+   <h1> List of PDB structures </h1>
+
+    <table class="table">
+        <tr>
+            <th>No</th>
+            <th>PDB code</th>
+            <th>Title</th>
+            <th>Chains</th>
+            <th>Assembly</th>
+        </tr>
+        {% for pdb in pdbs %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td><a href="{% url 'structure_view' pdb.code %}">{{ pdb.code }}</a></td>
+            <td>{{ pdb.title }}</td>
+            <td><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_deposited_chain_front_image-200x200.png" ></td>
+            <td><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-200x200.png" ></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

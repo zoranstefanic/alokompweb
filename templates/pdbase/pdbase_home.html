@@ -1,0 +1,14 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}ALOKOMP project - pdbase{% endblock%}
+
+{% block 'content' %}
+   <h1> PDBASE </h1>
+   <h3> A comprehensive database of Purine nucleoside phosphorylase structures and interactions between residues. </h3>
+   <h3> Currently it contains information about: </h3>
+   <ul>
+       <li> <h4> <a href='{% url "structures_list" %}'>{{num_pdbs}} structures</a> </h4> </li>
+       <li> <h4> <a href='{% url "structures_list" %}'>{{num_chains}} chains</a> </h4> </li>
+       <li> <h4> <a href='{% url "structures_list" %}'>{{num_residues}} residues</a> </h4> </li>
+       <li> <h4> <a href='{% url "structures_list" %}'>{{num_atoms}} atoms in the database.</a> </h4> </li>
+   </ul>
+{% endblock %}
