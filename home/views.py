@@ -14,6 +14,9 @@ def team(request):
 def news(request):
     return render(request, 'news.html')
 
+def gannt(request):
+    return render(request, 'gannt.html')
+
 def equipment(request):
     return render(request, 'equipment.html')
 
