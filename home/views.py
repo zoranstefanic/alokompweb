@@ -17,6 +17,9 @@ def news(request):
 def gannt(request):
     return render(request, 'gannt.html')
 
+def scheme(request):
+    return render(request, 'scheme.html')
+
 def equipment(request):
     return render(request, 'equipment.html')
 

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'pdbase',
     'bootstrapform',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
