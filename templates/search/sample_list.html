@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-lg-12">
+    <table class="table" style="background:#add;">
+    <thead>
+        <tr>
+            <th style="width:10%">Structure</th>
+            <th style="width:10%">Label</th>
+            <th style="width:10%">Formula</th>
+            <th style="width:10%">Contact</th>
+            <th style="width:10%">Edit</th>
+            <th style="width:10%">Experiments</th>
+            <th style="width:10%">Added by</th>
+            <th style="width:10%">Final note</th>
+    </thead>
+    <tbody>
+    {% for sample in object_list %}
+        <tr>
+            <td><img style="height:150px;" src="{{sample.figure_url}}" alt="{{sample}}"></td>
+            <td><a href="{% url 'sm-detail' sample.id%}"><h4 class="priority-{{sample.get_priority_display}}">{{sample}}</h4></a><br>{{sample.date_added|date:"D d-m-Y"}} ({{sample.date_added|timesince}})</td>
+            <td>{{sample.formula}}<br>Mr: {{sample.mass}}</td>
+            <td>{{sample.contact}}<br><a href="mailto:{{sample.email}}">{{sample.email}}</a></td>
+            <td>
+            <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown">Edit</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'sm-update' sample.id%}">Edit</a><br>
+                  <a class="dropdown-item" href="{% url 'sm-update-full' sample.id%}">Edit full</a><br>
+                  <a class="dropdown-item" href="{% url 'sm-create-from-existing' sample.id%}">New from this</a>
+                </div>
+                <a href="{% url 'search'%}?q={{sample}}"><i class="fa fa-search"></i> Find experiment?</a>
+              </li>
+            </ul>
+            </td>
+            <td> <ul class="list-unstyled">{% for e in  sample.experiments.all %}<li><a href="{% url 'xray_experiment_detail' e.pk%}">{{e}}</a></li>{%endfor%}</ul> 
+            
+            </td>
+            <td>{{sample.added_by}}</td>
+            <td>{% if sample.status == 'F' %}<span class="badge badge-info"><i class="fa fa-check"></i> finished</span>{% endif %}<br><em>{{sample.final_note}}</em></td>
+        </tr>
+    {% endfor %}
+    </tbody></table>
+    </div>
+</div>

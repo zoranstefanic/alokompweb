@@ -13,7 +13,7 @@ class Pdb(models.Model):
         return "%s" % self.code
 
 class Chain(models.Model):
-    """One chain in the PDB streeucture """
+    """One chain in the PDB structure """
     chain_id  = models.CharField(max_length=4)
     is_protein = models.BooleanField(default=True)
     pdb = models.ForeignKey(Pdb, related_name='chains', on_delete=models.CASCADE)

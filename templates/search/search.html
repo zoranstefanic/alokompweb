@@ -1,0 +1,54 @@
+{% extends "search/base.html" %}
+
+{% load static %}
+{% block head_title %}Search{%endblock%}
+{% block 'content' %}
+<h3>Search</h3>
+<form method="get" class="form-horizontal" action=".">
+  <div class="form-group">
+    <input type="text" name="q" class="form-control" id="query" placeholder="Search pdbs or titles ...">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Search" />
+</form>
+{% if request.GET %}
+		{% if results %}
+				<h3>Search results for "{{query}}":</h3>
+                <ul>
+                <li><a href="#search1">In structures: <b>{{inCode.count}}</b> structures.</a> </li>
+                <li><a href="#search2">In titles: <b>{{inTitle.count}}</b> structures.</a> </li>
+                <li><a href="#search3">In sequence: <b>{{inData.count}}</b> structures.</a> </li>
+                </ul>
+            <div class="container">
+                <div class="row">
+                    <div id="search1">
+                    {% with inCode as object_list %}
+                            <h4>{{object_list|length}} found in pdb codes</h4>
+                            {% include "search/object_list.html" %}
+                    {% endwith %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="search2">
+                    {% with inTitle as object_list %}
+                            <h4>{{object_list|length}} found in titles</h4>
+                            {% include "search/object_list.html" %}
+                    {% endwith %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="search3">
+                    {% with inData as object_list %}
+                            <h4>{{object_list|length}} found in sequence</h4>
+                            {% include "search/object_list.html" %}
+                    {% endwith %}
+                    </div>
+                </div>
+            </div>
+		{%else%}
+				<h3 class="warninig">Sorry no results!</h3>
+		{%endif%}
+{%endif%}
+{% endblock %}
+
+{% block extra_head %}
+{% endblock %}

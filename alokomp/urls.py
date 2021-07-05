@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^results/md', results_md, name="results_md"),
     url(r'^results/ml', results_ml, name="results_ml"),
     url(r'^pdbase/', include("pdbase.urls")),
+    url(r'^search/', include("search.urls")),
     url(r'^account/', include("account.urls")),
     url(r'^admin/', admin.site.urls),
 ]
