@@ -25,7 +25,7 @@ SECRET_KEY = '!66*9bks9kj0mc__3ys%i5j8s2@&&+^9_-^6)3uat!eca9pob('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['alokomp.irb.hr','localhost']
+ALLOWED_HOSTS = ['alokomp.irb.hr','localhost','lcbc']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'pdbase',
     'bootstrapform',
     'django_extensions',
+    'alignments',
 ]
 
 MIDDLEWARE = [

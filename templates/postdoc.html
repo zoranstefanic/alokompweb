@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% block 'title' %}ALOKOMP project - postdoc{% endblock%}
+{% block 'content' %}
+<h1>
+<h1 style="color:brown;">
+Post-doc position available on the ALOKOMP project
+</h1>
+
+<h4 style="color:salmon;">
+    A post-doctoral postion is open at the ALOKOMP project, beginning from
+    1.7.2022. and for the period of up to four years.
+    
+    An ideal candidate should have a PhD degree in chemistry, mathematics, physics or electrical engineering and
+    computer science.  She/he should have a working knowledge of programming in Python
+    programming language, knowledge of working with databases and/or programming
+    for the web. Previous experience in working with graph databases (Neo4J in
+    particular) and/or machine learning and data analysis packages (Numpy, ScikitLearn, Pandas, TensorFlow...) would be an advantage!
+    To apply please <a href="mailto:zoran.stefanic@irb.hr">send an e-mail.</a>
+</h4>
+
+<p>
+    <h5>
+        Project outline is given below: 
+    </h5>
+</p>
+
+<h4><em>Title: Machine Learning Graph Databases for the Analysis of Allostery in Oligomeric Enzymes</em></h4>
+<p>
+    Allostery plays a key role in catalytic mechanism of many
+    enzymes. Notwithstanding its importance, the mechanism of allostery is still
+    not fully understood. Purine Nucleoside Phosphorylases (PNPs) are oligomeric
+    enzymes that catalyse the synthesis of purine nucleotides in the purine salvage
+    pathway and represent an ideal case for studying allostery. PNPs are essential
+    enzymes in some microorganisms such as Helicobacter Pylori which rely
+    exclusively on recycled purines for their protein synthesis. Thus, inhibiting
+    PNPs represents a promising way of supressing bacterial growth and curing
+    bacterial infection. Consequently, finding novel modes of inhibition of PNPs
+    opens new treatment possibilities against serious pathogens. Understanding
+    allostery in PNPs would explore new routes for designing allosteric inhibitors,
+    with higher specificity that are not tied to targeting exclusively the enzyme’s
+    active site, as is currently the case.  
+</p>
+
+<p>
+    To understand such a fundamentally dynamical phenomenon as allostery, it is
+    necessary to employ not only static structures from X-ray crystallography (XC),
+    but also their dynamic counterparts from molecular dynamics (MD) simulations.
+    This project will merge XC and MD information from PNPs and store it in a form
+    of specialized graph database.  Graph databases are well suited for tracing
+    information that spans many nodes, as it is the case with allosteric
+    interactions between protein residues.  Storing data in such an organised way
+    will allow for employment of machine learning algorithms to find correlations
+    between different interactions in XC and MD domain, leading to the discovery of
+    hidden allosteric pathways in PNPs and directing the current research.
+</p>
+
+<p>
+    The phenomenon of allostery [1] has been recognized for more than a century
+    now, although the term allostery itself was coined fifty years ago in a seminal
+    work of Monod and Jacob [2]. Ever since, various models have been proposed to
+    explain the mechanism of allostery but despite huge advances, the effect is far
+    from being fully understood [3]. The accumulated knowledge clearly shows that
+    the complex and multifaceted mechanism of allostery can only be revealed by a
+    multidisciplinary approach [4]. Such approach must consider not only the
+    intrinsic structural basis of the mechanism of any enzyme, but also the
+    dynamical nature of proteins and various interactions between constituent units
+    at various levels, from amino acids to entire chains and subdomains [5]. 
+</p>
+
+<p>
+    <img class="float-right" style="width:500px;margin:20px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Network_graph_visualization_showing_bibliography_and_keywords.png/800px-Network_graph_visualization_showing_bibliography_and_keywords.png?20200908094644" alt="">
+    Proteins can naturally be represented as networks, where nodes are amino acids
+    and edges are various interactions between them, be it peptide bonds along the
+    main chain, or various non-covalent interactions that may be present during
+    time evolution. If allosteric communication between amino acids is transmitted
+    through non-covalent interactions, then the most natural way of tracing the
+    allosteric pathways through protein is by following the time evolution of
+    underlying interaction networks. Thus, it is no surprise that recently the
+    network view of allostery has shown as one of the major approaches in the
+    research of allostery [6, 7], leading to significant breakthroughs [8].
+</p>
+
+<p>
+    A class of oligomeric enzymes, purine nucleoside phosphorylases or PNPs [9],
+    that exhibits allosteric signalling and regulation have been a subject of
+    research of the host laboratory for several years [10–13], most recently as
+    part of the project Allosteric communication pathways in oligomeric enzymes
+    (ALOKOMP, https://alokomp.irb.hr/). PNPs catalyse the synthesis of purine
+    nucleotides in purine salvage pathway and represent excellent model enzymes for
+    studying allostery and oligomerization. They are oligomeric enzymes that are
+    trimeric in eukaryotes and hexameric in bacteria [9]. Each monomer in the
+    oligomer can be found in two states, open or closed, depending on the
+    conformation of the active site [12]. The crystal structures of hexameric PNPs
+    have shown a wide variety of distributions of open and closed states of
+    monomeric units (all open, five open one closed, four open two closed, three
+    open three closed etc.). Along with the unknown mechanism of allosteric
+    communication between monomers, different possible distributions of active site
+    conformations represent unsolved puzzles in these enzymes. The end goal of this
+    project is to find a possible correlation between these conformational changes
+    and allosteric regulation, and the implications of this on the catalytic
+    mechanism in PNPs.
+</p>
+
+<p>
+    Beyond being a model for allosteric signalling, PNPs have high pharmacological
+    significance. Some bacteria, such as Helicobacter pylori, rely exclusively on
+    recycled purines for their protein synthesis, where PNP acts as the essential
+    enzyme. The first structure of PNP from H. pylori was determined recently in
+    the host laboratory [13]. Inhibiting PNP as the key enzyme represents a
+    promising way of supressing bacterial growth and curing bacterial infection
+    [14]. Consequently, finding novel modes of inhibition of PNP opens new
+    treatment possibilities against this very serious pathogen [15]. Understanding
+    allostery in PNPs would explore new routes for designing allosteric inhibitors,
+    with higher specificity and not tied to targeting exclusively the enzyme’s
+    active site, as is currently the case.  
+</p>
+
+
+<p>
+    The main activity of the host laboratory is the determination of
+    three-dimensional structures of enzymes at atomic resolution using X-Ray
+    crystallography (XC) on protein crystals.  Although this method gives us the
+    most detailed view of the enzymes, it suffers from one major drawback, which is
+    that it only gives a static view of the enzyme, and the determined structure of
+    the enzyme is just one of the many possible states in which it can find itself.
+    Therefore, XC alone is not capable of disclosing a fundamentally dynamic basis
+    of allostery. For this reason, XC will serve as a starting point for the
+    molecular dynamics (MD) simulations in silico. These simulations will provide
+    the missing dynamic information on how the enzymes are moving in time,
+    highlighting the residues that play a key role in transferring information from
+    one part of the enzyme to the other. It is expected that strong correlations
+    should exist in static (XC) and dynamic (MD) data, confirming the importance of
+    certain regions in the enzymes.  All this will yield new information on the
+    mechanism that underpins the information transfer between the monomers in this
+    class of oligomeric enzymes. 
+</p>
+
+ <p>
+     The movements of proteins (enzymes) in time are at the heart of their
+     apability to transmit the information from one protein domain to the other,
+     hrough so-called allosteric communication pathways. Representing the MD
+     rajectories in a suitable form that is adapted to extracting useful
+     nteraction patterns, can thereby provide insights into allosteric
+     ommunication modes, thus revealing the allosteric pathways in PNPs. Currently
+     he number of determined structures of PNPs from different organisms deposited
+     n the Protein Data Bank (PDB) is around 220. Each structure of hexameric PNP
+     ontains six chains of 200-250 residues, making the structures of PNPs quite
+     emanding for MD simulations due to their large size. Considering that MD
+     tructure simulation would have to be of minimally 100 ns duration and done in
+     everal replicas, this makes the job quite daunting even on modern high
+     erformance computing facilities. But that is only the beginning of the
+     roblem, as processing huge amounts of MD simulations data, requires adequate
+     utomated methods of analysis, which greatly reduce its size and represent it
+     n a manageable form.
+ </p>
+
+
+<p>
+    A convenient way of reducing such MD simulation data is by using high quality
+    programmatic tools for the data analysis already available in Python
+    programming language (NumPy, SciKitLearn, Pandas, Mdanalysis) and applying them
+    to the data represented in form of the relational database. As part of the
+    ongoing ALOKOMP project in the host institution, a relational database is being
+    constructed which will contain all the XC and dynamic MD data combined. The
+    building blocks of this relational database are residues of all the PNPs
+    available, and the relationships between them are either static (such as
+    hydrogen bonds, close contacts etc.) or dynamic (such as time evolution of
+    appearance of certain contacts). Having all of this information connected in a
+    single database is essential.  
+</p>
+
+<p>
+    <img class="float-left" style="width:300px;margin:20px;" src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Neo4j-logo_color.png" alt="">
+    This proposal brings a further key enhancement to the ALOKOMP project: a switch
+    to the entirely different form of underlying database: instead of using a
+    relational database, amino acid interactions would be represented in the form
+    of a graph database. Graph database is a form that stores the data in a form of
+    a graph, essentially a network of nodes, which is ideally suited to represent
+    network structure of proteins. It is no wonder that the PDB has recently put
+    its entire database in this form [https://www.ebi.ac.uk/pdbe/pdbe-kb/]. But the
+    reason for employing a graph database is more fundamental and has to do with
+    the performance of databases with respect to the length of the queries that can
+    be performed. Namely, allosteric interaction pathways usually span many
+    residues. Executing queries that involve many table lookups in a relational
+    database is computationally prohibitive. As soon as the number of hops reaches
+    a certain (small) number, the time it takes for the query to execute increases
+    exponentially. This is in sharp contrast to the graph databases where the
+    relationships are objects themselves and the query time scales linearly with
+    their length. Therefore, it is in principle possible to follow relationships
+    between amino acids irrespective of their physical distance, which is just what
+    we need for allostery.  
+</p>
+
+
+<p>
+    To fully take advantage of such enormous amounts of data in a form of the graph
+    database, it is necessary to leverage machine learning (ML) algorithms that
+    will operate on this highly structured and connected data.  Along with the
+    above-mentioned libraries, Python features a mature ML eco-system which will
+    allow the identification of patterns in the relationships. The main goal of the
+    ML analysis is to identify highly correlated changes in residue parameters
+    (such as concerted movements, simultaneous changes in conformations, coinciding
+    hydrogen bond formation etc.), but also to find regularities and similarities
+    in residue environments between different enzymes.  
+</p>
+
+
+<p>
+    This project would aim to utilize this novel combination of XC, MD and ML that
+    will operate on highly interconnected data in form of the graph database. The
+    first part of project would focus on obtaining the dynamic MD data using the
+    static XC data as the starting point. This is ongoing work at the host
+    institute, and I would join to help finalizing it. The MD data would then be
+    organised as a graph database allowing for different ML algorithms to be tested
+    in search for allosteric pathways. Finally, amino acids identified as
+    allosteric “hotspots” would be probed using molecular biology, namely
+    site-directed mutagenesis followed by testing the impact of mutation on the
+    enzymes’ kinetics.  All-together this project will yield a new perspective on
+    the phenomenon of allostery in PNPs, with the possibility of application to the
+    enzymes in general.
+</p>
+
+<ol>
+    <li>Liu, J., and Nussinov, R. (2016) Allostery: An Overview of Its History, Concepts, Methods, and Applications. PLoS Comput. Biol. 12, 3–7</li>
+    <li>Monod, J., and Jacob, F. (1961) General Conclusions: Teleonomic Mechanisms in Cellular Metabolism, Growth, and Differentiation. Cold Spring Harb. Symp. Quant. Biol. 26, 389–401</li>
+    <li>Di Paola, L., and Giuliani, A. (eds.) (2021) Allostery, Springer US, New York, NY</li>
+    <li>Wodak, S. J., Paci, E., Dokholyan, N. V., Berezovsky, I. N., Horovitz, A., Li, J., Hilser, V. J., Bahar, I., Karanicolas, J., Stock, G., Hamm, P., Stote, R. H., Eberhardt, J., Chebaro, Y., Dejaegere, A., Cecchini, M., Changeux, J.-P., Bolhuis, P. G., Vreede, J., Faccioli, P., Orioli, S., Ravasio, R., Yan, L., Brito, C., Wyart, M., Gkeka, P., Rivalta, I., Palermo, G., McCammon, J. A., Panecka-Hofman, J., Wade, R. C., Di Pizio, A., Niv, M. Y., Nussinov, R., Tsai, C.-J., Jang, H., Padhorny, D., Kozakov, D., and McLeish, T. (2019) Allostery in Its Many Disguises: From Theory to Applications. Structure 27, 566–578</li>
+    <li>Tsai, C.-J., and Nussinov, R. (2014) A Unified View of “How Allostery Works.” PLoS Comput. Biol. 10, e1003394</li>
+    <li>Di Paola, L., and Giuliani, A. (2015) Protein contact network topology: A natural language for allostery. Curr. Opin. Struct. Biol. 31, 43–48</li>
+    <li>Di Paola, L., De Ruvo, M., Paci, P., Santoni, D., and Giuliani, A. (2013) Protein contact networks: An emerging paradigm in chemistry. Chem. Rev. 113, 1598–1613</li>
+    <li>Wang, J., Jain, A., McDonald, L. R., Gambogi, C., Lee, A. L., and Dokholyan, N. V. (2020) Mapping allosteric communications within individual proteins. Nat. Commun. 11, 1–13</li>
+    <li>Bzowska, A., Kulikowska, E., and Shugar, D. (2000) Purine nucleoside phosphorylases: properties, functions, and clinical aspects. Pharmacol. Ther. 88, 349–425</li>
+    <li>Mikleušević, G., Štefanić, Z., Narczyk, M., Wielgus-Kutrowska, B., Bzowska, A., and Luić, M. (2011) Validation of the catalytic mechanism of Escherichia coli purine nucleoside phosphorylase by structural and kinetic studies. Biochimie 93, 1610–22</li>
+    <li>Štefanić, Z., Narczyk, M., Mikleušević, G., Wielgus-Kutrowska, B., Bzowska, A., Luić, M., Mikleuševic, G., and Luic, M. (2012) New phosphate binding sites in the crystal structure of Escherichia coli purine nucleoside phosphorylase complexed with phosphate and formycin A. FEBS Lett. 586, 967–71</li>
+    <li>Narczyk, M., Bertoša, B., Papa, L., Vuković, V., Leščić Ašler, I., Wielgus-Kutrowska, B., Bzowska, A., Luić, M., and Štefanić, Z. (2018) Helicobacter pylori purine nucleoside phosphorylase shows new distribution patterns of open and closed active site conformations and unusual biochemical features. FEBS J. 285, 1305–1325</li>
+    <li>Štefanić, Z., Mikleušević, G., Luić, M., Bzowska, A., and Leščić Ašler, I. (2017) Structural characterization of purine nucleoside phosphorylase from human pathogen Helicobacter pylori. Int. J. Bol. Macromol. 101, 518–526</li>
+    <li>Liechti, G., and Goldberg, J. B. (2012) Helicobacter pylori relies primarily on the purine salvage pathway for purine nucleotide biosynthesis. J. Bacteriol. 194, 839–54</li>
+    <li>Roszczenko-Jasińska, P., Wojtyś, M. I., and Jagusztyn-Krynicka, E. K. (2020) Helicobacter pylori treatment in the post-antibiotics era—searching for new drug targets. Appl. Microbiol. Biotechnol. 104, 9891–9905</li>
+</ol>
+
+{% endblock %}

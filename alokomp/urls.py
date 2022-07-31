@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^news/', news, name="news"),
     url(r'^gannt/', gannt, name="gannt"),
     url(r'^scheme/', scheme, name="scheme"),
+    url(r'^postdoc/', postdoc, name="scheme"),
     url(r'^equipment/', equipment, name="equipment"),
     url(r'^results/xc', results_xc, name="results_xc"),
     url(r'^results/md', results_md, name="results_md"),
@@ -31,5 +32,6 @@ urlpatterns = [
     url(r'^pdbase/', include("pdbase.urls")),
     url(r'^search/', include("search.urls")),
     url(r'^account/', include("account.urls")),
+    url(r'^alignments/', include("alignments.urls")),
     url(r'^admin/', admin.site.urls),
 ]

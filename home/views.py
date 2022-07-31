@@ -20,6 +20,9 @@ def gannt(request):
 def scheme(request):
     return render(request, 'scheme.html')
 
+def postdoc(request):
+    return render(request, 'postdoc.html')
+
 def equipment(request):
     return render(request, 'equipment.html')
 
@@ -30,4 +33,4 @@ def results_md(request):
     return render(request, 'results_md.html')
 
 def results_ml(request):
-    return render(request, 'template.html')
+    return render(request, 'results_ml.html')

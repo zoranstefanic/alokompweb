@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block 'title' %}ALOKOMP project - news{% endblock%}
+
+{% block 'content' %}
+    <div class="row">
+      <div class="col-lg-12">
+            <h4 class="title">
+              <a href="#">Machine learning in discovery of allosteric pathways</a>
+            </h4>
+
+<p class="card-text">
+<img class="float-left" style="width:300px;margin:20px;" src="/static/images/template.jpg" alt="">
+ Processing and using large amounts of data is not possible without fully
+automated algorithms to find interesting relationships between amino acids. Not
+only will it be a challenge to deal with such an amount of data, but it will be
+a challenge to determine what to look for at all. Namely, the main goal of the
+overall analysis must be to identify strong correlations in changes in amino
+acid parameters (such as coordinated movements, simultaneous changes in the
+structural alphabet, coincident formation of hydrogen bonds, etc.), but also to
+find similarities in amino acid environments between different enzymes. This is
+the task of the third pillar on which the proposed project rests, and these are
+advanced data analysis and machine learning (ML). Machine learning is a very
+rich field of data science that uses vast amounts of data to derive new
+insights and uncover hidden patterns in data. As such, it is perfectly suited
+for processing the information contained in the relational database performed
+in the XD and MD part of the project. First, ML will be used to find different
+repetitive structural motifs in XD data, such as a structurally preserved 3D
+environment to a number of related enzymes, which would speak to their
+importance.  Different machine learning methods such as clustering will be used
+for this.  They will group similar domains and rank them according to some
+suitably designed measure of similarity. Already this step will indicate some
+significant parts of the enzyme (most likely the active sites, but also some
+unknown and unexpected ones). However, these procedures will only provide a
+basis for including dynamic data from the MD previously associated with static
+data in the database. This is likely to further highlight the importance of
+certain structural motives and give them a dynamic role, and also provide
+insight into the interrelationships of these similar regions. Furthermore,
+machine learning methods must be applied in order to extract the dominant modes
+of amino acid communication from the forest of interactions that take place
+during MD, while carefully selecting those that stand out above the noise
+level. Once again, due to the abundance of information on the relationships
+between amino acids that already exist in the database, ML methods will have a
+wealth of data to extract the information. To facilitate the ML part of the
+project, special attention will be paid to developing a database scheme that
+will be adapted for the application of automated ML algorithms to extract
+communication networks in this class of oligomeric enzymes, and with the
+ability to find hidden laws applicable to oligomeric enzymes in general. Within
+the Python programming language, there are great possibilities for the ML part
+of the project and already existing components (Scikit-learn, Numpy, Pandas).
+
+            </p>
+      </div>
+    </div>
+{% endblock %}

@@ -1,4 +1,6 @@
 *.pyc
 *.sql
+*.swp
+*.bkp
 alokompvenv
 

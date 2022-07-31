@@ -6,6 +6,7 @@
     <h3>{{ pdb.title }}</h3>
     <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_deposited_chain_front_image-400x400.png" ></td>
     <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-400x400.png" ></td>
+        <a href="https://www.ebi.ac.uk/pdbe/entry/view3D/{{pdb.code}}/?view=entry_index&viewer=litemol&assembly=1"><button class="btn btn-info">View 3D</button></a>
     <h4>Chains in {{pdb}}</h4>
         {% for c in pdb.chains.all %}
        <a href="{% url 'chain_view' pdb.pk c.chain_id %}"><button type="button" class="btn btn-primary">{{c}}</button></a>
