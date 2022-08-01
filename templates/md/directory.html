@@ -1,0 +1,37 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Directory {% endblock%}
+
+{% block 'content' %}
+    <h1>{{directory}}</h1>
+    <table class="table table-stripped">
+        <tr>
+            <th style="width:50%;">Trajectory</th>
+            <th style="width:25%;">Times</th>
+            <th style="width:25%;">Info</th>
+        </tr>
+    {% for t in directory.trajectories.all %} 
+        <tr>
+            <td><a href="{% url 'Trajectory' t.id %}">{{t}}</a></td>
+            <td>
+                <ul class="list-unstyled">
+                    <li>A: {{t.atime}}</li>
+                    <li>M: {{t.mtime}}</li>
+                    <li>C: {{t.ctime}}</li>
+                </ul>
+            </td>
+            <td>
+                <ul class="list-unstyled">
+                    <li>filesize: {{t.filesize|filesizeformat}}</li>
+                    <li>totaltime :{{t.totaltime}}</li>
+                    <li>num_atoms :{{t.num_atoms}}</li>
+                    <li>num_frames :{{t.num_frames}}</li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

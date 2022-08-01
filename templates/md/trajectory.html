@@ -1,0 +1,36 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Trajectory directories{% endblock%}
+
+{% block 'content' %}
+    <h1>{{trajectory}}</h1>
+    <ul>
+        <li>type:{{trajectory.type}}</li>
+        <li>file:{{trajectory.file}}</li>
+        <li>note:{{trajectory.note}}</li>
+        <li>directory:{{trajectory.directory}} </li>
+        <li>atime:{{trajectory.atime}}</li>
+        <li>mtime:{{trajectory.atime}}</li>
+        <li>ctime:{{trajectory.atime}}</li>
+        <li>filesiz:{{trajectory.filesize|filesizeformat}}</li>
+        <li>totaltime :{{trajectory.totaltime}}</li>
+        <li>num_atoms :{{trajectory.num_atoms}}</li>
+        <li>num_frames:{{trajectory.num_frames}}</li>
+    </ul>
+{% endblock %}
+
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter(
+            //{headers: {2: {dateFormat:'dd-mm-yyyy hh:mm'}}}
+            {headers: {2: {sorter:'time'}}
+            }
+        )
+        });
+    </script>
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

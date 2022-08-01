@@ -1,0 +1,45 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Trajectory directories{% endblock%}
+
+{% block 'content' %}
+    <h1>Directories with trajectories ({{directories.count}})</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Directory</th>
+            <th>Num trajec.</th>
+            <th>Access time</th>
+            <th>Modify time</th>
+            <th>Change time</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for d in directories  %} 
+        <tr>
+            <td><a href="{% url 'MDdirectory' d.id %}">{{d}}</a></td>
+            <td>{{d.trajectories.count}}</td>
+            <td>{{d.atime|date:"d-m-Y H:i"}}</td>
+            <td>{{d.mtime|date:"d-m-Y H:i"}}</td>
+            <td>{{d.ctime|date:"d-m-Y H:i"}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter(
+            //{headers: {2: {dateFormat:'dd-mm-yyyy hh:mm'}}}
+            {headers: {2: {sorter:'time'}}
+            }
+        )
+        });
+    </script>
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

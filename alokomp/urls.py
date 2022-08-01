@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^search/', include("search.urls")),
     url(r'^account/', include("account.urls")),
     url(r'^alignments/', include("alignments.urls")),
+    url(r'^md/', include("md.urls")),
     url(r'^admin/', admin.site.urls),
 ]
