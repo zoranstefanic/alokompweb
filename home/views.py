@@ -8,6 +8,9 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+def ngl(request):
+    return render(request, 'ngl.html')
+
 def team(request):
     return render(request, 'team.html')
 

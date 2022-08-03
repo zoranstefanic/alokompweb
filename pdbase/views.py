@@ -14,6 +14,9 @@ def pdbase_home(request):
 def proba(request):
     return render(request, 'pdbase/proba.html')
 
+def structure_ngl_view(request,code):
+    return render(request, 'pdbase/structure_ngl_view.html', {'code':code})
+
 class Structures(ListView):
     model = Pdb
     template_name = "pdbase/structures.html"

@@ -20,6 +20,7 @@ from home.views import *
 urlpatterns = [
     url(r'^$', home, name="home"),
     url(r'^about/', about, name="about"),
+    url(r'^ngl/', ngl, name="ngl"),
     url(r'^team/', team, name="team"),
     url(r'^news/', news, name="news"),
     url(r'^gannt/', gannt, name="gannt"),

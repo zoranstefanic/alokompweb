@@ -8,6 +8,7 @@
         <tr>
             <th>No</th>
             <th>PDB code</th>
+            <th></th>
             <th>Title</th>
             <th>Chains</th>
             <th>Assembly</th>
@@ -15,10 +16,12 @@
         {% for pdb in pdbs %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td><a href="{% url 'structure_view' pdb.code %}">{{ pdb.code }}</a></td>
+            <td><a href="{% url 'structure_view' pdb.code %}"><b style="font-size:28px;">{{ pdb.code }}</b></a></td>
+            <td><a href="{% url 'structure_ngl_view' pdb.code%}"><button class="btn btn-success">view</button></a></td>
             <td>{{ pdb.title }}</td>
-            <td><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_deposited_chain_front_image-200x200.png" ></td>
-            <td><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-200x200.png" ></td>
+            <td><a href="{% url 'structure_ngl_view' pdb.code%}"><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_deposited_chain_front_image-200x200.png" ></a></td>
+            <td><a href="{% url 'structure_ngl_view' pdb.code%}"><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-200x200.png" ></a></td>
+    
         </tr>
         {% endfor %}
     </table>
