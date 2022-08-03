@@ -3,6 +3,7 @@
 
 {% block 'content' %}
     <h1><a href="{% url 'structure_view' pdb.code %}">PDB {{pdb}}</a></h1>
+    <h1><a href="https://www.ebi.ac.uk/pdbe/entry/pdb/{{pdb}}">{{pdb}}</a></h1>
     <h3>{{ pdb.title }}</h3>
     <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_deposited_chain_front_image-400x400.png" ></td>
     <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-400x400.png" ></td>
