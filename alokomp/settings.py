@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'alignments',
     'md',
+    'msa',
 ]
 
 MIDDLEWARE = [

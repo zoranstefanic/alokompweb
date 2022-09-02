@@ -11,8 +11,8 @@ def plot_clustered_qscores(df,n_clusters=3):
     model.fit(df)
     fit_data= df.values[np.argsort(model.row_labels_)]
     fit_data = fit_data[:, np.argsort(model.column_labels_)]
-    plt.matshow(fit_data,cmap=plt.cm.plasma)
-    plt.show()
+    plt.matshow(fit_data,cmap="Blues")
+    #plt.show()
     plt.savefig('qscores.png',dpi=400)
 
 def alignments_to_dataframe():

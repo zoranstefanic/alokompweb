@@ -1,4 +1,5 @@
 from django.db import models
+from msa.models import Position
 
 class Pdb(models.Model):
     """PDB structure """
@@ -26,6 +27,7 @@ class Residue(models.Model):
     name  = models.CharField(max_length=4)
     num  = models.IntegerField(null=True)
     chain = models.ForeignKey(Chain, related_name='residues', on_delete=models.CASCADE)
+    msa_position = models.ForeignKey(Position, related_name='aligned_residues', null=True, on_delete=models.CASCADE)
     
     def __str__(self):
         return "%s %s" % (self.name,self.num)

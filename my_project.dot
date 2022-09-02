@@ -23,7 +23,7 @@ digraph model_graph {
 
   django_contrib_admin_models_LogEntry [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     LogEntry
     </B></FONT></TD></TR>
@@ -100,7 +100,7 @@ digraph model_graph {
 
   django_contrib_auth_models_AbstractUser [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     AbstractUser<BR/>&lt;<FONT FACE="Roboto"><I>AbstractBaseUser,PermissionsMixin</I></FONT>&gt;
     </B></FONT></TD></TR>
@@ -190,7 +190,7 @@ digraph model_graph {
 
   django_contrib_auth_models_Permission [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Permission
     </B></FONT></TD></TR>
@@ -232,7 +232,7 @@ digraph model_graph {
 
   django_contrib_auth_models_Group [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Group
     </B></FONT></TD></TR>
@@ -258,7 +258,7 @@ digraph model_graph {
 
   django_contrib_auth_models_User [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     User<BR/>&lt;<FONT FACE="Roboto"><I>AbstractUser</I></FONT>&gt;
     </B></FONT></TD></TR>
@@ -359,7 +359,7 @@ digraph model_graph {
 
   django_contrib_contenttypes_models_ContentType [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     ContentType
     </B></FONT></TD></TR>
@@ -396,7 +396,7 @@ digraph model_graph {
 
   django_contrib_sessions_base_session_AbstractBaseSession [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     AbstractBaseSession
     </B></FONT></TD></TR>
@@ -422,7 +422,7 @@ digraph model_graph {
 
   django_contrib_sessions_models_Session [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Session<BR/>&lt;<FONT FACE="Roboto"><I>AbstractBaseSession</I></FONT>&gt;
     </B></FONT></TD></TR>
@@ -459,7 +459,7 @@ digraph model_graph {
 
   django_contrib_sites_models_Site [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Site
     </B></FONT></TD></TR>
@@ -496,7 +496,7 @@ digraph model_graph {
 
   account_models_Account [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Account
     </B></FONT></TD></TR>
@@ -538,7 +538,7 @@ digraph model_graph {
 
   account_models_SignupCode [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     SignupCode
     </B></FONT></TD></TR>
@@ -628,7 +628,7 @@ digraph model_graph {
 
   account_models_SignupCodeResult [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     SignupCodeResult
     </B></FONT></TD></TR>
@@ -670,7 +670,7 @@ digraph model_graph {
 
   account_models_EmailAddress [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     EmailAddress
     </B></FONT></TD></TR>
@@ -720,7 +720,7 @@ digraph model_graph {
 
   account_models_EmailConfirmation [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     EmailConfirmation
     </B></FONT></TD></TR>
@@ -770,7 +770,7 @@ digraph model_graph {
 
   account_models_AccountDeletion [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     AccountDeletion
     </B></FONT></TD></TR>
@@ -820,7 +820,7 @@ digraph model_graph {
 
   account_models_PasswordHistory [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     PasswordHistory
     </B></FONT></TD></TR>
@@ -862,7 +862,7 @@ digraph model_graph {
 
   account_models_PasswordExpiry [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     PasswordExpiry
     </B></FONT></TD></TR>
@@ -899,7 +899,7 @@ digraph model_graph {
 
   pdbase_models_Pdb [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Pdb
     </B></FONT></TD></TR>
@@ -933,7 +933,7 @@ digraph model_graph {
 
   pdbase_models_Chain [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Chain
     </B></FONT></TD></TR>
@@ -975,7 +975,7 @@ digraph model_graph {
 
   pdbase_models_Residue [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Residue
     </B></FONT></TD></TR>
@@ -1017,7 +1017,7 @@ digraph model_graph {
 
   pdbase_models_Atom [label=<
     <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+    <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#e34fad">
     <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
     Atom
     </B></FONT></TD></TR>
@@ -1102,7 +1102,7 @@ digraph model_graph {
 
   django_contrib_auth_base_user_AbstractBaseUser [label=<
   <TABLE BGCOLOR="white" BORDER="0" CELLBORDER="0" CELLSPACING="0">
-  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#1b563f">
+  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#e34fad">
   <FONT FACE="Roboto" POINT-SIZE="12" COLOR="white">AbstractBaseUser</FONT>
   </TD></TR>
   </TABLE>
@@ -1111,7 +1111,7 @@ digraph model_graph {
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
   django_contrib_auth_models_PermissionsMixin [label=<
   <TABLE BGCOLOR="white" BORDER="0" CELLBORDER="0" CELLSPACING="0">
-  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#1b563f">
+  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#e34fad">
   <FONT FACE="Roboto" POINT-SIZE="12" COLOR="white">PermissionsMixin</FONT>
   </TD></TR>
   </TABLE>
