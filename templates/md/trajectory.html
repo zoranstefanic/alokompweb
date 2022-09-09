@@ -3,19 +3,19 @@
 
 {% block 'content' %}
     <h1>{{trajectory}}</h1>
-    <ul>
-        <li>type:{{trajectory.type}}</li>
-        <li>file:{{trajectory.file}}</li>
-        <li>note:{{trajectory.note}}</li>
-        <li>directory:{{trajectory.directory}} </li>
-        <li>atime:{{trajectory.atime}}</li>
-        <li>mtime:{{trajectory.atime}}</li>
-        <li>ctime:{{trajectory.atime}}</li>
-        <li>filesiz:{{trajectory.filesize|filesizeformat}}</li>
-        <li>totaltime :{{trajectory.totaltime}}</li>
-        <li>num_atoms :{{trajectory.num_atoms}}</li>
-        <li>num_frames:{{trajectory.num_frames}}</li>
-    </ul>
+        <table class="table table-striped">
+            <tr><td>type:</td><td>{{trajectory.type}}</td></tr>
+            <tr><td>file:</td><td>{{trajectory.file}}</td></tr>
+            <tr><td>note:</td><td>{{trajectory.note}}</td></tr>
+            <tr><td>directory:</td><td>{{trajectory.directory}} </td></tr>
+            <tr><td>atime:</td><td>{{trajectory.atime}}</td></tr>
+            <tr><td>mtime:</td><td>{{trajectory.mtime}}</td></tr>
+            <tr><td>ctime:</td><td>{{trajectory.ctime}}</td></tr>
+            <tr><td>filesize:</td><td>{{trajectory.filesize|filesizeformat}}</td></tr>
+            <tr><td>totaltime :</td><td>{{trajectory.totaltime}}</td></tr>
+            <tr><td>num_atoms :</td><td>{{trajectory.num_atoms}}</td></tr>
+            <tr><td>num_frames:</td><td>{{trajectory.num_frames}}</td></tr>
+        </table>
 {% endblock %}
 
 {% block 'extra_scripts' %}
