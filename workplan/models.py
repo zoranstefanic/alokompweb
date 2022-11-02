@@ -19,6 +19,8 @@ TAG_CHOICES = [
 ]
 
 PROJECT_START = datetime.date(2020,1,1)
+CURRENT_START = datetime.date(2021,6,1)
+CURRENT_END = datetime.date(2022,11,30)
 
 class Period(models.Model):
     """Generally represents one cell of the worplan table """
@@ -26,6 +28,9 @@ class Period(models.Model):
     start = models.DateField(null=True)
     end = models.DateField(null=True)
     users = models.ManyToManyField(User,related_name="workplan_items")
+
+    class Meta:
+        ordering = ["start"]
 
     def __unicode__(self):
         return "%s %s" % (self.start, self.end)
@@ -38,6 +43,25 @@ class Period(models.Model):
         self.start = PROJECT_START + relativedelta(months=m1-1) 
         self.end = PROJECT_START + relativedelta(months=m2,days=-1) 
         self.save()
+    
+    def objectives(self):
+        return self.items.filter(type="O")
+
+    def activities(self):
+        return self.items.filter(type="A")
+
+    def milestones(self):
+        return self.items.filter(type="M")
+    
+    def deliverables(self):
+        return self.items.filter(type="D")
+    
+    def passed(self):
+        return datetime.date.today() > self.end
+
+    def current(self):
+        return self.start > CURRENT_START and self.start < CURRENT_END
+    
 
 class Item(models.Model):
     """Generally represents one cell of the worplan table """

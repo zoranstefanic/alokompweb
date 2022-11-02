@@ -37,5 +37,6 @@ urlpatterns = [
     url(r'^md/', include("md.urls")),
     url(r'^msa/', include("msa.urls")),
     url(r'^plots/', include("plots.urls")),
+    url(r'^workplan/', include("workplan.urls")),
     url(r'^admin/', admin.site.urls),
 ]
