@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'alignments',
     'md',
     'msa',
+    'workplan',
 ]
 
 MIDDLEWARE = [

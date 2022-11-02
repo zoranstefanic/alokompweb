@@ -18,7 +18,6 @@ class MDdirectory(models.Model):
     def __str__(self):
         return "%s" % self.name
 
-
 class MDtrajectory(models.Model):
     """Represents MD trajectory"""
     type_choices= [('amber','Amber'),('gromacs','Gromacs')]

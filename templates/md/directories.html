@@ -16,7 +16,7 @@
         <tbody>
         {% for d in directories  %} 
         <tr>
-            <td><a href="{% url 'MDdirectory' d.id %}">{{d}}</a></td>
+            <td><a href="{% url 'MDdirectoryView' d.id %}">{{d}}</a></td>
             <td>{{d.trajectories.count}}</td>
             <td>{{d.atime|date:"d-m-Y H:i"}}</td>
             <td>{{d.mtime|date:"d-m-Y H:i"}}</td>

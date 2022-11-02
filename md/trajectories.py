@@ -51,16 +51,23 @@ def MDtrajectory_from_file(t):
         )
     if created:
         print('Created trajectory %s' % traj)
+    else:
+        print('Updated trajectory %s' % traj)
+        
     
 def MDdirectory_from_directory(d):
     (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(d)
-    d, created = MDdirectory.objects.get_or_create(name=d,
-        atime = datetime.fromtimestamp(atime),
-        ctime = datetime.fromtimestamp(ctime),
-        mtime = datetime.fromtimestamp(mtime),
-    ) 
-        #d.save()
-    if created:
-        print('Created directory %s' % d)
-    else:
-        print('Existing directory %s' % d)
+    try:
+        mdd = MDdirectory.objects.get(name=d)
+        mdd.atime = datetime.fromtimestamp(atime)
+        mdd.ctime = datetime.fromtimestamp(ctime)
+        mdd.mtime = datetime.fromtimestamp(mtime)
+        mdd.save()
+        print('Updating directory %s' % mdd)
+    except: 
+        mdd = MDdirectory.objects.create(name=d,
+            atime = datetime.fromtimestamp(atime),
+            ctime = datetime.fromtimestamp(ctime),
+            mtime = datetime.fromtimestamp(mtime),
+        ) 
+        print('Created directory %s' % mdd)

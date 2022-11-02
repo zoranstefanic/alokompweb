@@ -1,0 +1,354 @@
+Workplan
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.1 Determination of the crystal structure of H. pylori PNP with new inhibitors: 2-chloro-6-benzyloxypurine, 2-chloro-6-benzylthiopurine, 6-benzylthiopurine, 2,6-dichloropurine derivatives.
+M1.1 Crystallization conditions (previously determined) were optimized for co-crystallization experiments of H. pylori PNP and inhibitors.
+D1.1 Written and submitted project proposal for data collection on Elettra synchroton on PNP from H. pylori (overexpressed in E. coli and purified).
+zoranstefanic, igorsabljic, ivanalescic, agnieskabzowska
+1-8
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.2 Procurement of new equipment.
+D1.2 Report on the equipment purchased in the first year of the project
+zoranstefanic
+1-8
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.3 Determination of the crystal structure of H. pylori PNP in complex with new inhibitors: 2-chloro-6-benzyloxypurine, 2-chloro-6-benzylthiopurine, 6-benzylthiopurine, 2,6-dichloropurine derivatives.
+M1.3.1 High resolution data were collected on the synchrotron.
+M1.3.2 The structure was determined by molecular substitution using the existing apo-structure as a model. The structure was refined and stored in the Protein Data Bank (PDB).
+D1.3.1 Going to the synchrotron and collecting data on PNP crystals in complex with inhibitors. Synchrotron report sent (Elettra, Trieste).
+D1.3.2 3D coordinates of H. pylori PNP crystal structures in complex with inhibitors stored in PDB.
+zoranstefanic, igorsabljic
+3-11
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.4 Determination of H. pylori AdSS crystal structure (purification, screening of crystallization conditions and crystallization).
+M1.4.1 Crystallization conditions giving the best diffraction crystals were identified and optimized for H. pylori AdSS.
+M1.4.2 Preliminary data collection on a laboratory diffractometer.
+D1.4.1 Written and submitted project proposal to Elettra synchrotron for the purpose of collecting data on H. pylori AdSS crystals.
+D1.4.2 AdSS from H. pylori successfully isolated (overexpressed in E. coli and purified).
+zoranstefanic, igorsabljic, antebubic, ivanalescic
+11-14
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.5 H. pylori AdSS - binding of the substrate / activity regulator.
+M1.5.1 The kinetic constant for H. pylori AdSS activation with compound DXVIII-53 was determined.
+M1.5.2 Substance binding constants and known AdSS inhibitors were determined.
+D1.5.1 Report on kinetic studies of H. pylori AdSS.
+antebubic, ivanalescic, zoranstefanic
+11-14
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.6 Determination of H. pylori AdSS crystal structure.
+M1.6.1 High resolution data for H. pylori AdSS on the synchrotron were collected.
+M1.6.2 Comparison of the 3D structure of AdSS with the model obtained by homologous modeling.
+M1.6.3 AdSS from H. pylori analyzed and compared with AdSS enzymes from other organisms, apo-form and in ligand complex.
+D1.6.1 Going to the synchrotron and collecting data on AdSS crystals. Synchrotron report sent (Elettra, Trieste).
+zoranstefanic, igorsabljic
+15-17
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.7 Molecular-dynamic simulations (MD) and ligand incorporation in H. pylori AdSS.
+M1.7 Molecular fitting for H. pylori AdSS was performed.
+D1.7 Report on fitting research conducted on H. pylori AdSS and prepared manuscript.
+zoranstefanic, antebubic, ivanalescic
+15-17
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.8 Scientific publication on PNP from H. pylori in complex with new inhibitors.
+D1.8.1 A scientific publication on the structure of PNP from H. pylori in complex with inhibitors published in the journal Q1 / Q2 (Web of Science).
+D1.8.2 Presentation of results at an international scientific conference in Croatia and once abroad (two team members).
+zoranstefanic, igorsabljic, ivanalescic, agnieskabzowska
+15-17
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A2.1 Search and retrieve structural data.
+M2.1.1 Full PDB stored locally and synchronization automated.
+M2.1.2 All available structural data on PNPs and AdSSs were extracted from a local copy of the PDB and merged with data in the home laboratory that were not yet stored in the PDB.
+D2.1.1 Prototype relational database for storing PDB structural data made in SQLite.
+D2.1.2 The project website has been created.
+D2.1.3 The website and internet application of the future server is based on the Django network application and set up at the University Computing Center. Initial overview of data in tabular form.
+zoranstefanic, igorsabljic
+8-16
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A2.2 Development of a database (structural) scheme.
+M2.2.1 An initial scheme for incorporating 3D structural data from A2.1 has been established.
+M2.2.2 Optimal programs for searching for different interactions between amino acids, parameter ranges and cut - off values u200bu200bhave been identified.
+D2.2.1 Database schema for structural part developed in SQLite.
+D2.2.2 Initial development of amino acid relationships based on 3D structural information implemented in a database.
+zoranstefanic, igorsabljic, bojanadalbelobasic
+11-14
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A2.3 Integration of oligomeric state and crystallographic data.
+M2.3.1 A subroutine has been developed for the automatic identification of oligoemeric states of all enzymes in the database.
+M2.3.2 Crystallographic data such as crystal packing data embedded in a database.
+D2.3.1 Inclusion of oligomeric state data in the database. For all amino acids, information on the corresponding chain and adjacent chains is included; relations classified into relations within a subunit and between subunits.
+D2.3.2 Initial implementation of web server search capabilities, and graphical display of relations on the website.
+zoranstefanic, igorsabljic
+11-14
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A2.4 Molecular-dynamic simulations (on a smaller subset of PNP hexamers, up to 10 in apo form, from different organisms)
+M2.4 Initial shorter (up to 100 ns) MD simulations of structures obtained in activity A2.1 performed on a local GPU workstation for the purpose of parameterization for longer MD simulations to be performed later on a larger scale.
+D2.4 A set of 100ns MD trajectories stored on a local GPU workstation.
+aleksandra, markotomin
+8-11
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A2.5 Molecular-dynamic simulations (on a subset of AdSS dimers from H. pylori and other organisms in PDB)
+M2.5 Initial shorter (up to 100 ns) MD simulations of structures obtained in activity A2.1 performed on a local GPU workstation for the purpose of parameterization for longer MD simulations performed at a later stage.
+D2.5 A set of 100ns MD AdSS trajectories stored on a local GPU workstation.
+aleksandra, markotomin
+11-14
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A2.6 Analysis of MD trajectories obtained in A2.4 and A2.5
+D2.6 Parameters for MD simulations were selected and input files for longer simulations were prepared.
+aleksandra, markotomin
+15-17
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.9 Determination of H. pylori AdSS crystal structure in substrate / inhibitor complex.
+M1.9 High resolution data for H. pylori AdSS were collected on the synchrotron.
+D1.9.1 Going to the synchrotron and collecting data on AdSS crystals in complex with substrate / inhibitor. Synchrotron report sent (Elettra, Trieste).
+D1.9.2 3D coordinates of H. pylori AdSS crystal structures in complex with inhibitors stored in PDB.
+zoranstefanic, borisgomaz
+20-25
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.10 Determination of the crystal structure of PNP (calf spleen).
+M1.10 High resolution data were collected on the synchrotron.
+D1.10 Going to the synchrotron and collecting data on PNP crystals in complex with the inhibitor. Synchrotron report sent (Elettra, Trieste).
+zoranstefanic, postdoc
+30-35
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.7 Procurement of new equipment.
+D2.7.1 Procurement of a workstation for programming and database development for PhD student B. Gomaz
+D2.7.2 Procurement of additional data storage space (48 TB) and MikroTik network switch
+zoranstefanic
+18-20
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.8 Dissemination of results, conferences and project meetings - doctoral dissertation A. Bubić.
+D2.8.1 antebubic's doctoral dissertation and presentation of the results published in publication D2.8.2 at the international scientific conference (antebubic).
+antebubic
+18-20
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.9 Dissemination of results, conferences and project meetings - Project meeting 1.
+M2.9 The first online project meeting of all members of the RBI team with presentations on the progress so far and the plan for the second project period
+D2.9 Progress report for the first project period, report and conclusions of the meeting, presentations from the meeting.
+ALL
+21
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.10 A scientific publication on structure, binding, kinetic studies, and adhesion for H. pylori AdSS.
+D2.10 Scientific publication on the structure of AdSS from H. pylori sent in Q1-Q2 Journal (Web of Science). The publication includes structural (A1.6), kinetic (A1.5) characterization, MD simulations, and fitting (A1.7) for AdSS.
+antebubic, ivanalescic, zoranstefanic
+21-22
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.11 Activity of employment and mentoring of doctoral students.
+D2.11 Doctoral student borisgomaz enrolls in postgraduate doctoral studies in Chemistry at the Faculty of Science in Zagreb
+borisgomaz, bojanadalbelobasic, zoranstefanic
+21-22
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.12 GSATools Analysis and Structural Alphabet - Python.
+M2.12 Developed software tools for trajectory analysis generated in A2.4 and A2.5 in Python programming language.
+D2.12 The source code for the developed algorithms has been published on the GitHub platform (it will be continuously updated).
+alessandropandini, zoranstefanic, borisgomaz
+22-24
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.13 GSATools Analysis and Structural Alphabet - GSATools.
+M2.13 100 ns trajectories analyzed by GSATools software package and structural alphabet on local workstations.
+D2.13 Results of GSATools analysis in the form of graphs and tables.
+alessandropandini, zoranstefanic, borisgomaz
+22-24
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.14 Integration of SA analysis and relational databases.
+M2.14.1 The data obtained in A2.5 are integrated into the relational database developed in A2.2.
+M2.14.2 First integration of static (M2.3.2) and dynamic data.
+D2.14.1 Updated relational database schema.
+D2.14.2 The network server includes dynamic data and can be searched based on it.
+D2.14.3 The first implementation of a graphical representation of the network between amino acids using the graphical tool D3.js.
+alessandropandini, zoranstefanic, borisgomaz
+22-25
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.15 Departure of borisgomaz for a short study stay in the laboratory of A. Pandini in London
+D2.15 Report from a short study stay, HPC3 scholarship
+alessandropandini, zoranstefanic, borisgomaz
+22-25
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.16 Hiring a postdoctoral fellow on the project
+D2.16 Postdoctoral student employed at the home institution
+postdoc
+24-26
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.17 Procurement of new equipment.
+D2.17 Procurement of workstation for programming, machine learning and development of a graph database for postdoctoral students
+postdoc
+27
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.18 Dissemination of results, conferences and project meetings - FEBS Congress in Lisbon
+D2.18 Presentation of results at the 46th FEBS, 25th IUBMB and 15th PABMB Joint Congress, Lisbon, Portugal (I. Leščić Ašler).
+ivanalescic
+31
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a specific class of oligomeric enzymes.
+A2.19 Dissemination of results, conferences and project meetings.
+D2.19 Presentation of results (oral presentation) at the European Crystallographic Meeting ECM33 in Versailles, France (Z. Štefanić).
+zoranstefanic
+32
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.1 Detection of samples in enzyme structures - initial database analysis.
+M3.1 Data in relational database in state D2.5 subjected to initial analysis using algorithms for pattern recognition, networks and machine learning
+D3.1.1 The network server supports pattern and network visualization using the D3.js framework.
+D3.1.2 The corresponding source code has been published on the GitHub platform (it will be continuously updated).
+bojanadalbelobasic, zoranstefanic, borisgomaz, postdoc
+22-25
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.2 Pattern Detection in Enzyme Structures - Machine Learning Algorithms.
+M3.2 Relational database schema developed in D2.6.1 adapted according to the results of A3.1 analysis with the most appropriate ML algorithms.
+D3.2.1 Updated relational database schema.
+D3.2.2 Selected ML algorithms integrated on the network server.
+D3.2.3 Use the Neo4j database graph to store relationships in a database
+bojanadalbelobasic, zoranstefanic, borisgomaz, postdoc
+26-30
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.3 Molecular-dynamic simulations (long, up to 500 ns, on a larger set of PNP and AdSS enzymes).
+M3.3 Long MD simulations (on all enzymes in the database) performed according to the parameters from A3.1C.
+D3.3 A set of 300-500ns MD trajectories generated on a high performance GPU cluster (HPC).
+aleksandra, alessandropandini, zoranstefanic, borisgomaz
+26-32 (depending on the length and scale of the simulation)
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.4 Integration of SA analysis and relational database - complete database implementation.
+M3.4 Data from activity A3.3 integrated into the relational database developed in A2.15.
+D3.4.1 Update the final relational database schema.
+D3.4.2 The network server is fully operational and includes all the contents of the database. The database is fully searchable and supports graphical query.
+alessandropandini, bojanadalbelobasic, zoranstefanic, borisgomaz
+30-36
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.5 Automated relational database analysis - complete analysis.
+M3.5 The results of ML analysis in A3.1 and A3.2 applied to all data contained in the relational database developed in A3.4.
+D3.5.1 The algorithms developed in A3.2 are applied to the data using the HPC plant at the University Computing Center.
+D3.5.2 Allosteric communication paths found through high correlation between paths in static and dynamic part of database
+bojanadalbelobasic, zoranstefanic, borisgomaz, postdoc
+30-35 (depending on the complexity of the analysis)
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+A1.11 Procurement of new equipment.
+D1.11 Procurement of a new centrifuge in cooperation with other laboratories at the RBI.
+zoranstefanic
+36-44
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.6 Dissemination of results, conferences and project meetings.
+D3.6 Presentation of D3.3 results at an international conference
+aleksandra
+36-40
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.7 Dissemination of results, conferences and project meetings.
+D3.7 Presentation of results from D3.2 and D3.5 at an international conference
+postdoc
+36-40
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.8 Automatic relational database analysis - the relationship between oligomeric data and detected allosteric pathways.
+M3.8 Analysis of allosteric communication pathways obtained in D3.5.2 correlated with oligomer data.
+D3.8 Report on the analysis and preparation of scientific work.
+alessandropandini, bojanadalbelobasic, zoranstefanic, borisgomaz, postdoc
+36-42
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.9 Dissemination of results, conferences and project meetings - Project meeting 2.
+M3.9 Second project meeting of all project members at the RBI Principal Investigator Institution involving foreign members (Agnieszka Bzowska and alessandropandini).
+D3.9 Progress report for 1-3. year, report and conclusions of the meeting, presentations from the meeting.
+ALL
+42
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.10 Scientific publication of the results of A3 activities and solving the final achievement of the O2 goal.
+D3.10.1 Scientific publication on GSATools analysis on MD simulations on a large scale Q1 (Web of Science).
+D3.10.2 Presentation of the results of publication D3.9.1 at an international conference (one team member).
+ALL
+42-44
+----------------------------------------------------------------------------------------------------
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+A3.11 Scientific publication of results obtained from A3.2 and A3.3.
+D3.11.1 Scientific publication of GSATools analysis in Q1 / Q2 Journal (Web of Science)
+D3.11.2 Presentation of results (oral presentation) at the European Crystallographic Meeting ECM34 in Padua, Italy (Z.Å tefaniÄ ‡)
+alessandropandini, zoranstefanic, bojanadalbelobasic, borisgomaz, postdoc
+39-44
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A3.12 Scientific publication of the results of A3.7 activities and addressing the O3 objective.
+D3.12 A scientific publication on the relationship between the oligomeric state of enzymes and discovered allosteric pathways, Q1-Q2 (Web of Science).
+ALL
+48-50
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A3.13 Scientific publication on web server functionality and relational database developed in D3.4.2.
+D3.13 Scientific publication sent to a journal specializing in programming in science, Q2 (Web of Science).
+zoranstefanic, bojanadalbelobasic, alessandropandini, borisgomaz, postdoc
+51-53
+----------------------------------------------------------------------------------------------------
+O4. Experimental validation of the allosteric mechanism in oligomeric enzymes.
+A4.1 Experimental verification of predicted key amino acids (preparation of mutants).
+M4.1 The results of D3.7 analysis show which residues in enzymes are likely to be targets for mutations.
+D4.1 Mutants of PNP and AdSS enzymes from H. pylori were purified and prepared for crystallization.
+zoranstefanic, ivanalescic
+39-41
+----------------------------------------------------------------------------------------------------
+O4. Experimental validation of the allosteric mechanism in oligomeric enzymes.
+A4.2 Experimental verification of predicted key amino acids (crystallization and data collection).
+M4.2 Crystals of suitable quality were obtained for several mutants and data were collected on a laboratory diffractometer.
+D4.2.1 Written and submitted project proposal Elettra synchrotron for the purpose of collecting data on crystals.
+D4.2.2 Going to the synchrotron and collecting data on crystals mutated by enzymes. Synchrotron report sent (Elettra, Trieste).
+zoranstefanic, postdoc
+45-48
+----------------------------------------------------------------------------------------------------
+O4. Experimental validation of the allosteric mechanism in oligomeric enzymes.
+A4.3 Experimental verification of predicted key residues (activity measurements).
+M4.3 Measurements of activity performed on mutated enzymes.
+D4.3 Report on the activity of mutated enzymes.
+zoranstefanic, ivanalescic
+45-51
+----------------------------------------------------------------------------------------------------
+O4. Experimental validation of the allosteric mechanism in oligomeric enzymes.
+A4.4 Experimental verification of predicted key amino acids (crystallization and data collection).
+M4.4 Good quality crystals obtained for several mutants and data recorded in the parent laboratory
+D4.4.1 Second and last synchrotron travel and data collection on mutated enzyme crystals. Synchrotron report sent (Elettra, Trieste).
+D4.4.2 3D coordinates of crystal structures of mutants stored in PDB.
+zoranstefanic, postdoc
+51-52
+----------------------------------------------------------------------------------------------------
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+A3.12 A scientific publication on the overall results that summarizes all the main results of the project.
+D3.12 A scientific publication on the answers to the O1-O4 goals published in the journal Q1 (Web of Science).
+ALL
+51-53
+----------------------------------------------------------------------------------------------------
+O1. Structural and kinetic characterization of oligomeric enzymes
+O2. Detect the mechanism of allostery in a particular class of oligomeric enzymes.
+O3. Understand the connection between oligomerization and allostery in this class of enzymes.
+O4. Experimental validation of the allosteric mechanism in oligomeric enzymes.
+A5. Final report on the results of the project for HrZZ.
+zoranstefanic
+53

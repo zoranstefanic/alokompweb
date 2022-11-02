@@ -1,0 +1,57 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Trajectories{% endblock%}
+
+{% block 'content' %}
+    <div class="container">
+        <div class="row">
+            <h1>Trajectories ({{trajectories|length}})</h1>
+            <table style="table-layout:fixed;" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Trajectory</th>
+                    <th>Directory</th>
+                    <th>Size</th>
+                    <th>Total time (ps)</th>
+                    <th>Atoms</th>
+                    <th>Frames</th>
+                    <th>Access time</th>
+                    <th>Modify time</th>
+                    <th>Change time</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for t in trajectories %} 
+                <tr>
+                    <td style="word-wrap: break-word;"><a href="{% url 'MDtrajectoryView' t.id %}">{{t}}</a></td>
+                    <td style="word-wrap: break-word;"><a href="{% url 'MDdirectoryView' t.directory.id %}">{{t.directory}}</a></td>
+                    <td>{{t.filesize|filesizeformat}}</td>
+                    <td>{{t.totaltime}}</td>
+                    <td>{{t.num_atoms}}</td>
+                    <td>{{t.num_frames}}</td>
+                    <td>{{t.atime|date:"d-m-Y H:i"}}</td>
+                    <td>{{t.mtime|date:"d-m-Y H:i"}}</td>
+                    <td>{{t.ctime|date:"d-m-Y H:i"}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter(
+            //{headers: {2: {dateFormat:'dd-mm-yyyy hh:mm'}}}
+            {headers: {2: {sorter:'time'}}
+            }
+        )
+        });
+    </script>
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

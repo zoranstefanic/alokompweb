@@ -2,23 +2,6 @@
 {% block 'title' %}Chain {{chain}}{% endblock%}
 
 {% block 'content' %}
-    <h1>Fixed {{fixed|length}}</h1>
-    <table class="table table-stripped">
-        <tr>
-            <th>Alignment</th>
-            <th>Qscore</th>
-            <th>RMSD</th>
-            <th>Number aligned</th>
-        </tr>
-    {% for a in fixed %} 
-        <tr>
-            <td><a href="{% url 'alignments' a.chain_moving.pdb.code a.chain_moving.chain_id %}">{{a}}</a></td>
-            <td>{{a.Qscore}}</td>
-            <td>{{a.rmsd}}</td>
-            <td>{{a.aligned_num}}</td>
-        </tr>
-    {% endfor %}
-    </table>
     <h1>Moving {{moving|length}}</h1>
     <table class="table table-stripped">
         <tr>
@@ -29,7 +12,7 @@
         </tr>
     {% for a in moving %} 
         <tr>
-            <td><a href="{% url 'alignments' a.chain_moving.pdb.code a.chain_moving.chain_id %}">{{a}}</a></td>
+            <td><a href="{% url 'alignment' a.chain_moving.pdb.code a.chain_moving.chain_id a.chain_fixed.pdb.code a.chain_fixed.chain_id %}">{{a}}</a></td>
             <td>{{a.Qscore}}</td>
             <td>{{a.rmsd}}</td>
             <td>{{a.aligned_num}}</td>

@@ -35,5 +35,7 @@ urlpatterns = [
     url(r'^account/', include("account.urls")),
     url(r'^alignments/', include("alignments.urls")),
     url(r'^md/', include("md.urls")),
+    url(r'^msa/', include("msa.urls")),
+    url(r'^plots/', include("plots.urls")),
     url(r'^admin/', admin.site.urls),
 ]

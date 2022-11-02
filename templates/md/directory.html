@@ -11,7 +11,7 @@
         </tr>
     {% for t in directory.trajectories.all %} 
         <tr>
-            <td><a href="{% url 'Trajectory' t.id %}">{{t}}</a></td>
+            <td><a href="{% url 'MDtrajectoryView' t.id %}">{{t}}</a></td>
             <td>
                 <ul class="list-unstyled">
                     <li>A: {{t.atime}}</li>

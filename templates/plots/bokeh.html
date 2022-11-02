@@ -1,0 +1,26 @@
+{% block 'extra_css' %} 
+<link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-2.3.3.min.css"/>
+<link rel="stylesheet" type="text/css" href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.3.3.min.css"/>
+{% endblock %}
+{% block 'extra_head' %} 
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-2.3.3.min.js"></script>
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-2.3.3.min.js"></script>
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-tables-2.3.3.min.js"></script>
+<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-api-2.3.3.min.js"></script> 
+{% endblock %}
+
+{% block 'content' %}
+    <div class="container">
+        <h1>Bokeh plot</h1>
+        {{ div|safe }}
+    </div>
+{% endblock %}
+
+
+{% block 'extra_scripts' %} 
+    {{ script | safe }}
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}
