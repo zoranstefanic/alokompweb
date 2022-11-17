@@ -3,43 +3,43 @@
 
 {% block 'extra_css' %}
 <style>
-    tr.passed {color:grey;}
+    tr.passed {opacity:0.5;}
     tr.current {color:teal;font-weight:bold;}
-    .container {max-width:100%;}
+    .container {max-width:90%;}
 </style>
 {% endblock %}
 
 {% block 'content' %}
-    
-    <h1>Workplan</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Period</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Objectives</th>
-                <th>Activities</th>
-                <th>Milestones</th>
-                <th>Deliverables</th>
-                <th>Users</th>
-            </tr>
-        </thead>
-    <tbody>
-        {% for p in periods %} 
-            <tr class="{%if p.passed %}passed{%endif%} {%if p.current%}current{%endif%}">
-                <td><span class="badge badge-info">{{p.id}}</span></td>
-                <td>{{p.start}}</td>
-                <td>{{p.end}}</td>
-                <td><ul class="list-unstyled"> {% for o in p.objectives %}<li><b>{{ o.label }}</b><br>{{o.text}}</li>{% endfor %}</ul></td>
-                <td><ul class="list-unstyled"> {% for a in p.activities %}<li><b>{{ a.label }}</b><br>{{a.text}}</li>{% endfor %}</ul></td>
-                <td><ul class="list-unstyled"> {% for m in p.milestones %}<li><b>{{ m.label }}</b><br>{{m.text}}</li>{% endfor %}</ul></td>
-                <td><ul class="list-unstyled"> {% for d in p.deliverables %}<li><b>{{ d.label }}</b><br>{{d.text}}</li>{% endfor %}</ul></td>
-                <td><ul class="list-unstyled"> {% for u in p.users.all %}<li><a href="{% url 'wp_user' u.username %}">{{ u.get_full_name }}</a>,</li>{% endfor %}</ul></td>
-            </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+<h1>Workplan</h1>
+<input id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+<table id="workplan_table" class="table">
+    <thead>
+        <tr>
+            <th>Period</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Objectives</th>
+            <th>Activities</th>
+            <th>Milestones</th>
+            <th>Deliverables</th>
+            <th>Users</th>
+        </tr>
+    </thead>
+<tbody>
+    {% for p in periods %} 
+        <tr class="{%if p.passed %}passed{%endif%} {%if p.current%}current{%endif%}">
+            <td><span class="badge badge-info">{{p.id}}</span></td>
+            <td>{{p.start}}</td>
+            <td>{{p.end}}</td>
+            <td><ul class="list-unstyled"> {% for o in p.objectives %}<li><b>{{ o.label }}</b><br>{{o.text}}</li>{% endfor %}</ul></td>
+            <td><ul class="list-unstyled"> {% for a in p.activities %}<li><b>{{ a.label }}</b><br>{{a.text}}</li>{% endfor %}</ul></td>
+            <td><ul class="list-unstyled"> {% for m in p.milestones %}<li><b>{{ m.label }}</b><br>{{m.text}}</li>{% endfor %}</ul></td>
+            <td><ul class="list-unstyled"> {% for d in p.deliverables %}<li><b>{{ d.label }}</b><br>{{d.text}}</li>{% endfor %}</ul></td>
+            <td><ul class="list-unstyled"> {% for u in p.users.all %}<li><a href="{% url 'wp_user' u.username %}">{{ u.get_full_name }}</a>,</li>{% endfor %}</ul></td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
 {% endblock %}
 {% block 'extra_scripts' %}
     <script src='/static/js/jquery.tablesorter.js'></script>
@@ -47,6 +47,16 @@
         $(function() {
           $(".table").tablesorter();
         });
+    </script>
+    <script>
+    $(document).ready(function(){
+      $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#workplan_table tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
     </script>
 {% endblock %}
 {% block '_footer' %}
