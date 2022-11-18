@@ -1,0 +1,31 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Torsion plot {{ta}}{% endblock%}
+
+{% block 'extra_css' %} 
+<link rel="stylesheet" type="text/css" href="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.3.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.3.min.css"/>
+<style>
+    .container {max-width:90%;}
+</style>
+{% endblock %}
+{% block 'extra_head' %} 
+<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.3.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.3.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.3.3.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-api-2.3.3.min.js" crossorigin="anonymous"></script> 
+{% endblock %}
+
+{% block 'content' %}
+    <div class="container">
+        <h1>Torsion angle in chain {{ta.chain}} and {{other.chain}}</h1>
+        {{ div|safe }}
+    </div>
+{% endblock %}
+
+{% block 'extra_scripts' %}
+    {{ script | safe }}
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

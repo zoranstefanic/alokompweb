@@ -34,6 +34,7 @@ class MDtrajectory(models.Model):
     totaltime = models.FloatField()
     num_atoms = models.IntegerField()
     num_frames = models.IntegerField()
+    replica = models.IntegerField(null=True)
     
     class Meta:
         ordering = ['-atime']
@@ -43,3 +44,14 @@ class MDtrajectory(models.Model):
 
     def __str__(self):
        return "%s" % self.filename()
+
+class TorsionAngle(models.Model):
+    """Represent torsion angles during trajectory"""
+    name = models.CharField(max_length=100)
+    file = models.CharField(max_length=300,help_text="TorsionAngle file")
+    trajectory = models.ForeignKey(MDtrajectory,on_delete=models.CASCADE,related_name="torsions",null=True)
+    values = models.JSONField()
+    chain = models.CharField(null=True,max_length=2)
+
+    def __str__(self):
+       return "%s" % self.name
