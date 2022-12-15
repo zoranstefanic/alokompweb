@@ -16,12 +16,19 @@
             <tr><td>num_atoms :</td><td>{{trajectory.num_atoms}}</td></tr>
             <tr><td>num_frames:</td><td>{{trajectory.num_frames}}</td></tr>
         </table>
+<h1>Torsion (4 C&alpha;) angle plots</h1>
 {% for ta in trajectory.torsions.all %}
     <ul>
     <li>
         <a href="{% url 'torsion_plot' ta.id%}"><button class="btn btn-info">{{ta}}</button></a>
     </li>
     </ul>
+{% endfor %}
+<h1>Ramachandran angle plots</h1>
+{% for chain in "ADBECF" %}
+        <a href="/static/avokado/{{trajectory.id}}/{{chain}}.gif">
+            <img style="width:40%;margin:20px;" src="/static/avokado/{{trajectory.id}}/{{chain}}.gif" alt="">
+        </a>
 {% endfor %}
 {% endblock %}
 

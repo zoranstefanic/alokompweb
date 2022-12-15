@@ -37,3 +37,9 @@ def results_md(request):
 
 def results_ml(request):
     return render(request, 'results_ml.html')
+
+def qscore(request):
+    return render(request, 'qscore.html')
+
+def heatmap(request):
+    return render(request, 'heatmap.html')

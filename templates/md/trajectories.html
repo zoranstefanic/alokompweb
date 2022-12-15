@@ -1,6 +1,12 @@
 {% extends 'pdbase/base.html' %}
 {% block 'title' %}Trajectories{% endblock%}
-
+{% block 'extra_css' %} 
+<link rel="stylesheet" type="text/css" href="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.3.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.3.3.min.css"/>
+<style>
+    .container {max-width:90%;}
+</style>
+{% endblock %}
 {% block 'content' %}
     <div class="container">
         <div class="row">
@@ -25,13 +31,12 @@
                 <tr>
                     <th>Trajectory</th>
                     <th>Directory</th>
+                    <th>Torsions</th>
                     <th>Size</th>
                     <th>Total time (ps)</th>
                     <th>Atoms</th>
                     <th>Frames</th>
-                    <th>Access time</th>
-                    <th>Modify time</th>
-                    <th>Change time</th>
+                    <th>Times</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,13 +44,12 @@
                 <tr>
                     <td style="word-wrap: break-word;"><a href="{% url 'MDtrajectoryView' t.id %}">{{t}}</a></td>
                     <td style="word-wrap: break-word;"><a href="{% url 'MDdirectoryView' t.directory.id %}">{{t.directory}}</a></td>
+                    <td><img style="width:400px;" src="/static/torsions/{{t.id}}_{{t.replica}}.png" alt=""></td>
                     <td>{{t.filesize|filesizeformat}}</td>
                     <td>{{t.totaltime}}</td>
                     <td>{{t.num_atoms}}</td>
                     <td>{{t.num_frames}}</td>
-                    <td>{{t.atime|date:"d-m-Y H:i"}}</td>
-                    <td>{{t.mtime|date:"d-m-Y H:i"}}</td>
-                    <td>{{t.ctime|date:"d-m-Y H:i"}}</td>
+                    <td>{{t.atime|date:"d-m-Y H:i"}}<br>{{t.mtime|date:"d-m-Y H:i"}}<br>{{t.ctime|date:"d-m-Y H:i"}}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
