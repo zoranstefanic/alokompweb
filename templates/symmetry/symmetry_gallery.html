@@ -1,0 +1,17 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Symmetry gallery{% endblock%}
+{% block 'extra_css' %}
+<style>
+    .container {max-width:98%;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    {% for pdb in pdbs %}
+    <a href="{% url 'structure_symmetry' pdb.code %}">
+    <img style="width:10%;margin:5px;" src="/static/symmetry/{{pdb.code}}_001.png" alt=""></a>
+    {% endfor %}
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Alignment {{alignment}}{% endblock%}
+
+{% block 'content' %}
+    <h1>{{a}}</h1>
+    <table class="table table-stripped">
+        <tr>
+            <th>Residue match</th>
+            <th>Distance</th>
+            <th>Fixed</th>
+            <th>Moving</th>
+        </tr>
+    {% for p in positions %} 
+        <tr>
+            <td>{{p}}</td>
+            <td>{{p.distance|floatformat:2}}</td>
+            <td>{{p.fixed}} {{p.fixed.msa_position}}</td>
+            <td>{{p.moving}} {{p.moving.msa_position}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

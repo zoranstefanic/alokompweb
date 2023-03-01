@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+<!-- Create a div where the graph will take place -->
+<div id="plot"></div>
+</body>
+<script>
+const svg = d3.select('body').append('svg');
+console.log(svg);
+
+svg.attr('width',1000).attr('height',1000);
+</script>
+</html>
