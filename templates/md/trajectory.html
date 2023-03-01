@@ -1,6 +1,12 @@
 {% extends 'pdbase/base.html' %}
 {% block 'title' %}Trajectory {{trajectory}}{% endblock%}
 
+{% block 'extra_css' %}
+<style>
+    .container {max-width:100%;}
+</style>
+{% endblock %}
+
 {% block 'content' %}
     <h1>{{trajectory}}</h1>
         <table class="table table-striped">
@@ -24,10 +30,11 @@
     </li>
     </ul>
 {% endfor %}
+<a href="{%url 'ramachandran' trajectory.pk 2%}"><button class="btn btn-large btn-warning">Detailed plots</button></a>
 <h1>Ramachandran angle plots</h1>
-{% for chain in "ADBECF" %}
+{% for chain in "ABCDEF" %}
         <a href="/static/avokado/{{trajectory.id}}/{{chain}}.gif">
-            <img style="width:40%;margin:20px;" src="/static/avokado/{{trajectory.id}}/{{chain}}.gif" alt="">
+            <img style="width:30%;margin:10px;" src="/static/avokado/{{trajectory.id}}/{{chain}}.gif" alt="">
         </a>
 {% endfor %}
 {% endblock %}

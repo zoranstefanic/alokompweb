@@ -3,14 +3,14 @@
 
 {% block 'content' %}
     <h1>{{msa}}</h1>
-    <table class="table table-stripped">
+    <table class="table table-striped">
         <tr>
             <th>Position</th>
             <th>Aligned residues</th>
         </tr>
     {% for p in msa.positions.all %} 
         <tr>
-            <td><button class="btn btn-info">{{p.num}}</button></td>
+            <td><a href="{% url 'msa_position' p.num %}"><button class="btn btn-info">{{ p.num }}</button></a></td>
             <td>{%for res in p.aligned_residues.all %}<span class="badge">{{res}}
             {#<a href="{%url 'residue_view' res.chain.pdb.code res.chain.chain_id res.pk %}">{{ res }}</a>#}
             </span>{% endfor %}</td>

@@ -17,7 +17,7 @@ class MDtrajectoriesView(ListView):
     context_object_name = 'trajectories'
     template_name = "md/trajectories.html"
 
-class MDwithTorsionsView(ListView):
+class MDAnalyzedView(ListView):
     model = MDtrajectory
     context_object_name = 'trajectories'
     template_name = "md/trajectories.html"
@@ -38,6 +38,30 @@ class MDtrajectoryView(DetailView):
 def replica(request,n):
     trajectories =  MDtrajectory.objects.exclude(torsions=None).filter(replica=n)
     return render(request, 'md/trajectories.html' , {'trajectories': trajectories, })
+
+def residue_in_replicas(request,trid,resid):
+    this =  MDtrajectory.objects.get(id=trid)
+    img_list = [i for i in range(10)]
+    trajectories =  MDtrajectory.objects.filter(file__endswith=this.filename())
+    return render(request, 'md/residue_in_replicas.html', 
+                        {'trajectories': trajectories,
+                        'img_list':img_list,
+                        'resid':resid,
+                         'prev':int(resid)-1,
+                         'next':int(resid)+1,
+                         }
+                  )
+
+def ramachandran(request,pk,num=1):
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    img_list = [i for i in range(10)]
+    return render(request, 'md/ramachandran.html' , 
+                        {'trajectory': trajectory, 
+                          'img_list':img_list,
+                          'num':num,
+                          'prev':int(num)-1,
+                          'next':int(num)+1,
+                            })
 
 def torsion_plot(request,id):
     ta = TorsionAngle.objects.get(id=id)

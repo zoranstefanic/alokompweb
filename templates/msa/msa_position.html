@@ -1,0 +1,26 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}MSA posiiton{% endblock%}
+
+{% block 'content' %}
+    <h1>{{msa}}</h1>
+        <table class="table table-striped">
+        <thead>
+        <td>Residue</td>
+        <td>Chain</td>
+        <td>MSA position</td>
+        <tbody>
+        {% for res in position.aligned_residues.all %} 
+            <tr style="row-height:10px;">
+            <td> <a href="{% url 'residue_view' res.chain.pdb.code res.chain.chain_id res.num %}">{{ res }}</a></td>
+            <td><a href="{% url 'chain_view' res.chain.pdb res.chain.chain_id %}"><button type="button" class="btn btn-primary">{{res.chain}}</button></a></td>
+            <td>{%if res.msa_position %}<a href="{% url 'msa_position' res.msa_position.num %}">{{ res.msa_position }}</a>{%endif%}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </thead>
+        </table>
+{% endblock %}
+
+
+{% block '_footer' %}
+{% endblock %}

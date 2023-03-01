@@ -1,0 +1,32 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Residue {{resid}} in all replicas{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    .container {max-width:100%;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+<div class="row">
+{% for trajectory in trajectories  %}
+    <div class="col-sm">
+        <h1>{{trajectory}}</h1>
+        <h1>Replica {{trajectory.replica}}</h1>
+        <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
+        <a href="{%url 'ramachandran' trajectory.pk resid %}">
+            <img style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{resid}}.png" alt="">
+        </a>
+        {% for i in img_list  %}
+               <a href="/static/avokado/{{trajectory.pk}}/replica/df{{i}}/{{resid}}.png">
+                    <img style="width:9%;margin:5px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/df{{i}}/{{resid}}.png" alt="">
+                </a>
+        {% endfor %}
+    </div>
+{% endfor %}
+</div>
+    <a href="./{{prev}}"><button class="btn btn-info">Previous residue</button></a>
+    <a href="./{{next}}"><button class="btn btn-info">Next residue</button></a>
+{% endblock %}
+{% block '_footer' %}
+{% endblock %}

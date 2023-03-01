@@ -1,0 +1,28 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Avokado for {{trajectory}}{% endblock%}
+
+{% block 'content' %}
+    <h1>{{trajectory}}</h1>
+<h1>Ramachandran angle plots</h1>
+{% for chain in "ADBECF" %}
+       <a href="/static/avokado/{{trajectory.id}}/{{chain}}.gif">
+            <img style="width:40%;margin:20px;" src="/static/avokado/{{trajectory.id}}/{{chain}}.gif" alt="">
+        </a>
+{% endfor %}
+{% endblock %}
+
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter(
+            //{headers: {2: {dateFormat:'dd-mm-yyyy hh:mm'}}}
+            {headers: {2: {sorter:'time'}}
+            }
+        )
+        });
+    </script>
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}

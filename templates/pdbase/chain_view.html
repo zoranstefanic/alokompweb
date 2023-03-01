@@ -7,9 +7,22 @@
     <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_deposited_chain_front_image-400x400.png" ></td>
     <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-400x400.png" ></td>
     <ul>
-        {% for res in chain.residues.all %}
-        <a href="{% url 'residue_view' chain.pdb.code chain.chain_id res.num %}">{{ res }}</a> |
-        {% endfor %}
+        <table class="table table-striped">
+        <thead>
+        <td>Residue</td>
+        <td>Number</td>
+        <td>MSA position</td>
+        <tbody>
+            {% for res in chain.residues.all %}
+            <tr style="row-height:10px;">
+            <td> <a href="{% url 'residue_view' chain.pdb.code chain.chain_id res.num %}">{{ res }}</a></td>
+            <td> {{ res.num }}</td>
+            <td>{%if res.msa_position %}<a href="{% url 'msa_position' res.msa_position.num %}">{{ res.msa_position }}</a>{%endif%}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </thead>
+        </table>
     </ul>
 {% endblock %}
 

@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^team/', team, name="team"),
     url(r'^news/', news, name="news"),
     url(r'^gannt/', gannt, name="gannt"),
+    url(r'^d3/', d3, name="d3"),
     url(r'^scheme/', scheme, name="scheme"),
     url(r'^postdoc/', postdoc, name="scheme"),
     url(r'^qscore/',qscore, name="qscore"),
@@ -40,5 +41,6 @@ urlpatterns = [
     url(r'^msa/', include("msa.urls")),
     url(r'^plots/', include("plots.urls")),
     url(r'^workplan/', include("workplan.urls")),
+    url(r'^symmetry/', include("symmetry.urls")),
     url(r'^admin/', admin.site.urls),
 ]

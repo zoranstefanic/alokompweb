@@ -29,6 +29,9 @@ class Residue(models.Model):
     chain = models.ForeignKey(Chain, related_name='residues', on_delete=models.CASCADE)
     msa_position = models.ForeignKey(Position, related_name='aligned_residues', null=True, on_delete=models.CASCADE)
     
+    class Meta:
+        ordering = ['num']
+    
     def __str__(self):
         return "%s %s" % (self.name,self.num)
 

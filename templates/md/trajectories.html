@@ -18,8 +18,8 @@
                       Filter trajectories
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                      <a class="dropdown-item" href="{% url 'MDAnalyzedView'%}">Analyzed</a>
                       <a class="dropdown-item" href="{% url 'MDtrajectoriesView'%}">All</a>
-                      <a class="dropdown-item" href="{% url 'MDwithTorsionsView'%}">With torsions</a>
                       <a class="dropdown-item" href="{% url 'replica' 1 %}">Replica 1</a>
                       <a class="dropdown-item" href="{% url 'replica' 2 %}">Replica 2</a>
                       <a class="dropdown-item" href="{% url 'replica' 3 %}">Replica 3</a>
