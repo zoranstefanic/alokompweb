@@ -2,7 +2,7 @@
 import requests
 import os, sys
 import django
-from Bio.PDB import *
+from Bio.PDB import MMCIFParser
 
 THIS = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 sys.path.append(THIS)
@@ -13,8 +13,8 @@ django.setup()
 from pdbase.models import *
 
 mp = MMCIFParser()
-PNP_DIR = '/home/zoran/PNPs/'
-pnps = open('/home/zoran/PNPs/PDBe_search.csv').readlines()
+PNP_DIR = '/mnt/supermicro/disk1/ALOKOMP/alignments/GESAMT/cifs'
+pnps = open('/mnt/supermicro/disk1/ALOKOMP/alignments/GESAMT/PNP.names').readlines()
 pnps = [p.strip() for p in pnps]
 
 def structure_from_cif(cif):
@@ -23,13 +23,13 @@ def structure_from_cif(cif):
         print('Already in %s' %pdb)
         return 
     except:
-        s = mp.get_structure(cif, '/home/zoran/PNPs/%s.cif' %cif)
+        s = mp.get_structure(cif, '%s/%s.cif' %(PNP_DIR,cif))
         pdb, created = Pdb.objects.get_or_create(code=cif, title=s.header['name'])
         print('Created structure %s' %pdb)
 
 def chains_from_cif(cif):
     pdb = Pdb.objects.get(code=cif)
-    s = mp.get_structure(cif, '/home/zoran/PNPs/%s.cif' %cif)
+    s = mp.get_structure(cif, '%s/%s.cif' %(PNP_DIR,cif))
     for c in s.get_chains():
         chain, created = Chain.objects.get_or_create(chain_id=c.id, pdb=pdb)
         if created:
@@ -37,7 +37,7 @@ def chains_from_cif(cif):
 
 def residues_from_cif(cif):
     pdb = Pdb.objects.get(code=cif)
-    s = mp.get_structure(cif, '/home/zoran/PNPs/%s.cif' %cif)
+    s = mp.get_structure(cif, '%s/%s.cif' %(PNP_DIR,cif))
     for c in s.get_chains():
         chain = Chain.objects.get(chain_id=c.id, pdb=pdb)
         for r in c.get_residues():
@@ -47,20 +47,22 @@ def residues_from_cif(cif):
 
 def atoms_from_cif(cif):
     pdb = Pdb.objects.get(code=cif)
-    s = mp.get_structure(cif, '/home/zoran/PNPs/%s.cif' %cif)
+    s = mp.get_structure(cif, '%s/%s.cif' %(PNP_DIR,cif))
     print(pdb)
     for c in s.get_chains():
         chain = Chain.objects.get(chain_id=c.id, pdb=pdb)
         for r in c.get_residues():
             residue = Residue.objects.get(name=r.resname, num=r.id[1], chain=chain) 
+            print('Residue %s' %r)
+            print([a.serial_number for a in r.get_atoms()])
             for a in r.get_atoms():
                 atom, created = Atom.objects.get_or_create(name=a.name,
-                                                           num =a.serial_number,
-                                                           x = a.coord[0],
-                                                           y = a.coord[1],
-                                                           z = a.coord[2],
-                                                           bfactor = a.bfactor,
-                                                           residue = residue)
+                                                       num =a.serial_number,
+                                                       x = a.coord[0],
+                                                       y = a.coord[1],
+                                                       z = a.coord[2],
+                                                       bfactor = a.bfactor,
+                                                       residue = residue)
                 if created:
                     print('Created atom %s' %atom)
 
