@@ -17,9 +17,6 @@ def team(request):
 def news(request):
     return render(request, 'news.html')
 
-def d3(request):
-    return render(request, 'd3.html')
-
 def gannt(request):
     return render(request, 'gannt.html')
 

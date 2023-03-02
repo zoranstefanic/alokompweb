@@ -1,6 +1,7 @@
 from django.db import models
 from pdbase.models import *
 
+'''
 class Contact(models.Model):
     """Represents one crystal contact between chains"""
     d = models.FloatField()
@@ -10,3 +11,4 @@ class Contact(models.Model):
     
     def __str__(self):
         return "%s" % self.name
+'''
