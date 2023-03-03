@@ -7,7 +7,7 @@ class Contact(models.Model):
     prob = models.CharField(max_length=3)
     from_atom = models.ForeignKey(Atom, related_name='contacts_from', on_delete=models.CASCADE)
     to_atom = models.ForeignKey(Atom, related_name='contacts_to', on_delete=models.CASCADE)
-    symop = models.ForeignKey('SymmOp', related_name='contacts',on_delete=models.CASCADE)
+    symop = models.ForeignKey('SymmOp', null=True, related_name='contacts',on_delete=models.CASCADE)
     
     def __str__(self):
         return "%s %s %s %s" % (self.from_atom, self.to_atom, self.prob, self.d)
