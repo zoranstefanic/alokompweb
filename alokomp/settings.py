@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'md',
     'msa',
     'workplan',
+    'd3',
+    'symmetry',
 ]
 
 MIDDLEWARE = [
