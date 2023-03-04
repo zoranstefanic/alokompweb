@@ -24,8 +24,8 @@ class UnitCell(models.Model):
 
 class SymmOp(models.Model):
     """Represents a symmetry operation in the group"""
-    rot = models.CharField(max_length=20)
-    trans = models.CharField(max_length=20)
+    rot = models.CharField(null=True,max_length=20)
+    trans = models.CharField(null=True,max_length=20)
     geom = models.CharField(max_length=100,null=True,help_text="Geometric interpretation")
     pdb = models.ForeignKey(Pdb, null=True, related_name="symops",on_delete=models.CASCADE)
     
