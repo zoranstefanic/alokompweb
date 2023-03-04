@@ -27,6 +27,7 @@ class SymmOp(models.Model):
     rot = models.CharField(max_length=20)
     trans = models.CharField(max_length=20)
     geom = models.CharField(max_length=100,null=True,help_text="Geometric interpretation")
+    pdb = models.ForeignKey(Pdb, null=True, related_name="symops",on_delete=models.CASCADE)
     
     def __str__(self):
         return "%s + %s" % (self.rot,self.trans)
