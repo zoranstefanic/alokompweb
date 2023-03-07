@@ -18,6 +18,7 @@ class UnitCell(models.Model):
     sg = models.CharField(max_length=10)
     num = models.IntegerField()
     pdb = models.OneToOneField(Pdb, related_name="unit_cell",on_delete=models.CASCADE)
+    projections  = models.JSONField(null=True)
     
     def __str__(self):
         return "%s" % self.sg
