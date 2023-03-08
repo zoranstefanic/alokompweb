@@ -1,0 +1,75 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}D3 projections{% endblock%}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="/site_media/static/css/style.css">
+{% endblock %}
+{% block 'extra_css' %}
+<style>
+.container {max-width:98%;}
+.svg {
+    width:2200px;
+    height:1100px;
+    border:1px solid grey ;
+    position: auto;
+}
+/*.svg-container { width:100%; height:100%;} */
+
+</style>
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="container">
+                <h1>D3 projections</h1>
+                <svg class="svg"></svg>
+</div>
+{% endblock %}
+
+{% block 'extra_scripts' %}
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script type="text/javascript" src="/static/js/planegroups.js"></script>
+    <script type="text/javascript" src="/static/js/calculate.js"></script>
+<script>
+    var d3data = d3.json('{% url "d3_json" code %}', 
+          function(data) {
+            var a = data['uc'][0];
+            var b = data['uc'][1];
+            var c = data['uc'][2];
+            var alpha = data['uc'][3];
+            var beta = data['uc'][4];
+            var gamma = data['uc'][5];
+            var gammar = (gamma/180)*Math.PI;
+            console.log(a,b,c,alpha,beta,gamma);
+        });  
+
+    function get_data() { d3.json('{% url "d3_json" code %}', function(data) {
+        const a = data;
+        //console.log(data);
+        return a;
+    });
+    };
+    
+   var d = get_data();
+   console.log(d);
+    
+   function draw(positions) {
+
+    //var positions = data['001']['A'];
+    console.log(positions);
+    var circles = d3.selectAll('circle');
+    circles.data(positions)
+    .enter().append("circle")
+    .attr("cx", function(d) { return d[0]; })
+    .attr("cy", function(d) { return d[1]; })
+    .attr('class', 'click-circle')
+    .attr("r", getRandom(5,10))
+    .style("fill", randomColor());
+}; 
+
+//draw(data['001']['A']);
+
+</script>
+
+{% endblock %}
