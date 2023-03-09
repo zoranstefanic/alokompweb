@@ -19,7 +19,7 @@ def symmetry_gallery(request):
 
 def d3_projections(request,code):
     pdb = Pdb.objects.get(code=code)
-    return render(request, 'symmetry/d3_projections.html',{'code':code} )
+    return render(request, 'symmetry/d3_projections.html',{'code':code,'pdb':pdb} )
 
 def d3_json(request,code):
     pdb = Pdb.objects.get(code=code)
