@@ -1,0 +1,71 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Correlations for residue {{num}}{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    body {background:#124;}
+    .container {max-width:100%;}
+    .corr {padding:3px;color:white;}
+    .avocado {border:1px solid #ddd;width:130px;filter:invert();}
+    .avocado_big {border:5px solid #cdf;width:100%;margin-top:50px;filter:invert();}
+    .residue {background:orange;padding:10px;margin:10px;float:left;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h1><span class="residue"><b>{{ residue }}</b></span> ({{num}}) </h1>
+    <h2> <a href="{%url 'MDtrajectoryView' trajectory.pk%}">{{trajectory}}</a> </h2>
+    <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
+    <a href="./{{prev}}"><button class="btn btn-info">Previous</button></a>
+    <a href="./{{next}}"><button class="btn btn-info">Next</button></a>
+    <a href="{%url 'residue_in_replicas' trajectory.pk num%}"><button class="btn btn-danger">This residue in other replicas</button></a>
+    <a href="{%url 'ramachandran' trajectory.pk num%}"><button class="btn btn-success">Ramachandran</button></a>
+    <hr>
+    <div class="row">
+        <div class="col-md-2"><img class="avocado_big" src="/static/avokado/{{trajectory.pk}}/replica/aa/{{num}}.gif"></div>
+        <div class="col-md-5">
+        <h1 style="text-align:center;">φ correlations</h1>
+        {% with phi_res as dict %}
+            {% for n,corr in dict.items %}
+                <figure class="figure">
+                  <a href="{%url 'correlations' trajectory.pk n.0%}">
+                      <img class="avocado" src="/static/avokado/{{trajectory.pk}}/replica/aa/{{n.0}}.gif" class="figure-img img-fluid rounded" >
+                  </a>
+                  <figcaption style="font-size:20px;" class="figure-caption text-center"><span class="corr">{{corr|floatformat:4}}</span> <a href="{% url 'overlap' trajectory.pk num n.0 %}">{{n.1}}</a></figcaption>
+                </figure>
+            {% endfor %}
+        {% endwith %}
+        </div>
+        <div class="col-md-5">
+        <h1 style="text-align:center;">ψ correlations</h1>
+        {% with psi_res as dict %}
+            {% for n,corr in dict.items %}
+                <figure class="figure">
+                  <a href="{%url 'correlations' trajectory.pk n.0%}">
+                      <img class="avocado" src="/static/avokado/{{trajectory.pk}}/replica/aa/{{n.0}}.gif" class="figure-img img-fluid rounded" >
+                  </a>
+                  <figcaption style="font-size:20px;" class="figure-caption text-center"><span class="corr">{{corr|floatformat:4}}</span> <a href="{% url 'overlap' trajectory.pk num n.0 %}">{{n.1}}</a></figcaption>
+                </figure>
+            {% endfor %}
+        {% endwith %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"><img style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{num}}.png" alt=""></div>
+        <div class="col-md-6"><img style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{num}}_.png" alt=""></div>
+    </div>
+       
+{% endblock %}
+  {% block 'extra_scripts' %}
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+    var scaler = d3.interpolateRdBu;
+    //var scaler = d3.interpolatePiYG;
+    //var scaler = d3.interpolateRdPu;
+    var scale = d3.scaleSequential([-1,1], scaler);
+    //$('figcaption>.corr').each(function(){$(this).css('color',scale($(this).html())).css('background',scale($(this).html())); });
+    $('figcaption>.corr').each(function(){$(this).css('background',scale($(this).html())); });
+    </script>
+  {% endblock %}
+{% block '_footer' %}
+{% endblock %}

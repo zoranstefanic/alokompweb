@@ -21,6 +21,18 @@
     </table>
 {% endblock %}
 
+  {% block 'extra_scripts' %}
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+    //var scaler = d3.interpolateViridis;
+    var scaler = d3.interpolateReds;
+    //var scaler = d3.interpolatePiYG;
+    //var scaler = d3.interpolateRdPu;
+    //color Q score
+    rmsscale = d3.scaleSequential([0,5], scaler);
+    $('tr > td:nth-child(2)').each(function(){$(this).css('background-color',rmsscale($(this).html())); });
+    </script>
+  {% endblock %}
 
 {% block '_footer' %}
 {% endblock %}

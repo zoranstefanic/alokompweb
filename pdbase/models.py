@@ -5,6 +5,7 @@ class Pdb(models.Model):
     """PDB structure """
     code  = models.CharField(primary_key=True,max_length=4)
     title = models.TextField()
+    oligomer = models.TextField(null=True)
     data  = models.JSONField(null=True)
     
     def __unicode__(self):
@@ -34,6 +35,12 @@ class Residue(models.Model):
     
     def __str__(self):
         return "%s %s" % (self.name,self.num)
+
+    def contacts(self):
+        from symmetry.models import Contact
+        cto = Contact.objects.filter(to_atom__residue=self) 
+        cfrom = Contact.objects.filter(from_atom__residue=self) 
+        return cto.union(cfrom)        
 
 class Atom(models.Model):
     """One atom in residue"""

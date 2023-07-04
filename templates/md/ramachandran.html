@@ -14,6 +14,8 @@
     <a href="./{{prev}}"><button class="btn btn-info">Previous</button></a>
     <a href="./{{next}}"><button class="btn btn-info">Next</button></a>
     <a href="{%url 'residue_in_replicas' trajectory.pk num%}"><button class="btn btn-danger">This residue in other replicas</button></a>
+    <a href="{%url 'correlations' trajectory.pk num%}"><button class="btn btn-success">Correlations</button></a>
+   <img src="/static/avokado/{{trajectory.pk}}/replica/aa/{{num}}.gif">
     <img style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{num}}.png" alt="">
     {% for i in img_list  %}
            <a href="/static/avokado/{{trajectory.pk}}/replica/df{{i}}/{{num}}.png">

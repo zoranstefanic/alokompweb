@@ -1,0 +1,46 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Symmetry operations{% endblock%}
+{% block 'extra_css_' %}
+<style>
+    .container {max-width:98%;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h1>Total number of symmetry operations: {{symmops|length}}</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symmop</th>
+                <th>rotation</th>
+                <th>translation</th>
+                <th>geo. interp.</th>
+                <th>Pdb</th>
+                <th></th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for s in symmops %} 
+            <tr>
+                <td><a href="{% url 'symmop' s.id%}">{{s}}</a></td>
+                <td>{{s.rot}}</td>
+                <td>{{s.trans}}</td>
+                <td>{{s.geom}}</td>
+                <td><a href="{% url 'structure_view' s.pdb.code %}"><b style="font-size:28px;">{{ s.pdb.code }}</b></a></td>
+                <td><a href="{% url 'structure_ngl_view' s.pdb.code%}"><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{s.pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-200x200.png" ></a><p><b>{{s.pdb.oligomer}}</b></p></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter();
+        });
+    </script>
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}

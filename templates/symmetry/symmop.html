@@ -1,0 +1,49 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Symmop {{symmop}}{% endblock%}
+{% block 'extra_css_' %}
+<style>
+    .container {max-width:98%;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h1><a href="{% url 'symmops' %}">All symmops</a></h1>
+    <h1>List of contacts for symmop: {{symmop}}</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Contact</th>
+                <th>From residue atom</th>
+                <th>From residue symmops</th>
+                <th>To residue atom</th>
+                <th>To residue symmops</th>
+                <th>probability</th>
+                <th>distance</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for c in symmop.contacts.all %} 
+            <tr>
+                <td>{{c}}</td>
+                <td><a href="{% url 'residue_view' c.from_atom.residue.chain.pdb.code c.from_atom.residue.chain.chain_id c.from_atom.residue.num %}">{{c.from_atom.residue}}</a> {{c.from_atom}}</td>
+                <td><a href="{% url 'residue_symmop_view' c.from_atom.residue.id %}">{{c.from_atom.residue}}</a> {{c.from_atom}}</td>
+                <td><a href="{% url 'residue_view' c.to_atom.residue.chain.pdb.code c.to_atom.residue.chain.chain_id c.to_atom.residue.num %}">{{c.to_atom.residue}}</a> {{c.to_atom}}</td>
+                <td><a href="{% url 'residue_symmop_view' c.to_atom.residue.id %}">{{c.to_atom.residue}}</a> {{c.to_atom}}</td>
+                <td>{{c.prob}}</td>
+                <td>{{c.d}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter();
+        });
+    </script>
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}

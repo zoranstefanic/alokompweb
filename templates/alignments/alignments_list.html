@@ -1,4 +1,7 @@
 {% extends 'pdbase/base.html' %}
+{% block 'extra_head' %}
+<script src="https://d3js.org/d3.v7.min.js"></script>
+{% endblock %}
 {% block 'title' %}Alignments list{%endblock%}
 
 {% block 'content' %}
@@ -24,6 +27,22 @@
     </table>
 {% endblock %}
 
+  {% block 'extra_scripts' %}
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+    var scaler = d3.interpolateViridis;
+    //var scaler = d3.interpolateRdBu;
+    //var scaler = d3.interpolatePiYG;
+    //var scaler = d3.interpolateRdPu;
+    //color Q score
+    qscale = d3.scaleSequential([0,1], scaler);
+    $('tr > td:nth-child(2)').each(function(){$(this).css('background-color',qscale($(this).html())); });
+    rmsscale = d3.scaleSequential([5,0], scaler);
+    $('tr > td:nth-child(3)').each(function(){$(this).css('background-color',rmsscale($(this).html())); });
+    numscale = d3.scaleSequential([0,300], scaler);
+    $('tr > td:nth-child(4)').each(function(){$(this).css('background-color',numscale($(this).html())); });
+    </script>
+  {% endblock %}
 
 {% block '_footer' %}
 {% endblock %}

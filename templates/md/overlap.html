@@ -1,0 +1,55 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Overlap of residues {{num1}} and {{num2}}{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    body {background:#124;}
+    .container {max-width:100%;}
+    .overlap {width:90%;border:3px solid pink;padding:10px;margin:10px;position:absolute;filter:opacity(0.8);}
+    .residue {background:orange;padding:10px;margin:10px;float:left;}
+    .invert {filter:invert();}
+    .rupture {filter:invert();}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h1>Overlap of <span class="residue"><b>{{ residue1 }}</b></span><span class="residue"><b>{{ residue2 }}</b></span></h1>
+    <h2> <a href="{%url 'MDtrajectoryView' trajectory.pk%}">{{trajectory}}</a> </h2>
+    <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
+    <hr>
+    <div class="row">
+        <div class="col-md-5">
+            <img class="overlap" src="/static/avokado/{{trajectory.pk}}/replica/aa/{{num1}}.gif">
+            <img class="overlap " src="/static/avokado/{{trajectory.pk}}/replica/aa/{{num2}}.gif">
+        </div>
+        <div class="col-md-7">
+                  <a href="{%url 'correlations' trajectory.pk num1 %}">
+                <img class="rupture" style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{num1}}_.png" alt=""></a>
+                  <a href="{%url 'correlations' trajectory.pk num2 %}">
+                <img class="rupture" style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{num2}}_.png" alt=""></a>
+        </div>
+    </div>
+        <h2 style="color:orange;">Wrong ruptures!</h2>
+    <div class="row">
+        <div class="col-md-6">
+                <img class="rupture" style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{num1}}.png" alt=""></a>
+        </div>
+        <div class="col-md-6">
+                <img class="rupture" style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{num2}}.png" alt=""></a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block 'extra_scripts' %}
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+    var scaler = d3.interpolateRdBu;
+    //var scaler = d3.interpolatePiYG;
+    //var scaler = d3.interpolateRdPu;
+    var scale = d3.scaleSequential([-1,1], scaler);
+    //$('figcaption>.corr').each(function(){$(this).css('color',scale($(this).html())).css('background',scale($(this).html())); });
+    $('figcaption>.corr').each(function(){$(this).css('background',scale($(this).html())); });
+    </script>
+{% endblock %}
+{% block '_footer' %}
+{% endblock %}

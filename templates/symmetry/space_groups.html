@@ -1,0 +1,50 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}D3 projections for {{pdb}}{% endblock%}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="/site_media/static/css/style.css">
+{% endblock %}
+{% block 'extra_css' %}
+<style>
+.container {max-width:98%;}
+svg {
+    width:900px;
+    height:500px;
+    border:1px solid grey ;
+    margin: 5px;
+    float: left;
+}
+.chainA { fill: lightgreen;}
+.chainB { fill: cyan; }
+.chainC { fill: magenta; }
+.chainD { fill: yellow; }
+.chainE { fill: grey; }
+.chainF { fill: brown; }
+.chainG { fill: blue; }
+.chainH { fill: teal; }
+</style>
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="container">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for pdb in pdbs %}
+            <tr>
+            <td> <h4><a href="{% url 'd3_projections' pdb.code %}">Projections for {{pdb}}</a>  <a href="{% url 'space_groups' pdb.unit_cell.num %}">{{pdb.unit_cell.sg}}</a></h4> </td>
+            <td><a href="{% url 'structure_symmetry' pdb.code %}"><img style="width:10%;" src="/static/symmetry/{{pdb.code}}_001.png" alt=""></a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+</div>
+{% endblock %}
+

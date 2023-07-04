@@ -13,6 +13,7 @@
             <th>Chains</th>
             <th>Assembly</th>
             <th>Symmetry</th>
+            <th>Proj</th>
         </tr>
         {% for pdb in pdbs %}
         <tr>
@@ -21,7 +22,7 @@
             <td><a href="{% url 'structure_ngl_view' pdb.code%}"><button class="btn btn-success">view</button></a></td>
             <td>{{ pdb.title }}</td>
             <td><a href="{% url 'structure_ngl_view' pdb.code%}"><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_deposited_chain_front_image-200x200.png" ></a></td>
-            <td><a href="{% url 'structure_ngl_view' pdb.code%}"><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-200x200.png" ></a></td>
+            <td><a href="{% url 'structure_ngl_view' pdb.code%}"><img src="https://www.ebi.ac.uk/pdbe/static/entry/{{pdb.code}}_assembly_1_chemically_distinct_molecules_front_image-200x200.png" ></a><p><b>{{pdb.oligomer}}</b></p></td>
             <td><a href="{% url 'structure_symmetry' pdb.code %}"><img style="width:100%;" src="/static/symmetry/{{pdb.code}}_001.png" alt=""></a></td>
             <td><a href="{% url 'd3_projections' pdb.code %}">d3 projections</a></td>
     

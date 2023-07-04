@@ -1,0 +1,52 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Matching residues for {{r}}{% endblock%}
+{% block 'extra_css' %}
+<style>
+    .container {max-width:98%;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h1><a href="{% url 'symmops' %}">All symmops</a></h1>
+        <div class="row">
+            <h1>Contacts for residue matches of {{r}} (<a href="{% url 'structure_view' r.chain.pdb.code %}">{{ r.chain.pdb.code }}</a>)</h1>
+            <div class="col-md-10">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fixed residue</th>
+                            <th>Contacts</th>
+                            <th>Moving residue</th>
+                            <th>Contacts</th>
+                            <th>Alignment</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {% for res,con in d.items %} 
+                        <tr>
+                            <td><a href="{% url 'residue_symmop_view' res.0.id %}">{{res.0}}</a> <a href="">{{res.0.chain}}</a></td>
+                            <td><ul>{%for c in con.0%}<li>{{c.id}}</li>{%endfor%}</ul></td>
+                            <td><a href="{% url 'residue_symmop_view' res.1.id %}">{{res.1}}</a> <a href="">{{res.1.chain}}</a></td>
+                            <td><ul>{%for c in con.1%}<li>{{c.id}}</li>{%endfor%}</ul></td>
+                            <td><a href="{% url 'alignment' res.0.chain.pdb.code res.0.chain.chain_id res.1.chain.pdb.code res.1.chain.chain_id %}">Alignment</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            <div class="col-md-2">
+                <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{r.chain.pdb.code}}_deposited_chain_front_image-400x400.png" ></td>
+            </div>
+        </div>
+{% endblock %}
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter();
+        });
+    </script>
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}
