@@ -1,0 +1,34 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Correlation matrix for trajectory {{trajectory.pk}}{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    body {background:#0a0d22;}
+    .container {max-width:100%;}
+    .cm_image {width:100%;margin-top:50px;}
+    .right {border:5px solid lime;}
+    .wrong {border:5px solid pink;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h2> <a href="{%url 'MDtrajectoryView' trajectory.pk%}">{{trajectory}}</a> </h2>
+    <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
+    <a href="{%url 'changepoints_plot' trajectory.pk%}"><button class="btn btn-info">Change points</button></a>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+        <h1 style="color:green;">Right (circular)</h1>
+        <img class="cm_image right" src="/static/avokado/{{trajectory.pk}}/replica/circ_cm.png" alt="">
+        </div>
+        <div class="col-md-6">
+        <h1 style="color:red;">Wrong</h1>
+        <img class="cm_image wrong" src="/static/avokado/{{trajectory.pk}}/replica/cm_new.png" alt="">
+        </div>
+    </div>
+       
+{% endblock %}
+  {% block 'extra_scripts' %}
+  {% endblock %}
+{% block '_footer' %}
+{% endblock %}

@@ -4,39 +4,57 @@
 {% block 'extra_css' %}
 <style>
     .container {max-width:100%;}
+    .rama_gif {border:1px solid #dda;width:95%;margin-bottom:1px;filter:invert();}
+    .chain_label {display:block;}
 </style>
 {% endblock %}
 
 {% block 'content' %}
-    <h1>{{trajectory}}</h1>
-        <table class="table table-striped">
-            <tr><td>type:</td><td>{{trajectory.type}}</td></tr>
-            <tr><td>file:</td><td>{{trajectory.file}}</td></tr>
-            <tr><td>note:</td><td>{{trajectory.note}}</td></tr>
-            <tr><td>directory:</td><td>{{trajectory.directory}} </td></tr>
-            <tr><td>atime:</td><td>{{trajectory.atime}}</td></tr>
-            <tr><td>mtime:</td><td>{{trajectory.mtime}}</td></tr>
-            <tr><td>ctime:</td><td>{{trajectory.ctime}}</td></tr>
-            <tr><td>filesize:</td><td>{{trajectory.filesize|filesizeformat}}</td></tr>
-            <tr><td>totaltime :</td><td>{{trajectory.totaltime}}</td></tr>
-            <tr><td>num_atoms :</td><td>{{trajectory.num_atoms}}</td></tr>
-            <tr><td>num_frames:</td><td>{{trajectory.num_frames}}</td></tr>
-        </table>
-<h1>Torsion (4 C&alpha;) angle plots</h1>
-{% for ta in trajectory.torsions.all %}
-    <ul>
-    <li>
-        <a href="{% url 'torsion_plot' ta.id%}"><button class="btn btn-info">{{ta}}</button></a>
-    </li>
-    </ul>
-{% endfor %}
-<a href="{%url 'ramachandran' trajectory.pk 2%}"><button class="btn btn-large btn-warning">Detailed plots</button></a>
-<h1>Ramachandran angle plots</h1>
-{% for chain in "ABCDEF" %}
-        <a href="/static/avokado/{{trajectory.id}}/{{chain}}.gif">
-            <img style="width:30%;margin:10px;" src="/static/avokado/{{trajectory.id}}/{{chain}}.gif" alt="">
-        </a>
-{% endfor %}
+    <div class="row">
+        <div class="col-md-4">
+            <h1>{{trajectory}}</h1>
+            <table class="table table-striped">
+                <tr><td>type:</td><td>{{trajectory.type}}</td></tr>
+                <tr><td>file:</td><td>{{trajectory.file}}</td></tr>
+                <tr><td>note:</td><td>{{trajectory.note}}</td></tr>
+                <tr><td>directory:</td><td>{{trajectory.directory}} </td></tr>
+                <tr><td>atime:</td><td>{{trajectory.atime}}</td></tr>
+                <tr><td>mtime:</td><td>{{trajectory.mtime}}</td></tr>
+                <tr><td>ctime:</td><td>{{trajectory.ctime}}</td></tr>
+                <tr><td>filesize:</td><td>{{trajectory.filesize|filesizeformat}}</td></tr>
+                <tr><td>totaltime :</td><td>{{trajectory.totaltime}}</td></tr>
+                <tr><td>num_atoms :</td><td>{{trajectory.num_atoms}}</td></tr>
+                <tr><td>num_frames:</td><td>{{trajectory.num_frames}}</td></tr>
+            </table>
+        </div>
+        <div class="col-md-2">
+            <h1>Torsion (4 C&alpha;) angle plots</h1>
+            {% for ta in trajectory.torsions.all %}
+                <ul>
+                <li>
+                    <a href="{% url 'torsion_plot' ta.id%}"><button class="btn btn-info">{{ta}}</button></a>
+                </li>
+                </ul>
+            {% endfor %}
+        </div>
+        <div class="col-md-6">
+            <h1>Ramachandran plots</h1>
+            {% for chain in "ABCDEF" %}
+                    <span class="chain_label"><b>{{chain}}</b></span><img class="rama_gif" src="/static/avokado/{{trajectory.id}}/{{chain}}_rama.gif" alt="">
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+    <col-md-12>
+        <a href="{%url 'ramachandran' trajectory.pk 2%}"><button class="btn btn-large btn-warning">Detailed plots</button></a>
+        <h1>Ramachandran angle plots</h1>
+        {% for chain in "ABCDEF" %}
+                <a href="{% url 'avocados' trajectory.pk chain %}">
+                    <img style="width:30%;margin:10px;" src="/static/avokado/{{trajectory.id}}/{{chain}}.gif" alt="">
+                </a>
+        {% endfor %}
+    </col-md-12>
+    </div>
 {% endblock %}
 
 {% block 'extra_scripts' %}

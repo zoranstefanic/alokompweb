@@ -1,9 +1,11 @@
 {% extends 'pdbase/base.html' %}
-{% block 'title' %}Avokado for {{trajectory}}{% endblock%}
+{% block 'title' %}Residue {{num}} in all{% endblock%}
 
 {% block 'extra_css' %}
 <style>
+    body {background:#124;}
     .container {max-width:100%;}
+    .avocado {border:1px solid #ddd;width:160px;filter:invert();}
 </style>
 {% endblock %}
 
@@ -13,15 +15,13 @@
     <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
     <a href="./{{prev}}"><button class="btn btn-info">Previous</button></a>
     <a href="./{{next}}"><button class="btn btn-info">Next</button></a>
-    <a href="{%url 'residue_in_replicas' trajectory.pk num%}"><button class="btn btn-danger">This residue in other replicas</button></a>
     <a href="{%url 'correlations_circular' trajectory.pk num%}"><button class="btn btn-success">Correlations</button></a>
     <a href="{%url 'changepoints_plot' trajectory.pk%}"><button class="btn btn-info">Change points</button></a>
-    <img src="/static/avokado/{{trajectory.pk}}/replica/aa/{{num}}.gif">
-    <img style="width:100%;margin:1px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{num}}.png" alt="">
-    {% for i in img_list  %}
-           <a href="/static/avokado/{{trajectory.pk}}/replica/df{{i}}/{{num}}.png">
-                {{i}}<img style="width:9%;margin:5px;border:1px solid grey;" src="/static/avokado/{{trajectory.pk}}/replica/df{{i}}/{{num}}.png" alt="">
-            </a>
+    <hr>
+    {% for t in traj_list  %}
+          <a href="{%url 'correlations_circular' t num %}">
+              <img class="avocado" src="/static/avokado/{{t}}/replica/aa/{{num}}.gif" class="figure-img img-fluid rounded" >
+          </a>
     {% endfor %}
 {% endblock %}
 {% block '_footer' %}

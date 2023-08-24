@@ -6,7 +6,11 @@ from bokeh.embed import components
 from bokeh.models import HoverTool, LassoSelectTool, WheelZoomTool, PointDrawTool, ColumnDataSource
 
 import random
+import networkx as nx
 import pickle
+import matplotlib.pyplot as plt
+import io
+import base64
 
 resnames = 6 * ['MET', 'THR', 'PRO', 'HID', 'ILE', 'ASN', 'ALA', 'LYS', 'ILE', 'GLY', 'ASP', 'PHE', 'TYR', 'PRO', 'GLN', 'CYS', 'LEU', 'LEU', 'CYS', 'GLY', 'ASP', 'PRO', 'LEU', 'ARG', 'VAL', 'SER', 'TYR', 'ILE', 'ALA', 'LYS', 'LYS', 'PHE', 'LEU', 'GLN', 'ASP', 'ALA', 'LYS', 'GLU', 'ILE', 'THR', 'ASN', 'VAL', 'ARG', 'ASN', 'MET', 'LEU', 'GLY', 'PHE', 'SER', 'GLY', 'LYS', 'TYR', 'LYS', 'GLY', 'ARG', 'GLY', 'ILE', 'SER', 'LEU', 'MET', 'GLY', 'HID', 'GLY', 'MET', 'GLY', 'ILE', 'ALA', 'SER', 'CYS', 'THR', 'ILE', 'TYR', 'VAL', 'THR', 'GLU', 'LEU', 'ILE', 'LYS', 'THR', 'TYR', 'GLN', 'VAL', 'LYS', 'GLU', 'LEU', 'LEU', 'ARG', 'ILE', 'GLY', 'THR', 'CYS', 'GLY', 'ALA', 'ILE', 'SER', 'PRO', 'LYS', 'VAL', 'GLY', 'LEU', 'LYS', 'ASP', 'ILE', 'ILE', 'MET', 'ALA', 'THR', 'GLY', 'ALA', 'SER', 'THR', 'ASP', 'SER', 'LYS', 'THR', 'ASN', 'ARG', 'VAL', 'ARG', 'PHE', 'LEU', 'ASN', 'HIE', 'ASP', 'LEU', 'SER', 'ALA', 'THR', 'PRO', 'ASP', 'PHE', 'GLU', 'LEU', 'SER', 'LEU', 'ARG', 'ALA', 'TYR', 'GLN', 'THR', 'ALA', 'LYS', 'ARG', 'LEU', 'GLY', 'ILE', 'ASP', 'LEU', 'LYS', 'VAL', 'GLY', 'ASN', 'VAL', 'PHE', 'SER', 'SER', 'ASP', 'PHE', 'PHE', 'TYR', 'SER', 'PHE', 'GLU', 'THR', 'HIE', 'ALA', 'PHE', 'ASP', 'LEU', 'MET', 'ALA', 'LYS', 'TYR', 'ASN', 'HID', 'LEU', 'ALA', 'ILE', 'GLU', 'MET', 'GLU', 'ALA', 'ALA', 'GLY', 'LEU', 'TYR', 'ALA', 'THR', 'ALA', 'MET', 'GLU', 'LEU', 'ASN', 'ALA', 'LYS', 'ALA', 'LEU', 'CYS', 'LEU', 'CYS', 'SER', 'VAL', 'SER', 'ASP', 'HIE', 'LEU', 'ILE', 'THR', 'LYS', 'GLU', 'ALA', 'LEU', 'SER', 'PRO', 'LYS', 'GLU', 'ARG', 'VAL', 'GLU', 'SER', 'PHE', 'ASP', 'ASN', 'MET', 'ILE', 'ILE', 'LEU', 'ALA', 'LEU', 'GLU', 'MET', 'MET', 'SER']
 
@@ -15,7 +19,6 @@ def num_to_res(n):
     chain = chains[(n-1)//233]
     resname = resnames[n-1]
     return u"%s %s %s" %(resname,chain,n%233 or 233)
-
 
 class MDdirectoriesView(ListView):
     model = MDdirectory
@@ -45,6 +48,11 @@ class MDtrajectoryView(DetailView):
     context_object_name = 'trajectory'
     template_name = "md/trajectory.html"
 
+class CorrelationMatrixView(DetailView):
+    model = MDtrajectory
+    context_object_name = 'trajectory'
+    template_name = "md/correlation_matrix.html"
+
 def replica(request,n):
     trajectories =  MDtrajectory.objects.exclude(torsions=None).filter(replica=n)
     return render(request, 'md/trajectories.html' , {'trajectories': trajectories, })
@@ -62,6 +70,19 @@ def residue_in_replicas(request,trid,resid):
                          }
                   )
 
+def residue_in_all(request,trid,resid):
+    this =  MDtrajectory.objects.get(id=trid)
+    traj_list = [t.id for t in MDtrajectory.objects.exclude(torsions=None)]
+    return render(request, 'md/residue_in_all.html', 
+                       { 
+                        'trajectory':this,
+                        'traj_list':traj_list,
+                        'num':resid,
+                         'prev':int(resid)-1,
+                         'next':int(resid)+1,
+                         }
+                  )
+
 def ramachandran(request,pk,num=1):
     trajectory =  MDtrajectory.objects.get(id=pk)
     img_list = [i for i in range(10)]
@@ -74,6 +95,26 @@ def ramachandran(request,pk,num=1):
                             })
 
 def correlations(request,pk,num=1):
+    corr = pickle.load(open('/mnt/supermicro/avocado/%s/correlations_.pkl' %pk,'rb'))
+    phi = '\u03c6'
+    psi = '\u03c8'
+    n = int(num)
+    phi_res = corr.get((n,phi),{})
+    psi_res = corr.get((n,psi),{})
+    phi_res = dict(sorted(phi_res.items(),key=lambda x: x[1], reverse=True))
+    psi_res = dict(sorted(psi_res.items(),key=lambda x: x[1], reverse=True))
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    return render(request,'md/correlations.html' , 
+                        {'trajectory': trajectory, 
+                          'num':num,
+                          'residue':num_to_res(n),
+                          'phi_res':phi_res,
+                          'psi_res':psi_res,
+                          'prev':int(num)-1,
+                          'next':int(num)+1,
+                            })
+
+def correlations_old(request,pk,num=1):
     corr = pickle.load(open('/mnt/supermicro/avocado/%s/correlations.pkl' %pk,'rb'))
     phi = '\u03c6'
     psi = '\u03c8'
@@ -91,6 +132,43 @@ def correlations(request,pk,num=1):
                           'psi_res':psi_res,
                           'prev':int(num)-1,
                           'next':int(num)+1,
+                            })
+
+def correlations_circular(request,pk,num=1):
+    corr = pickle.load(open('/mnt/supermicro/avocado/%s/correlations_c.pkl' %pk,'rb'))
+    phi = '\u03c6'
+    psi = '\u03c8'
+    n = int(num)
+    phi_res = corr.get((n,phi),{})
+    psi_res = corr.get((n,psi),{})
+    phi_res = dict(sorted(phi_res.items(),key=lambda x: x[1], reverse=True))
+    psi_res = dict(sorted(psi_res.items(),key=lambda x: x[1], reverse=True))
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    traj_list = [t.id for t in MDtrajectory.objects.exclude(torsions=None)]
+    return render(request,'md/correlations.html' , 
+                        {'trajectory': trajectory, 
+                          'num':num,
+                          'residue':num_to_res(n),
+                          'phi_res':phi_res,
+                          'psi_res':psi_res,
+                          'prev':int(num)-1,
+                          'next':int(num)+1,
+                          'traj_list':traj_list,
+                            })
+
+def avocados(request,pk,chain):
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    imgmap =  {n:[(n-1)//18+1, n%18 or 18] for n in range(1,234)}
+    d = {}
+    offset = dict(zip(list('ABCDEF'),[i*233 for i in range(6)]))[chain]
+    for k,v in imgmap.items():
+        i,j = v[0],v[1]
+        d[k+offset] = [(j-1)*100,(i-1)*100,j*100,i*100]
+    return render(request,'md/avocados.html' , 
+                        {'trajectory': trajectory, 
+                          'imgmap':d,
+                          'chain':chain,
+                          'offset':offset,
                             })
 
 def overlap(request,pk,num1,num2):
@@ -117,3 +195,36 @@ def torsion_plot(request,id):
 
     script, div = components(p)
     return render(request, 'md/torsion_plot.html' , {'script': script, 'div':div, 'ta':ta, 'other':other })
+
+def changepoints_plot(request,id):
+    changepoints = pickle.load(open('/mnt/supermicro/avocado/%s/change_points_diffs.pkl' %id,'rb'))
+    x = [_[0] for _ in changepoints]
+    y = [_[1] for _ in changepoints]
+    r = [_[2]/5 for _ in changepoints]
+    TOOLS="hover,crosshair,pan,wheel_zoom,zoom_in,zoom_out,box_zoom,help,reset"
+    p = figure(tools=TOOLS,width=1200,height=1200)
+    p.ygrid.ticker = [233*i for i in range(6)]
+    p.xgrid.ticker = [100*i for i in range(40)]
+    p.scatter(x,y,radius=r,fill_alpha=0.5,line_color=None,)
+    script, div = components(p)
+    traj_list = [t.id for t in MDtrajectory.objects.exclude(torsions=None)]
+    return render(request, 'md/changepoints_plot.html' , {'script': script, 'div':div, 'id':id, 'traj_list':traj_list })
+
+def graph_plot(request,id):
+    plt.cla()
+    dpi = request.GET.get('dpi',None)
+    core = request.GET.get('core',None)
+    if dpi:
+        dpi = int(dpi)
+    cm = pickle.load(open('/mnt/supermicro/avocado/%s/correlations_c.pkl' %id,'rb'))
+    G = nx.Graph()
+    G.add_weighted_edges_from({(k,v,cm[k][v]) for k in cm.keys() for v in cm[k]})
+    if core:
+        G = nx.k_core(G,int(core))
+    bc = list(nx.betweenness_centrality(G,weight="weight").values())
+    wghts = [G[k][v]['weight'] for k,v in G.edges]
+    nx.draw_networkx(G,pos=nx.spring_layout(G), node_color=bc, node_size=25, font_size=4, width=0.2, edge_color=wghts, edge_cmap=plt.cm.RdBu, edge_vmax=1, edge_vmin=-1, alpha=0.5)
+    img = io.BytesIO()
+    plt.savefig(img,dpi=dpi or 1000,bbox_inches='tight',pad_inches=0)
+    plot = base64.b64encode(img.getvalue()).decode()
+    return render(request, 'md/graph.html' , {'plot': plot,'id':id, 'core':core})
