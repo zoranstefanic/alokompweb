@@ -11,6 +11,7 @@ import pickle
 import matplotlib.pyplot as plt
 import io
 import base64
+import numpy as np
 
 resnames = 6 * ['MET', 'THR', 'PRO', 'HID', 'ILE', 'ASN', 'ALA', 'LYS', 'ILE', 'GLY', 'ASP', 'PHE', 'TYR', 'PRO', 'GLN', 'CYS', 'LEU', 'LEU', 'CYS', 'GLY', 'ASP', 'PRO', 'LEU', 'ARG', 'VAL', 'SER', 'TYR', 'ILE', 'ALA', 'LYS', 'LYS', 'PHE', 'LEU', 'GLN', 'ASP', 'ALA', 'LYS', 'GLU', 'ILE', 'THR', 'ASN', 'VAL', 'ARG', 'ASN', 'MET', 'LEU', 'GLY', 'PHE', 'SER', 'GLY', 'LYS', 'TYR', 'LYS', 'GLY', 'ARG', 'GLY', 'ILE', 'SER', 'LEU', 'MET', 'GLY', 'HID', 'GLY', 'MET', 'GLY', 'ILE', 'ALA', 'SER', 'CYS', 'THR', 'ILE', 'TYR', 'VAL', 'THR', 'GLU', 'LEU', 'ILE', 'LYS', 'THR', 'TYR', 'GLN', 'VAL', 'LYS', 'GLU', 'LEU', 'LEU', 'ARG', 'ILE', 'GLY', 'THR', 'CYS', 'GLY', 'ALA', 'ILE', 'SER', 'PRO', 'LYS', 'VAL', 'GLY', 'LEU', 'LYS', 'ASP', 'ILE', 'ILE', 'MET', 'ALA', 'THR', 'GLY', 'ALA', 'SER', 'THR', 'ASP', 'SER', 'LYS', 'THR', 'ASN', 'ARG', 'VAL', 'ARG', 'PHE', 'LEU', 'ASN', 'HIE', 'ASP', 'LEU', 'SER', 'ALA', 'THR', 'PRO', 'ASP', 'PHE', 'GLU', 'LEU', 'SER', 'LEU', 'ARG', 'ALA', 'TYR', 'GLN', 'THR', 'ALA', 'LYS', 'ARG', 'LEU', 'GLY', 'ILE', 'ASP', 'LEU', 'LYS', 'VAL', 'GLY', 'ASN', 'VAL', 'PHE', 'SER', 'SER', 'ASP', 'PHE', 'PHE', 'TYR', 'SER', 'PHE', 'GLU', 'THR', 'HIE', 'ALA', 'PHE', 'ASP', 'LEU', 'MET', 'ALA', 'LYS', 'TYR', 'ASN', 'HID', 'LEU', 'ALA', 'ILE', 'GLU', 'MET', 'GLU', 'ALA', 'ALA', 'GLY', 'LEU', 'TYR', 'ALA', 'THR', 'ALA', 'MET', 'GLU', 'LEU', 'ASN', 'ALA', 'LYS', 'ALA', 'LEU', 'CYS', 'LEU', 'CYS', 'SER', 'VAL', 'SER', 'ASP', 'HIE', 'LEU', 'ILE', 'THR', 'LYS', 'GLU', 'ALA', 'LEU', 'SER', 'PRO', 'LYS', 'GLU', 'ARG', 'VAL', 'GLU', 'SER', 'PHE', 'ASP', 'ASN', 'MET', 'ILE', 'ILE', 'LEU', 'ALA', 'LEU', 'GLU', 'MET', 'MET', 'SER']
 
@@ -210,8 +211,23 @@ def changepoints_plot(request,id):
     traj_list = [t.id for t in MDtrajectory.objects.exclude(torsions=None)]
     return render(request, 'md/changepoints_plot.html' , {'script': script, 'div':div, 'id':id, 'traj_list':traj_list })
 
+def residue_position_on_unit_circle(n,phi):
+    #    A  F
+    #  D      C
+    #    B  E
+    angle_offsets_dict = {'A': 90, 'B': 210, 'C': 330, 'D': 150, 'E': 270, 'F': 30}
+    if phi == 'φ':offset = 60/(233*3)
+    else:offset = 120/(233*3)
+    chain = list('ABCDEF')[(n-1)//233]
+    angle = angle_offsets_dict[chain] + 60*((n-1)%233)/233 + offset
+    angle_radians = np.radians(angle)
+    return np.cos(angle_radians), np.sin(angle_radians)
+
 def graph_plot(request,id):
     plt.cla()
+    pie = plt.pie([60]*6,startangle=30)
+    for w in pie[0]:
+        w.set_alpha(0.2)
     dpi = request.GET.get('dpi',None)
     core = request.GET.get('core',None)
     if dpi:
@@ -223,7 +239,9 @@ def graph_plot(request,id):
         G = nx.k_core(G,int(core))
     bc = list(nx.betweenness_centrality(G,weight="weight").values())
     wghts = [G[k][v]['weight'] for k,v in G.edges]
-    nx.draw_networkx(G,pos=nx.spring_layout(G), node_color=bc, node_size=25, font_size=4, width=0.2, edge_color=wghts, edge_cmap=plt.cm.RdBu, edge_vmax=1, edge_vmin=-1, alpha=0.5)
+    pos = {n:residue_position_on_unit_circle(*n) for n in G.nodes}
+    degrees = [nx.degree(G,k)*5 for k in G.nodes]
+    nx.draw_networkx(G, pos=pos, node_color=degrees, node_size=degrees, font_size=2, width=0.3, edge_color=wghts, edge_cmap=plt.cm.RdBu, edge_vmax=1, edge_vmin=-1, alpha=0.4)
     img = io.BytesIO()
     plt.savefig(img,dpi=dpi or 1000,bbox_inches='tight',pad_inches=0)
     plot = base64.b64encode(img.getvalue()).decode()
