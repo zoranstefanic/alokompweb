@@ -1,0 +1,48 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Correlation matrix for trajectory {{trajectory.pk}}{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    body {background:#123;}
+    .container {max-width:100%;}
+    .corr {font-size:20px;color:white;}
+    .avocado {border:1px solid #ddd;width:250px;filter:invert()}
+    .rupture {height:250px;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h2> <a href="{%url 'MDtrajectoryView' trajectory.pk%}">{{trajectory}}</a> </h2>
+    <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
+    <a href="{%url 'changepoints_plot' trajectory.pk%}"><button class="btn btn-info">Change points</button></a>
+    <a class="btn btn-warning dropdown-toggle float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"> In other trajectories </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            {% for i in traj_list%} 
+            <a class="dropdown-item" href="{%url 'correlations_for_traj' i %}">{{i}}</a>
+            {% endfor %}
+        </div>
+    <hr>
+            {% for k,v,c in corr %}
+    <div class="row">
+            <div class="col-md-4">
+                  <a href="{%url 'correlations_circular' trajectory.pk k.0%}">
+                      <img class="avocado" src="/static/avokado/{{trajectory.pk}}/replica/aa/{{k.0}}.gif" class="figure-img img-fluid rounded" >
+                  </a>
+                  <a href="{%url 'correlations_circular' trajectory.pk v.0%}">
+                      <img class="avocado" src="/static/avokado/{{trajectory.pk}}/replica/aa/{{v.0}}.gif" class="figure-img img-fluid rounded" >
+                  </a>
+                 <span class="corr"><a href="{% url 'overlap' trajectory.pk k.0 v.0 %}">{{c|floatformat:4}}</a></span>
+            </div>
+            <div class="col-md-8">
+                  <a href="{%url 'correlations_circular' trajectory.pk k.0 %}">
+                <img class="rupture" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{k.0}}_.png" alt=""></a>
+                  <a href="{%url 'correlations_circular' trajectory.pk v.0 %}">
+                <img class="rupture" src="/static/avokado/{{trajectory.pk}}/replica/ruptures/{{v.0}}_.png" alt=""></a>
+            </div>
+    </div>
+            {% endfor %}
+{% endblock %}
+  {% block 'extra_scripts' %}
+  {% endblock %}
+{% block '_footer' %}
+{% endblock %}

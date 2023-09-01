@@ -157,6 +157,55 @@ def correlations_circular(request,pk,num=1):
                           'traj_list':traj_list,
                             })
 
+def correlations_highest(request,pk,num=1):
+    limit = request.GET.get('limit',None)
+    corr = pickle.load(open('/mnt/supermicro/avocado/%s/correlations_c.pkl' %pk,'rb'))
+    phi = '\u03c6'
+    psi = '\u03c8'
+    n = int(num)
+    phi_res = corr.get((n,phi),{})
+    psi_res = corr.get((n,psi),{})
+    phi_res = dict(sorted(phi_res.items(),key=lambda x: x[1], reverse=True))
+    psi_res = dict(sorted(psi_res.items(),key=lambda x: x[1], reverse=True))
+    if limit:
+        phi_res = {k:v for k,v in phi_res.items() if abs(v) > float(limit)}
+        psi_res = {k:v for k,v in phi_res.items() if abs(v) > float(limit)}
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    traj_list = [t.id for t in MDtrajectory.objects.exclude(torsions=None)]
+    return render(request,'md/correlations_highest.html' , 
+                        {'trajectory': trajectory, 
+                          'num':num,
+                          'residue':num_to_res(n),
+                          'phi_res':phi_res,
+                          'psi_res':psi_res,
+                          'prev':int(num)-1,
+                          'next':int(num)+1,
+                          'traj_list':traj_list,
+                          'limit':limit,
+                            })
+
+def correlations_for_traj(request,pk):
+    limit = float(request.GET.get('limit',0.5))
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    corr = pickle.load(open('/mnt/supermicro/avocado/%s/correlations_c.pkl' %pk,'rb'))
+    traj_list = [t.id for t in MDtrajectory.objects.exclude(torsions=None)]
+    correlations = []
+    for k in corr.keys():
+        for kk in corr[k].keys():
+            if abs(corr[k][kk]) > limit:
+                correlations.append((k,kk,corr[k][kk])) 
+    l = []
+    for k in correlations:
+        if (k[1],k[0],k[2]) not in l:
+            l += k,
+    correlations = sorted(l, key=lambda x: abs(x[2]), reverse=True)
+    return render(request,'md/correlations_for_traj.html' , 
+                        {'trajectory': trajectory, 
+                          'traj_list':traj_list,
+                          'limit':limit,
+                          'corr':correlations,
+                            })
+
 def avocados(request,pk,chain):
     trajectory =  MDtrajectory.objects.get(id=pk)
     imgmap =  {n:[(n-1)//18+1, n%18 or 18] for n in range(1,234)}
@@ -215,17 +264,21 @@ def residue_position_on_unit_circle(n,phi):
     #    A  F
     #  D      C
     #    B  E
+    CA_distances = pickle.load(open('/mnt/supermicro/avocado/CA_centar_distances.pkl', 'rb'))
     angle_offsets_dict = {'A': 90, 'B': 210, 'C': 330, 'D': 150, 'E': 270, 'F': 30}
     if phi == 'φ':offset = 60/(233*3)
     else:offset = 120/(233*3)
     chain = list('ABCDEF')[(n-1)//233]
     angle = angle_offsets_dict[chain] + 60*((n-1)%233)/233 + offset
     angle_radians = np.radians(angle)
-    return np.cos(angle_radians), np.sin(angle_radians)
+    r = CA_distances[n-1]
+    return r*np.cos(angle_radians), r*np.sin(angle_radians)
 
 def graph_plot(request,id):
+    traj_list = [t.id for t in MDtrajectory.objects.exclude(torsions=None)]
     plt.cla()
-    pie = plt.pie([60]*6,startangle=30)
+    labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
+    pie = plt.pie([60]*6,startangle=90,labels=['A','D','B','E','C','F'])
     for w in pie[0]:
         w.set_alpha(0.2)
     dpi = request.GET.get('dpi',None)
@@ -241,8 +294,8 @@ def graph_plot(request,id):
     wghts = [G[k][v]['weight'] for k,v in G.edges]
     pos = {n:residue_position_on_unit_circle(*n) for n in G.nodes}
     degrees = [nx.degree(G,k)*5 for k in G.nodes]
-    nx.draw_networkx(G, pos=pos, node_color=degrees, node_size=degrees, font_size=2, width=0.3, edge_color=wghts, edge_cmap=plt.cm.RdBu, edge_vmax=1, edge_vmin=-1, alpha=0.4)
+    nx.draw_networkx(G, pos=pos, node_color=degrees, node_size=degrees, font_size=2, width=0.3, edge_color=wghts, edge_cmap=plt.cm.RdBu, edge_vmax=1, edge_vmin=-1, alpha=0.8)
     img = io.BytesIO()
     plt.savefig(img,dpi=dpi or 1000,bbox_inches='tight',pad_inches=0)
     plot = base64.b64encode(img.getvalue()).decode()
-    return render(request, 'md/graph.html' , {'plot': plot,'id':id, 'core':core})
+    return render(request, 'md/graph.html' , {'plot': plot,'id':id, 'core':core,'traj_list':traj_list})

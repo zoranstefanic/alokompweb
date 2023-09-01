@@ -43,7 +43,7 @@ class MDtrajectory(models.Model):
         return os.path.basename(self.file)
 
     def __str__(self):
-       return "%s" % self.filename()
+       return "%s (%s)" % (self.filename(),self.note)
 
 class TorsionAngle(models.Model):
     """Represent torsion angles during trajectory"""
