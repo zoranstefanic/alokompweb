@@ -1,3 +1,4 @@
+import pandas as pd
 from symmetry.models import *
 import pickle
 import re
@@ -93,3 +94,18 @@ def create_unit_cells():
         if created:
             print('Created %s' % uc)
 
+
+def create_symmetries():
+    "This is used to populate SymOp objects from contacts dataframe prepared with cctbx"
+    C = pd.read_pickle('/home/zoran/alokompweb/supermicro/disk1/ALOKOMP/cctbx/contacts/Contacts_not_same_residue.pkl')
+    symmetres = C[['pdbid','symmetry']].value_counts()
+    list_of_symmetries = symmetres.index.to_list()
+    for pdbid, sym in list_of_symmetries:
+        pdb = Pdb.objects.get(code=pdbid)
+        uc = pdb.unit_cell
+        if sym != '-':
+            s, created = SymOp.objects.get_or_create(sym=sym,unit_cell=uc)
+            if created:
+                print('Created symmetry:', s, uc)
+            else:
+                print('Already existing:', s, uc)
