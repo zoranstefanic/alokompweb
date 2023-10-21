@@ -1,5 +1,5 @@
 from django.db import models
-from pdbase.models import Atom, Pdb
+from pdbase.models import Atom, Pdb, Residue
 
 class SymmOp(models.Model):
     """Represents a symmetry operation in the group"""
@@ -21,6 +21,24 @@ class Contact(models.Model):
     
     def __str__(self):
         return "%s %s %s %s" % (self.from_atom, self.to_atom, self.prob, self.d)
+
+class SymOp(models.Model):
+    """Represents a symmetry operation between residues"""
+    sym = models.CharField(null=True,max_length=100)
+    unit_cell = models.ForeignKey('UnitCell',on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return "%s" % (self.sym)
+
+class ResidueContact(models.Model):
+    """Represents one crystal contact between chains"""
+    d = models.FloatField()
+    res1 = models.ForeignKey(Residue, related_name='rescont1', on_delete=models.CASCADE)
+    res2 = models.ForeignKey(Residue, related_name='rescont2', on_delete=models.CASCADE)
+    symop = models.ForeignKey(SymOp, null=True, related_name='rescontacts',on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return "%s %s %s" % (self.res1, self.res2, self.d)
 
 class UnitCell(models.Model):
     """Represents unit cell and symmetry"""
