@@ -25,6 +25,7 @@ class Contact(models.Model):
 class SymOp(models.Model):
     """Represents a symmetry operation between residues"""
     sym = models.CharField(null=True,max_length=100)
+    type = models.IntegerField(null=True)
     unit_cell = models.ForeignKey('UnitCell',on_delete=models.CASCADE)
     
     def __str__(self):
@@ -38,7 +39,7 @@ class ResidueContact(models.Model):
     symop = models.ForeignKey(SymOp, null=True, related_name='rescontacts',on_delete=models.CASCADE)
     
     def __str__(self):
-        return "%s %s %s" % (self.res1, self.res2, self.d)
+        return "%s --- %s" % (self.res1, self.res2)
 
 class UnitCell(models.Model):
     """Represents unit cell and symmetry"""

@@ -23,6 +23,15 @@ def symmops(request):
                     }
                 )
 
+def symops(request):
+    "New kind of symops between residues"
+    symops = SymOp.objects.all()
+    return render(request, 'symmetry/symops.html', 
+                    {
+                    'symops':symops,
+                    }
+                )
+
 def symmop(request,id):
     symmop = SymmOp.objects.get(id=id)
     return render(request, 'symmetry/symmop.html', 
@@ -31,6 +40,27 @@ def symmop(request,id):
                     }
                 )
 
+def symop(request,id):
+    symop = SymOp.objects.get(id=id)
+    return render(request, 'symmetry/symop.html', 
+                    {
+                   'symop':symop,
+                    }
+                )
+
+
+def residue_contact_view(request,id):
+    d = {}
+    rc = ResidueContact.objects.get(id=id)
+    # Get all residue matches with this residue in all the alignments
+    rmatches = ResidueMatch.objects.filter(fixed__in=[rc.res1,rc.res2])
+    rmatches = rmatches.union(ResidueMatch.objects.filter(moving__in=[rc.res1,rc.res2])).order_by('distance') 
+    return render(request, 'symmetry/residue_contact_view.html', 
+                    {
+                   'rc':rc,
+                   'rmatches':rmatches,
+                    }
+                )
 def residue_symmop_view(request,id):
     d = {}
     r = Residue.objects.get(id=id)

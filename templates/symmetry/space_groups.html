@@ -46,5 +46,9 @@ svg {
             </tbody>
             </table>
 </div>
+            {% for pdb in pdbs %}
+            <a href="{% url 'structure_symmetry' pdb.code %}"><img style="width:10%;" src="/static/symmetry/{{pdb.code}}_001.png" alt=""></a>
+            <a href="{% url 'd3_projections' pdb.code %}">{{pdb}}</a>
+            {% endfor %}
 {% endblock %}
 

@@ -94,7 +94,6 @@ def create_unit_cells():
         if created:
             print('Created %s' % uc)
 
-
 def create_symmetries():
     "This is used to populate SymOp objects from contacts dataframe prepared with cctbx"
     C = pd.read_pickle('/home/zoran/alokompweb/supermicro/disk1/ALOKOMP/cctbx/contacts/Contacts_not_same_residue.pkl')
@@ -109,3 +108,28 @@ def create_symmetries():
                 print('Created symmetry:', s, uc)
             else:
                 print('Already existing:', s, uc)
+
+
+def create_residue_contacts(n1,n2):
+    C = pd.read_pickle('/home/zoran/alokompweb/supermicro/disk1/ALOKOMP/cctbx/contacts/C_inter_chains.pkl')
+    problem_residues = pd.DataFrame(columns=C.columns)
+    for r in C[n1:n2].iterrows():
+        try:
+            r1 = Residue.objects.get(name=r[1][2],chain__chain_id=r[1][3],chain__pdb__code=r[1][0],num=r[1][4])
+            r2 = Residue.objects.get(name=r[1][9],chain__chain_id=r[1][10],chain__pdb__code=r[1][0],num=r[1][11])
+            uc = Pdb.objects.get(code=r[1][0]).unit_cell
+            if r[1][-1] == '-':
+               sym = None
+            else:
+               sym = r[1][-1]
+            #print(r1,r2,uc,sym,r[1][12])
+            symop = SymOp.objects.get(sym=sym,unit_cell=uc)
+            rescontact, created = ResidueContact.objects.get_or_create(res1=r1,res2=r2,symop=symop,d=r[1][12])
+            if created:
+                print('Created:',rescontact)
+            else:
+                print('Existing:',rescontact)
+        except:
+             problem_residues.loc[len(problem_residues)] = r[1]
+    return problem_residues
+

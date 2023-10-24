@@ -1,0 +1,46 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Symop {{symop}}{% endblock%}
+{% block 'extra_css_' %}
+<style>
+    .container {max-width:98%;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h1><a href="{% url 'symops' %}">All symops</a></h1>
+    <h1>List of contacts for symop: {{symop}}</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Contact</th>
+                <th>Residue 1</th>
+                <th>Residue 2</th>
+                <th>distance</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for rc in symop.rescontacts.all %} 
+            <tr>
+                <td>{{rc}}</td>
+                <td>
+                    <a href="{% url 'residue_view' rc.res1.chain.pdb.code rc.res1.chain.chain_id rc.res1.num %}">{{ rc.res1 }}</a>
+                    <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{rc.res1.chain.pdb.code}}_deposited_chain_front_image-200x200.png" ></td>
+                </td>
+                <td><a href="{% url 'residue_view' rc.res2.chain.pdb.code rc.res2.chain.chain_id rc.res2.num %}">{{ rc.res2 }}</a></td>
+                <td><b>{{rc.d|floatformat:3}}</b></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter();
+        });
+    </script>
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}

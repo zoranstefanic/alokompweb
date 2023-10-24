@@ -5,8 +5,8 @@
     <h1><a href="{% url 'structure_view' code %}">PDB {{pdb}}</a></h1>
     <h1><a href="https://www.ebi.ac.uk/pdbe/entry/pdb/{{pdb}}">{{pdb}}</a></h1>
     <h3>{{ pdb.title }}</h3>
-    <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{code}}_deposited_chain_front_image-400x400.png" ></td>
-    <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{code}}_assembly_1_chemically_distinct_molecules_front_image-400x400.png" ></td>
+    <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{code}}_deposited_chain_front_image-200x200.png" ></td>
+    <img src="https://www.ebi.ac.uk/pdbe/static/entry/{{code}}_assembly_1_chemically_distinct_molecules_front_image-200x200.png" ></td>
     <a href="https://www.ebi.ac.uk/pdbe/entry/view3D/{{code}}/?view=entry_index&viewer=litemol&assembly=1"><button class="btn btn-info">View 3D</button></a>
     <a href="{% url 'structure_ngl_view' code%}"><button class="btn">NGL view</button></a>
     <h4>Symmetry of {{pdb}}</h4>

@@ -1,0 +1,40 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Symmetry operations between residues{% endblock%}
+{% block 'extra_css_' %}
+<style>
+    .container {max-width:98%;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <h1>Total number of symmetry operations: {{symops|length}}</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symop</th>
+                <th>Space group</th>
+                <th>Unit cell parameters</th>
+            </tr>
+        </thead>
+    <tbody>
+        {% for s in symops %} 
+            <tr>
+                <td><a href="{% url 'symop' s.id%}">{{s}}</a></td>
+                <td>{{s.unit_cell}}</td>
+                <td>{{s.unit_cell.params}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
+{% block 'extra_scripts' %}
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $(".table").tablesorter();
+        });
+    </script>
+{% endblock %}
+
+{% block '_footer' %}
+{% endblock %}
