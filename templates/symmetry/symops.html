@@ -13,6 +13,7 @@
             <tr>
                 <th>Symop</th>
                 <th>Space group</th>
+                <th>Type</th>
                 <th>Unit cell parameters</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
             <tr>
                 <td><a href="{% url 'symop' s.id%}">{{s}}</a></td>
                 <td>{{s.unit_cell}}</td>
+                <td>{{s.sym_type}}</td>
                 <td>{{s.unit_cell.params}}</td>
             </tr>
         {% endfor %}
