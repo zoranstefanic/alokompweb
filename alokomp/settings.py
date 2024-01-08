@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'workplan',
     'd3',
     'symmetry',
+    'news',
 ]
 
 MIDDLEWARE = [
@@ -139,5 +140,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/uploads')
 
 ACCOUNT_OPEN_SIGNUP=False
