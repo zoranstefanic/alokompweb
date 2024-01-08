@@ -2,7 +2,7 @@
 {% block 'title' %}{{item.title}}{% endblock%}
 
 {% block 'content' %}
-<a href="{% url 'news-list' %}"><button class="btn btn-info">Back to news list</button></a>
+<a href="{% url 'news' %}"><button class="btn btn-info">Back to news list</button></a>
 <div class="row">
       <div class="col-lg-12">
             <h5 class="float-right">{{item.created}}</h5>  
@@ -13,7 +13,7 @@
            <h2>Some photos</h2>
           {% for img in item.photos.all %}
                <figure>
-               <img style="width:100%;margin:20px;" src="{{img.image.url}}" alt="{{img.image.caption}}">
+               <img style="width:70%;margin:20px;" src="{{img.image.url}}" alt="{{img.image.caption}}">
                 <figcaption>{{img.caption}}</figcaption>
               </figure> 
           {% endfor %}

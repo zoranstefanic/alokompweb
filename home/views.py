@@ -14,7 +14,7 @@ def ngl(request):
 def team(request):
     return render(request, 'team.html')
 
-def news(request):
+def oldnews(request):
     return render(request, 'news.html')
 
 def gannt(request):
