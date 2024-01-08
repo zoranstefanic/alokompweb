@@ -141,6 +141,6 @@ STATIC_URL = '/static/'
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/uploads')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/uploads/')
 
 ACCOUNT_OPEN_SIGNUP=False

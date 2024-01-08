@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import *
 
 admin.autodiscover()
@@ -16,3 +15,5 @@ class PhotoInline(admin.StackedInline):
 @admin.register(NewsItem)
 class NewsItemAdmin(admin.ModelAdmin):
     inlines = [PhotoInline, FileInline]
+    prepopulated_fields = {"slug": ["title"]}
+    list_display = ['title','created','published','user']

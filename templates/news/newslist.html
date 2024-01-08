@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block 'title' %}ALOKOMP project - news{% endblock%}
+
+{% block 'content' %}
+<h1>News</h1>
+{% for item in news %}
+    <div class="row">
+          <div class="col-lg-12">
+               <img class="float-left" style="width:300px;margin:20px;" src="{{item.get_photo.image.url}}" alt="{{item.get_photo.image.caption}}">
+                <h5 class="float-right">{{item.created}}</h5>  
+              <h3><a href="{% url 'news-item' item.slug %}">{{item.title}}</a></h3>
+              <p>
+                {{item.text}}
+                <a href="{% url 'news-item' item.slug %}"><button class="btn btn-info">Raad more here!</button></a>
+              </p>
+          </div>
+    </div>
+{% endfor %}
+<hr>
+{% endblock %}
