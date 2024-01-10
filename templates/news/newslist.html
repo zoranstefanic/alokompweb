@@ -10,8 +10,9 @@
                 <h5 class="float-right">{{item.created}}</h5>  
               <h3><a href="{% url 'news-item' item.slug %}">{{item.title}}</a></h3>
               <p>
-                {{item.text}}
-                <a href="{% url 'news-item' item.slug %}"><button class="btn btn-info">Raad more here!</button></a>
+                {{item.text|safe}}
+                <br>
+                <a href="{% url 'news-item' item.slug %}">Read more!</a>
               </p>
           </div>
     </div>

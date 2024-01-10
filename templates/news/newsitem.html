@@ -8,7 +8,7 @@
             <h5 class="float-right">{{item.created}}</h5>  
           <h3><a href="{% url 'news-item' item.slug %}">{{item.title}}</a></h3>
           <p>
-            {{item.text}}
+            {{item.text|safe}}
           </p>
            <h2>Some photos</h2>
           {% for img in item.photos.all %}

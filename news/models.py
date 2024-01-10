@@ -5,7 +5,7 @@ from random import choice
 class NewsItem(models.Model):
     """One news article on the News page"""
     title = models.CharField(max_length=300) 
-    slug = models.SlugField(null=True) 
+    slug = models.SlugField(null=True,unique=True) 
     text = models.TextField() 
     created = models.DateField(editable=True)
     published  = models.BooleanField(default=True)
@@ -22,7 +22,6 @@ class NewsItem(models.Model):
 
     def get_photo(self):
         return choice(self.photos.all())
-        
 
 class Photo(models.Model):
     """Photo related to the Article"""
