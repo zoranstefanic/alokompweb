@@ -4,6 +4,7 @@
 {% block 'content' %}
 <h1>News</h1>
 {% for item in news %}
+    {% if item.published %}
     <div class="row">
           <div class="col-lg-12">
                <img class="float-left" style="width:300px;margin:20px;" src="{{item.get_photo.image.url}}" alt="{{item.get_photo.image.caption}}">
@@ -16,6 +17,7 @@
               </p>
           </div>
     </div>
+    {% endif %}
 {% endfor %}
 <hr>
 {% endblock %}

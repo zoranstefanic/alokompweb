@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from random import choice
 
 class NewsItem(models.Model):
@@ -10,6 +11,9 @@ class NewsItem(models.Model):
     created = models.DateField(editable=True)
     published  = models.BooleanField(default=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='NewsItems')
+        
+    def get_absolute_url(self):
+        return reverse("news-item",kwargs={'slug':self.slug})
 
     class Meta:
         ordering = ["-created"]
