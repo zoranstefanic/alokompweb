@@ -25,7 +25,10 @@ class NewsItem(models.Model):
         return "%s" % self.title
 
     def get_photo(self):
-        return choice(self.photos.all())
+        if self.photos.all():
+            return choice(self.photos.all())
+        else:
+            return None
 
 class Photo(models.Model):
     """Photo related to the Article"""
