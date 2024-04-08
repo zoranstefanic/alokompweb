@@ -11,6 +11,7 @@
     <div class="container">
         <div class="row">
             <h1>Trajectories ({{trajectories|length}})</h1>
+            <a href="{% url 'MDAnalyzedView'%}"><button class="btn btn-info"><img style="width:40px;" src="/static/images/avocado.png" alt="">MDavocado trajectories</button></a>
             <hr>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
@@ -31,7 +32,7 @@
                 <tr>
                     <th>Trajectory</th>
                     <th>Directory</th>
-                    <th>Torsions</th>
+                    <th>MDavocados</th>
                     <th>Size</th>
                     <th>Total time (ps)</th>
                     <th>Atoms</th>
@@ -44,7 +45,8 @@
                 <tr>
                     <td style="word-wrap: break-word;"><a href="{% url 'MDtrajectoryView' t.id %}">{{t}}</a></td>
                     <td style="word-wrap: break-word;"><a href="{% url 'MDdirectoryView' t.directory.id %}">{{t.directory}}</a></td>
-                    <td><img style="width:400px;" src="/static/torsions/{{t.id}}_{{t.replica}}.png" alt=""></td>
+                    {#<td><img style="width:400px;" src="/static/torsions/{{t.id}}_{{t.replica}}.png" alt=""></td>#}
+                    <td>{%if t.analysed %}<a href="{% url 'MDtrajectoryView' t.id %}"><img style="width:60px;" src="/static/images/avocado.png" alt=""></a>{%endif%}</td>
                     <td>{{t.filesize|filesizeformat}}</td>
                     <td>{{t.totaltime}}</td>
                     <td>{{t.num_atoms}}</td>

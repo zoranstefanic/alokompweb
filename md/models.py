@@ -45,6 +45,9 @@ class MDtrajectory(models.Model):
     def __str__(self):
        return "%s (%s)" % (self.filename(),self.note)
 
+    def analysed(self):
+        return self.torsions.exists()
+
 class TorsionAngle(models.Model):
     """Represent torsion angles during trajectory"""
     name = models.CharField(max_length=100)
