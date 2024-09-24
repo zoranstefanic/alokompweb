@@ -221,6 +221,27 @@ def avocados(request,pk,chain):
                           'offset':offset,
                             })
 
+def avocados_active_site(request,pk,chain):
+    #Defining the amino acids that PO4 has contacts with
+    nums = '19,20,21,23,24,64,87,89,90,160,180,203,214,215,217,218,221'.split(',')
+    offset = dict(zip(list('ABCDEF'),[i*233 for i in range(6)]))[chain]
+    nums = [int(i)+offset for i in nums]
+    amino_acids = dict([(str(i),num_to_res(i)) for i in nums])
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    imgmap =  {n:[(n-1)//18+1, n%18 or 18] for n in range(1,234)}
+    d = {}
+    for k,v in imgmap.items():
+        i,j = v[0],v[1]
+        d[k+offset] = [(j-1)*100,(i-1)*100,j*100,i*100]
+    return render(request,'md/avocados_active_site.html' , 
+                        {'trajectory': trajectory, 
+                          'imgmap':d,
+                          'chain':chain,
+                          'offset':offset,
+                          'nums':nums,
+                          'amino_acids':amino_acids,
+                            })
+
 def overlap(request,pk,num1,num2):
     n1 = int(num1)
     n2 = int(num2)
