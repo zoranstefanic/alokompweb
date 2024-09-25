@@ -222,10 +222,12 @@ def avocados(request,pk,chain):
                             })
 
 def avocados_active_site(request,pk,chain):
-    #Defining the amino acids that PO4 has contacts with
-    nums = '19,20,21,23,24,64,87,89,90,160,180,203,214,215,217,218,221'.split(',')
+    D1_nums = '19,20,21,23,24,64,87,89,90,160,180,203,214,215,217,218,221'.split(',') # Dimer 1 that makes the active site
+    D2_nums = '1,2,3,4,42,43'.split(',') # Dimer 2
+    # Dimers are A-D B-E C-F
     offset = dict(zip(list('ABCDEF'),[i*233 for i in range(6)]))[chain]
-    nums = [int(i)+offset for i in nums]
+    nums = [int(i)+offset for i in D1_nums]
+    nums += [(int(i)+233*3 + offset)%1398 for i in D2_nums]
     amino_acids = dict([(str(i),num_to_res(i)) for i in nums])
     trajectory =  MDtrajectory.objects.get(id=pk)
     imgmap =  {n:[(n-1)//18+1, n%18 or 18] for n in range(1,234)}
