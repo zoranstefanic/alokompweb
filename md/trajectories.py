@@ -54,7 +54,6 @@ def MDtrajectory_from_file(t):
     else:
         print('Updated trajectory %s' % traj)
         
-    
 def MDdirectory_from_directory(d):
     (mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(d)
     try:

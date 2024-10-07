@@ -221,6 +221,25 @@ def avocados(request,pk,chain):
                           'offset':offset,
                             })
 
+def janins(request,pk):
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    return render(request,'md/janins.html' , {'trajectory': trajectory, })
+
+def janin(request,pk,chain):
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    imgmap =  {n:[(n-1)//14+1, n%14 or 14] for n in range(1,144)}
+    d = {}
+    offset = dict(zip(list('ABCDEF'),[i*144 for i in range(6)]))[chain]
+    for k,v in imgmap.items():
+        i,j = v[0],v[1]
+        d[k+offset] = [(j-1)*100,(i-1)*100,j*100,i*100]
+    return render(request,'md/janin.html' , 
+                        {'trajectory': trajectory, 
+                          'imgmap':d,
+                          'chain':chain,
+                          'offset':d,
+                            })
+
 def avocados_active_site(request,pk,chain):
     D1_nums = '19,20,21,23,24,64,87,89,90,160,180,203,214,215,217,218,221'.split(',') # Dimer 1 that makes the active site
     D2_nums = '1,2,3,4,42,43'.split(',') # Dimer 2

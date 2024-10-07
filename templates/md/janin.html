@@ -1,0 +1,36 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Janin plots for {{trajectory.pk}}{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    body {background:#17a2b8;}
+    .container {max-width:100%;}
+    .corr {padding:3px;color:white;}
+    .avocado {border:1px solid white;width:100px;padding:1px;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+    <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
+    <a href="{%url 'janins' trajectory.pk %}"><button class="btn btn-warning">All Janin plots</button></a>
+    {% for c in 'ABCDEF'%}
+        <a href="{%url 'janin' trajectory.pk c %}"><button class="btn btn-warning">Chain {{c}}</button></a>
+    {% endfor %}
+    <hr>
+<div class="row">
+    <div class="col-md-12">
+        <img src="/static/janins/{{trajectory.pk}}/{{chain}}.gif" alt="" usemap="#imgmap">
+    </div>
+</div>
+<map name="imgmap">
+    {% for n,c in imgmap.items %}
+    <area shape="rect" coords="{{c.0}},{{c.1}},{{c.2}},{{c.3}}" href="{%url 'correlations_circular' trajectory.pk n %}" alt="">
+    {% endfor %}
+</map>
+       
+{% endblock %}
+  {% block 'extra_scripts' %}
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  {% endblock %}
+{% block '_footer' %}
+{% endblock %}

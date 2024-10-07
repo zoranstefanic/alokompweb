@@ -49,6 +49,7 @@
     <col-md-12>
         <a href="{%url 'ramachandran' trajectory.pk 2%}"><button class="btn btn-large btn-warning">Detailed plots</button></a>
         <a href="{%url 'correlations_for_traj' trajectory.pk %}"><button class="btn btn-large btn-warning">Highest correlations</button></a>
+        <a href="{%url 'janins' trajectory.pk %}"><button class="btn btn-large btn-warning">Janin plots</button></a>
         <h1>Ramachandran angle plots</h1>
         {% for chain in "ABCDEF" %}
                 <a href="{% url 'avocados' trajectory.pk chain %}">
