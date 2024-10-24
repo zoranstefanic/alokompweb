@@ -26,4 +26,10 @@ urlpatterns = [
     url(r'trajectory/ta/(\d+)$', torsion_plot, name="torsion_plot"),
     url(r'trajectory/changepoints/(\d+)$', changepoints_plot, name="changepoints_plot"),
     url(r'trajectory/graph/(\d+)$', graph_plot, name="graph_plot"),
+    url(r'd3plot/$', d3plot, name="d3plot"),
+    url(r'corrd3/(\d+)$', corrd3, name="corrd3"),
+    url(r'coords/$', coords, name="coords"),
+    url(r'corr_janin/(\d+)$', janin_corr, name="janin_corr"),
+    url(r'corrd3_janin/(\d+)$', corrd3_janin, name="corrd3_janin"),
+    url(r'corr/(\d+)$', corr, name="corr"),
 ]

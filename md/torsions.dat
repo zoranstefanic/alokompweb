@@ -22,6 +22,12 @@
 /mnt/supermicro/disk1/MD/PNP/6g7x_po4/hexamer/amber/R01/6g7x_PO4_torsion-chainA.dat
 /mnt/supermicro/disk1/MD/PNP/6g7x_po4/hexamer/amber/R01/6g7x_PO4_torsion-chainF.dat
 /mnt/supermicro/disk1/MD/PNP/6g7x_po4/hexamer/amber/R01/6g7x_PO4_torsion-chainC.dat
+/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainC.dat
+/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainB.dat
+/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainE.dat
+/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainF.dat
+/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainD.dat
+/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainA.dat
 /mnt/supermicro/disk1/MD/PNP/5lu0_po4/hexamer/amber/R02/5lu0_PO4_torsion-chainD.dat
 /mnt/supermicro/disk1/MD/PNP/5lu0_po4/hexamer/amber/R02/5lu0_PO4_torsion-chainF.dat
 /mnt/supermicro/disk1/MD/PNP/5lu0_po4/hexamer/amber/R02/5lu0_PO4_torsion-chainB.dat
@@ -124,12 +130,6 @@
 /mnt/supermicro/disk3/MD/PNP/6F4X_fmc_po4_D/hexamer/R03/6F4X_apo_torsion-chainA.dat
 /mnt/supermicro/disk3/MD/PNP/6F4X_fmc_po4_D/hexamer/R03/6F4X_apo_torsion-chainB.dat
 /mnt/supermicro/disk3/MD/PNP/6F4X_fmc_po4_D/hexamer/R03/6F4X_apo_torsion-chainF.dat
-/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainC.dat
-/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainB.dat
-/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainE.dat
-/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainF.dat
-/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainD.dat
-/mnt/supermicro/disk3/MD/PNP/5lu0_po4/hexamer/amber/R03/5lu0_PO4_torsion-chainA.dat
 /mnt/supermicro/disk3/MD/PNP/6F4X_fmc_po4/hexamer/amber/R02/6F4X_FMC_PO4_torsion-chainB.dat
 /mnt/supermicro/disk3/MD/PNP/6F4X_fmc_po4/hexamer/amber/R02/6F4X_FMC_PO4_torsion-chainD.dat
 /mnt/supermicro/disk3/MD/PNP/6F4X_fmc_po4/hexamer/amber/R02/6F4X_FMC_PO4_torsion-chainE.dat

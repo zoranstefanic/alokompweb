@@ -1,0 +1,165 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Correlations for trajectory {{traj_id}}{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    body {background:#80bdff;}
+    .container {max-width:100%;}
+    #svg {
+    width:100%;
+    height:1200px;
+    margin:5px;
+    background: black;
+    }
+
+    .chainA circle {fill:blue;}
+    .chainB circle {fill:red;}
+    .chainC circle {fill:green;}
+    .chainD circle {fill:orange;}
+    .chainE circle {fill:violet;}
+    .chainF circle {fill:purple;}
+
+    svg path {
+      fill: none;
+      stroke: grey;
+      stroke-width: 2px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    
+
+    #tooltip {
+    position: absolute; opacity: 1;
+    }
+    .minigif {
+    width:150px;
+    }
+
+    circle:hover {opacity:1;}
+
+    circle.highlight {
+        fill: lime;
+        r:13; 
+        stroke-width:2px;
+        stroke:yellow;
+    }
+
+    circle.corr {
+        fill: lime;
+        r:18; 
+        stroke-width:3px;
+        stroke:yellow;
+    }
+
+    
+</style>
+{% endblock %}
+
+{% block 'content' %}
+<div class="row">
+    <div class="col-md-9">
+    <svg id="svg"></svg>
+    </div>
+    <div class="col-md-3">
+    <div id="tooltip"><p>Tooltip</p></div>
+    </div>
+</div>
+{% endblock %}
+  {% block 'extra_scripts' %}
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+    opacity_scale = d3.scaleLinear([-30,30],[0.01,1]);
+    const line = d3.line().x(d=>d[0]).y(d=>d[1]).curve(d3.curveLinear);
+    var corr = [];
+
+function get_corr() {
+    //Get correlation json file
+    d3.json('/md/corr/{{traj_id}}').then( function(data) {
+        corr = data;
+    });
+}
+
+function get_data() {
+    d3.json('/md/coords/{{traj_id}}').then( function( data ) {
+        return data;
+    });
+};
+
+function showgif (e,d) {
+    var targets = corr.filter(j => j.source == d & Math.abs(j.value) > 0.5);
+    targets = targets.map(j => j.target);
+    var source = '';
+    var tt = d3.select('#tooltip');
+    for (d of targets) {
+        source += '<img class="minigif" src=' + '"https://alokomp.irb.hr/static/avokado/{{traj_id}}/replica/aa/' + d +'.gif" /img>';
+    };
+    tt.html(source);
+
+    var sele = d3.selectAll('circle')
+        .filter(function(d,i) {return targets.includes(i+1)})
+        .classed('highlight corr',true);
+    }
+
+function hide(e,d) {
+    d3.selectAll('circle.corr')
+    .classed('corr',false);
+    }
+
+
+let zoom = d3.zoom().on('zoom', handleZoom);
+
+function handleZoom(e) {
+  d3.selectAll('#svg g')
+    .attr('transform', e.transform);
+}
+
+function initZoom() {
+  d3.select('#svg')
+    .call(zoom);
+}
+
+function draw_chain(c) {
+    d3.json('/md/coords/{{traj_id}}').then( function( data ) {
+        var coords = data[c];
+        hexamer = coords;
+        var offset = {'A':0,'B':233,'C':466,'D':699,'E':932,'F':1165};
+        coords = coords.map((x,i) => [x[0]*10+500,x[1]*10+500,x[2],i+1+offset[c]]); 
+
+        d3.select('#svg')
+          .append('g')
+          .append('path') // add a path to the existing svg
+          .attr('d', line(coords));
+
+        d3.select( "#svg" )
+        .append('g')
+        .attr('class', 'chain'+c)
+        .selectAll( "circle" )
+        .data(coords)
+        .enter()
+        .append( "circle" )
+        .on('mouseover', (e,d) => showgif(e,d[3]))
+        .on('mouseout', (e,d) => hide(e,d))
+        .attr( "cx", function(d) { return d[0]})
+        .attr( "cy", function(d) { return d[1]})
+        .attr("r",10)
+            .attr( "id", function(d,i) { return 'c'+d[3]})
+        .attr( "opacity", function(d) { return opacity_scale(d[2]) });
+
+        });
+    }
+
+
+function run(){
+    for (c of ['A','B','C','D','E','F']) {
+        draw_chain(c);
+    };
+}
+
+    get_corr();
+    run();
+    initZoom();
+    handleZoom();
+    </script>
+  {% endblock %}
+{% block '_footer' %}
+{% endblock %}

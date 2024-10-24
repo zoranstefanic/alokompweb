@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.http import JsonResponse
 from .models import *
 from bokeh.plotting import figure
 from bokeh.embed import components
@@ -12,6 +13,7 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import numpy as np
+import json
 
 resnames = 6 * ['MET', 'THR', 'PRO', 'HID', 'ILE', 'ASN', 'ALA', 'LYS', 'ILE', 'GLY', 'ASP', 'PHE', 'TYR', 'PRO', 'GLN', 'CYS', 'LEU', 'LEU', 'CYS', 'GLY', 'ASP', 'PRO', 'LEU', 'ARG', 'VAL', 'SER', 'TYR', 'ILE', 'ALA', 'LYS', 'LYS', 'PHE', 'LEU', 'GLN', 'ASP', 'ALA', 'LYS', 'GLU', 'ILE', 'THR', 'ASN', 'VAL', 'ARG', 'ASN', 'MET', 'LEU', 'GLY', 'PHE', 'SER', 'GLY', 'LYS', 'TYR', 'LYS', 'GLY', 'ARG', 'GLY', 'ILE', 'SER', 'LEU', 'MET', 'GLY', 'HID', 'GLY', 'MET', 'GLY', 'ILE', 'ALA', 'SER', 'CYS', 'THR', 'ILE', 'TYR', 'VAL', 'THR', 'GLU', 'LEU', 'ILE', 'LYS', 'THR', 'TYR', 'GLN', 'VAL', 'LYS', 'GLU', 'LEU', 'LEU', 'ARG', 'ILE', 'GLY', 'THR', 'CYS', 'GLY', 'ALA', 'ILE', 'SER', 'PRO', 'LYS', 'VAL', 'GLY', 'LEU', 'LYS', 'ASP', 'ILE', 'ILE', 'MET', 'ALA', 'THR', 'GLY', 'ALA', 'SER', 'THR', 'ASP', 'SER', 'LYS', 'THR', 'ASN', 'ARG', 'VAL', 'ARG', 'PHE', 'LEU', 'ASN', 'HIE', 'ASP', 'LEU', 'SER', 'ALA', 'THR', 'PRO', 'ASP', 'PHE', 'GLU', 'LEU', 'SER', 'LEU', 'ARG', 'ALA', 'TYR', 'GLN', 'THR', 'ALA', 'LYS', 'ARG', 'LEU', 'GLY', 'ILE', 'ASP', 'LEU', 'LYS', 'VAL', 'GLY', 'ASN', 'VAL', 'PHE', 'SER', 'SER', 'ASP', 'PHE', 'PHE', 'TYR', 'SER', 'PHE', 'GLU', 'THR', 'HIE', 'ALA', 'PHE', 'ASP', 'LEU', 'MET', 'ALA', 'LYS', 'TYR', 'ASN', 'HID', 'LEU', 'ALA', 'ILE', 'GLU', 'MET', 'GLU', 'ALA', 'ALA', 'GLY', 'LEU', 'TYR', 'ALA', 'THR', 'ALA', 'MET', 'GLU', 'LEU', 'ASN', 'ALA', 'LYS', 'ALA', 'LEU', 'CYS', 'LEU', 'CYS', 'SER', 'VAL', 'SER', 'ASP', 'HIE', 'LEU', 'ILE', 'THR', 'LYS', 'GLU', 'ALA', 'LEU', 'SER', 'PRO', 'LYS', 'GLU', 'ARG', 'VAL', 'GLU', 'SER', 'PHE', 'ASP', 'ASN', 'MET', 'ILE', 'ILE', 'LEU', 'ALA', 'LEU', 'GLU', 'MET', 'MET', 'SER']
 
@@ -319,7 +321,6 @@ def residue_position_on_unit_circle(n,phi):
 def graph_plot(request,id):
     traj_list = [t.id for t in MDtrajectory.objects.exclude(torsions=None)]
     plt.cla()
-    labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
     pie = plt.pie([60]*6,startangle=90,labels=['A','D','B','E','C','F'])
     for w in pie[0]:
         w.set_alpha(0.2)
@@ -341,3 +342,26 @@ def graph_plot(request,id):
     plt.savefig(img,dpi=dpi or 1000,bbox_inches='tight',pad_inches=0)
     plot = base64.b64encode(img.getvalue()).decode()
     return render(request, 'md/graph.html' , {'plot': plot,'id':id, 'core':core,'traj_list':traj_list})
+
+def d3plot(request):
+    return render(request, 'md/corr.html' , {'traj_id': 1458 })
+
+def coords(request):
+    coords = json.load(open('/mnt/supermicro/disk1/ALOKOMP/hexamer.json','r'))
+    return JsonResponse(coords)
+
+def corr(request,traj_id):
+    corr = json.load(open('/mnt/supermicro/avocado/%s/correlations.json' %traj_id,'r'))
+    return JsonResponse(corr,safe=False)
+
+def corrd3(request,traj_id):
+    trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
+    return render(request, 'md/corr.html' , {'traj_id': traj_id, 'trajectories':trajectories })
+
+def janin_corr(request,traj_id):
+    corr = json.load(open('/mnt/supermicro/avocado/%s/janin_corr.json' %traj_id,'r'))
+    return JsonResponse(corr,safe=False)
+
+def corrd3_janin(request,traj_id):
+    trajectories = '1184 1192 1234 1242 1306 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
+    return render(request, 'md/corrd3_janin.html' , {'traj_id': traj_id, 'trajectories':trajectories })
