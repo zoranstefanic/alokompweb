@@ -210,7 +210,8 @@ def correlations_for_traj(request,pk):
 
 def avocados(request,pk,chain):
     trajectory =  MDtrajectory.objects.get(id=pk)
-    imgmap =  {n:[(n-1)//18+1, n%18 or 18] for n in range(1,234)}
+    #imgmap =  {n:[(n-1)//18+1, n%18 or 18] for n in range(1,234)} # for the old style imagemaps
+    imgmap =  {n:[(n-1)//16+1, n%16 or 16] for n in range(1,234)}
     d = {}
     offset = dict(zip(list('ABCDEF'),[i*233 for i in range(6)]))[chain]
     for k,v in imgmap.items():
@@ -357,6 +358,24 @@ def corr(request,traj_id):
 def corrd3(request,traj_id):
     trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
     return render(request, 'md/corr.html' , {'traj_id': traj_id, 'trajectories':trajectories })
+
+def corrd3_all(request,traj_id):
+    trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
+    corr = json.load(open('/mnt/supermicro/avocado/%s/correlations.json' %traj_id,'r'))
+    all_correlated = list(set([s['source'] for s in corr]))
+    hubs = {}
+    for r in corr:
+        k = r['source']
+        if k in hubs.keys():
+            hubs[k] +=1
+        else:
+            hubs.setdefault(k,1)
+    return render(request, 'md/corrd3_all.html',
+            {'traj_id': traj_id, 
+            'all_correlated': all_correlated,  
+            'trajectories':trajectories, 
+            'hubs':hubs, 
+            })
 
 def janin_corr(request,traj_id):
     corr = json.load(open('/mnt/supermicro/avocado/%s/janin_corr.json' %traj_id,'r'))

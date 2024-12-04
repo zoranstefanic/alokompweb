@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'trajectory/graph/(\d+)$', graph_plot, name="graph_plot"),
     url(r'd3plot/$', d3plot, name="d3plot"),
     url(r'corrd3/(\d+)$', corrd3, name="corrd3"),
+    url(r'corrd3_all/(\d+)$', corrd3_all, name="corrd3_all"),
     url(r'coords/$', coords, name="coords"),
     url(r'corr_janin/(\d+)$', janin_corr, name="janin_corr"),
     url(r'corrd3_janin/(\d+)$', corrd3_janin, name="corrd3_janin"),

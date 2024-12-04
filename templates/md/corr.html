@@ -40,6 +40,7 @@
     .aagif {
     width:250px;
     border:blue 1px solid;
+    margin-top:10px;
     display:block;
     }
     .minigif {
@@ -61,19 +62,18 @@
         stroke-width:3px;
         stroke:yellow;
     }
-
-    
 </style>
 {% endblock %}
 
 {% block 'content' %}
 <div class="row">
     <div class="col-md-8">
-    <h1>Phi psi correlations for trajectory {{traj_id}}</h1>
+    <h1>Phi psi correlations for trajectory <a href="{% url 'MDtrajectoryView' traj_id %}">{{traj_id}}</a></h1>
     {% for i in trajectories %}
         <a href="{%url 'corrd3' i %}"><button class="btn btn-danger">{{i}}</button></a>
     {% endfor %}
             <a href="{%url 'corrd3_janin' traj_id %}"><button class="btn btn-danger"><i class="bi bi-graph-up"></i> &chi;1 &chi;2 correlations</button></a>
+            <a href="{%url 'corrd3_all' traj_id %}"><button class="btn btn-warning"><i class="bi bi-asterisk"></i> All plot</button></a>
             <a href="{%url 'graph_plot' traj_id %}"><button class="btn btn-warning">Old style Graph <i class="bi bi-bounding-box-circles"></i></button></a>
     <svg id="svg"></svg>
     </div>
@@ -93,6 +93,8 @@
     opacity_scale = d3.scaleLinear([-30,30],[0.01,1]);
     const line = d3.line().x(d=>d[0]).y(d=>d[1]).curve(d3.curveLinear);
     var corr = [];
+
+
 
 function get_corr() {
     //Get correlation json file

@@ -40,6 +40,7 @@
     .aagif {
     width:250px;
     border:blue 1px solid;
+    margin-top:10px;
     display:block;
     }
     .minigif {
@@ -69,7 +70,7 @@
 {% block 'content' %}
 <div class="row">
     <div class="col-md-8">
-    <h1>Janin correlations for trajectory {{traj_id}}</h1>
+    <h1>Janin correlations for trajectory <a href="{% url 'MDtrajectoryView' traj_id %}">{{traj_id}}</a></h1>
     {% for i in trajectories %}
         <a href="{%url 'corrd3_janin' i %}"><button class="btn btn-danger">{{i}}</button></a>
     {% endfor %}
