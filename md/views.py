@@ -370,6 +370,7 @@ def corrd3_all(request,traj_id):
             hubs[k] +=1
         else:
             hubs.setdefault(k,1)
+    #hubs = {i:hubs.setdefault(i,0) for i in range(1,1399)}
     return render(request, 'md/corrd3_all.html',
             {'traj_id': traj_id, 
             'all_correlated': all_correlated,  
