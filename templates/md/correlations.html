@@ -18,6 +18,8 @@
     <h1><span class="residue"><b>{{ residue }}</b></span><span style="color:white;">({{num}})</span> </h1>
     <h2> <a href="{%url 'MDtrajectoryView' trajectory.pk%}">{{trajectory}}</a> </h2>
     <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
+    <a href="{%url 'corrd3_all' trajectory.pk %}"><button class="btn btn-danger">Corrd3_all</button></a>
+    <a href="{%url 'corrd3_janin' trajectory.pk %}"><button class="btn btn-danger">Corrd3_janin</button></a>
     <a href="{%url 'graph_plot' trajectory.pk%}"><button class="btn btn-warning">Graph</button></a>
     <a href="{%url 'CorrelationMatrixView' trajectory.pk%}"><button class="btn btn-info">CM</button></a>
     <a href="./{{prev}}"><button class="btn btn-info">Previous</button></a>
@@ -26,8 +28,6 @@
     <a href="{%url 'ramachandran' trajectory.pk num%}"><button class="btn btn-success">Ramachandran</button></a>
     <a href="{%url 'changepoints_plot' trajectory.pk%}"><button class="btn btn-info">Change points</button></a>
     <a href="{%url 'correlations_circular' trajectory.pk num%}"><button class="btn btn-success">Circular</button></a>
-    <a href="{%url 'correlations' trajectory.pk num%}"><button class="btn btn-success">New</button></a>
-    <a href="{%url 'correlations_old' trajectory.pk num%}"><button class="btn btn-success">Old</button></a>
     <a class="btn btn-warning dropdown-toggle float-right" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"> In other trajectories </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item corr" href="{%url  'residue_in_all' trajectory.id num %}">{{num}} in all</a>
