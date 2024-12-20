@@ -32,6 +32,10 @@
       border:blue 1px solid;
       margin: 1px;
       width:100%;
+      z-index:-100;
+    }
+    .analysis_div {
+      z-index:-110;
     }
     
 
@@ -41,7 +45,7 @@
 
     .aagif {
     width:250px;
-    border:blue 0.5.px solid;
+    border:blue 0.5px solid;
     margin-top:10px;
     display:block;
     }
@@ -78,6 +82,9 @@
         stroke-width:3px;
         opacity:1;
     }
+    .canvas_div {
+        z-index:-1000;
+    }
 </style>
 {% endblock %}
 
@@ -105,12 +112,12 @@
     <div class="col-md-6">
         <svg id="svg"></svg>
     </div>
-    <div class="col-md-6">
+    <div class="canvas_div">
         <canvas id="canvas"></canvas>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="analysis_div" class="col-md-12">
       <img class="analysis_img" src="/static/avokado/{{traj_id}}/replica/analysis.png" alt=""></a>
     </div>
 </div>
@@ -238,7 +245,7 @@ function showgif (e,d) {
     uniq = [...new Set(targets)];
     var source = '';
     var tt = d3.select('#tooltip');
-    var source = '<img class="aagif" src=' + '"https://alokomp.irb.hr/static/avokado/{{traj_id}}/replica/aa/' + d +'.gif" alt="None" /img><hr>';
+    var source = '<a href="https://alokomp.irb.hr/md/correlations_circular/{{traj_id}}/' + d +'"><img class="aagif" src=' + '"https://alokomp.irb.hr/static/avokado/{{traj_id}}/replica/aa/' + d +'.gif" alt="None" /img></a><hr>';
     for (d of uniq) {
         source += '<img class="minigif" src=' + '"https://alokomp.irb.hr/static/avokado/{{traj_id}}/replica/aa/' + d +'.gif" /img>';
     };

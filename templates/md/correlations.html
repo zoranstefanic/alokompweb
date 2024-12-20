@@ -3,11 +3,13 @@
 
 {% block 'extra_css' %}
 <style>
-    body {background:#123;}
+    body {background:#fff;}
     .container {max-width:100%;}
     .corr {padding:3px;color:white;}
-    .avocado {border:1px solid #ddd;width:130px;filter:invert();}
-    .avocado_big {border:5px solid #cdf;width:100%;margin-top:50px;filter:invert();}
+    .avocado {border:1px solid #ddd;width:130px;}
+    .avocado_big {border:5px solid #cdf;width:100%;margin-top:50px;}
+    /*.avocado {border:1px solid #ddd;width:130px;filter:invert();}
+    .avocado_big {border:5px solid #cdf;width:100%;margin-top:50px;filter:invert();}*/
     .residue {background:orange;padding:10px;margin:10px;float:left;}
 </style>
 {% endblock %}
@@ -40,7 +42,7 @@
             <a href="{%url 'correlations_highest' trajectory.pk num%}"><button class="btn btn-warning">Highest</button></a>
         </div>
         <div class="col-md-5">
-        <h1 style="text-align:center;color:yellow;">φ correlations</h1>
+        <h1 style="text-align:center;">φ correlations</h1>
         {% with phi_res as dict %}
             {% for n,corr in dict.items %}
                 <figure class="figure">
@@ -53,7 +55,7 @@
         {% endwith %}
         </div>
         <div class="col-md-5">
-        <h1 style="text-align:center;color:yellow;">ψ correlations</h1>
+        <h1 style="text-align:center;">ψ correlations</h1>
         {% with psi_res as dict %}
             {% for n,corr in dict.items %}
                 <figure class="figure">
