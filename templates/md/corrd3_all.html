@@ -1,5 +1,5 @@
 {% extends 'pdbase/base.html' %}
-{% block 'title' %}Correlations for trajectory {{traj_id}}{% endblock%}
+{% block 'title' %}{{traj_id}} correlations{% endblock%}
 
 {% block 'extra_css' %}
 <style>
@@ -124,7 +124,6 @@
     var hubs = {{hubs}};
     const conservation_scale = d3.scaleSequential([1,Math.max(...Object.values(hubs))], d3.interpolateTurbo);
     const size_scale = d3.scaleLinear([1,Math.max(...Object.values(hubs))],[8,25]);
-
 
 function toggleCorrleated() {
     for (i of all_correlated) { $('#c'+i).toggleClass('allc')};

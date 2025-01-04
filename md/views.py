@@ -224,25 +224,6 @@ def avocados(request,pk,chain):
                           'offset':offset,
                             })
 
-def janins(request,pk):
-    trajectory =  MDtrajectory.objects.get(id=pk)
-    return render(request,'md/janins.html' , {'trajectory': trajectory, })
-
-def janin(request,pk,chain):
-    trajectory =  MDtrajectory.objects.get(id=pk)
-    imgmap =  {n:[(n-1)//14+1, n%14 or 14] for n in range(1,144)}
-    d = {}
-    offset = dict(zip(list('ABCDEF'),[i*144 for i in range(6)]))[chain]
-    for k,v in imgmap.items():
-        i,j = v[0],v[1]
-        d[k+offset] = [(j-1)*100,(i-1)*100,j*100,i*100]
-    return render(request,'md/janin.html' , 
-                        {'trajectory': trajectory, 
-                          'imgmap':d,
-                          'chain':chain,
-                          'offset':d,
-                            })
-
 def avocados_active_site(request,pk,chain):
     D1_nums = '19,20,21,23,24,64,87,89,90,160,180,203,214,215,217,218,221'.split(',') # Dimer 1 that makes the active site
     D2_nums = '1,2,3,4,42,43'.split(',') # Dimer 2
@@ -347,6 +328,7 @@ def graph_plot(request,id):
 def d3plot(request):
     return render(request, 'md/corr.html' , {'traj_id': 1458 })
 
+# Correlations 
 def coords(request):
     coords = json.load(open('/mnt/supermicro/disk1/ALOKOMP/hexamer.json','r'))
     return JsonResponse(coords)
@@ -378,14 +360,36 @@ def corrd3_all(request,traj_id):
             'hubs':hubs, 
             })
 
-def janin_corr(request,traj_id):
+# Janin related views 
+def janins(request,pk):
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    return render(request,'md/janins.html' , {'trajectory': trajectory, })
+
+def janin(request,pk,chain):
+    "One chain Janin plots montage"
+    trajectory =  MDtrajectory.objects.get(id=pk)
+    imgmap =  {n:[(n-1)//14+1, n%14 or 14] for n in range(1,144)}
+    d = {}
+    offset = dict(zip(list('ABCDEF'),[i*144 for i in range(6)]))[chain]
+    for k,v in imgmap.items():
+        i,j = v[0],v[1]
+        d[k+offset] = [(j-1)*100,(i-1)*100,j*100,i*100]
+    return render(request,'md/janin.html' , 
+                        {'trajectory': trajectory, 
+                          'imgmap':d,
+                          'chain':chain,
+                          'offset':d,
+                            })
+
+def janin_json(request,traj_id):
     corr = json.load(open('/mnt/supermicro/avocado/%s/janin_corr.json' %traj_id,'r'))
     return JsonResponse(corr,safe=False)
 
-def corrd3_janin(request,traj_id):
+def janin_corr(request,traj_id):
     trajectories = '1184 1192 1234 1242 1306 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
-    return render(request, 'md/corrd3_janin.html' , {'traj_id': traj_id, 'trajectories':trajectories })
+    return render(request, 'md/janin_corr.html' , {'traj_id': traj_id, 'trajectories':trajectories })
 
+# Changepoints 
 def changepoints(request,traj_id):
     trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
     corr = json.load(open('/mnt/supermicro/avocado/%s/correlations.json' %traj_id,'r'))

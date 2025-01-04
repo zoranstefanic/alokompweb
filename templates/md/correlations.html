@@ -19,7 +19,7 @@
     <h2> <a href="{%url 'MDtrajectoryView' trajectory.pk%}">{{trajectory}}</a> </h2>
     <a href="{%url 'MDtrajectoryView' trajectory.pk%}"><button class="btn btn-info">Trajectory</button></a>
     <a href="{%url 'corrd3_all' trajectory.pk %}"><button class="btn btn-danger">Correlations</button></a>
-    <a href="{%url 'corrd3_janin' trajectory.pk %}"><button class="btn btn-danger">Corrd3_janin</button></a>
+    <a href="{%url 'janin_corr' trajectory.pk %}"><button class="btn btn-danger">Janin correlations</button></a>
     <a href="{%url 'changepoints' trajectory.pk %}"><button class="btn btn-danger">Changepoints!</button></a>
     <a href="{%url 'graph_plot' trajectory.pk%}"><button class="btn btn-warning">Graph</button></a>
     <a href="{%url 'CorrelationMatrixView' trajectory.pk%}"><button class="btn btn-info">CM</button></a>

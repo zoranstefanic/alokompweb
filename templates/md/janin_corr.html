@@ -68,13 +68,11 @@
 {% endblock %}
 
 {% block 'content' %}
+{% include "md/menu.html" %}
 <div class="row">
     <div class="col-md-8">
     <h1>Janin correlations for trajectory <a href="{% url 'MDtrajectoryView' traj_id %}">{{traj_id}}</a></h1>
-    {% for i in trajectories %}
-        <a href="{%url 'corrd3_janin' i %}"><button class="btn btn-danger">{{i}}</button></a>
-    {% endfor %}
-            <a href="{%url 'corrd3' traj_id %}"><button class="btn btn-danger"><i class="bi bi-graph-up"></i> &phi;-&psi; correlations</button></a>
+            <a href="{%url 'corrd3_all' traj_id %}"><button class="btn btn-danger"><i class="bi bi-graph-up"></i> &phi;-&psi; correlations</button></a>
             <a href="{%url 'graph_plot' traj_id %}"><button class="btn btn-warning">Old style Graph <i class="bi bi-bounding-box-circles"></i></button></a>
     <svg id="svg"></svg>
     </div>
@@ -97,7 +95,7 @@
 
 function get_corr() {
     //Get correlation json file
-    d3.json('/md/corr_janin/{{traj_id}}').then( function(data) {
+    d3.json('/md/janin_json/{{traj_id}}').then( function(data) {
         corr = data;
     });
 }
