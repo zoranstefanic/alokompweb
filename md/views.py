@@ -385,3 +385,26 @@ def janin_corr(request,traj_id):
 def corrd3_janin(request,traj_id):
     trajectories = '1184 1192 1234 1242 1306 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
     return render(request, 'md/corrd3_janin.html' , {'traj_id': traj_id, 'trajectories':trajectories })
+
+def changepoints(request,traj_id):
+    trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
+    corr = json.load(open('/mnt/supermicro/avocado/%s/correlations.json' %traj_id,'r'))
+    cpts = json.load(open('/mnt/supermicro/avocado/%s/changepoints_%s.json' %(traj_id,traj_id),'r'))
+    all_correlated = list(set([s['source'] for s in corr]))
+    hubs = {}
+    for r in corr:
+        k = r['source']
+        if k in hubs.keys():
+            hubs[k] +=1
+        else:
+            hubs.setdefault(k,1)
+    # Above is not used instead below we cast cpts to format used by correlations
+    hubs = {k['aa']:len(k['cpts']) for k in cpts}
+    #hubs = {k['aa']:k['cpts'][0]['t'] for k in cpts}
+    return render(request, 'md/changepoints.html',
+            {'traj_id': traj_id, 
+            'all_correlated': all_correlated,  
+            'cpts': cpts,  
+            'trajectories':trajectories, 
+            'hubs':hubs, 
+            })

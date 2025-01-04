@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'corr_janin/(\d+)$', janin_corr, name="janin_corr"),
     url(r'corrd3_janin/(\d+)$', corrd3_janin, name="corrd3_janin"),
     url(r'corr/(\d+)$', corr, name="corr"),
+    url(r'changepoints/(\d+)$', changepoints, name="changepoints"),
 ]
