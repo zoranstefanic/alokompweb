@@ -1,0 +1,28 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}{{traj_id}} paths{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    body {background:#fff;}
+    .container {max-width:100%;}
+    .figure {
+    width:30px;
+    }
+    .avocado {border:1px solid #ddd;width:200px;}
+</style>
+{% endblock %}
+
+{% block 'content' %}
+{% include "md/menu.html" %}
+<h1>Temporal paths for <a href="{% url 'MDtrajectoryView' traj_id %}">{{traj_id}}</a></h1>
+    {% for p in paths %}
+<div class="row" style="margin-bottom:5px;">
+        {% for n in p %}
+          <a href="{%url 'correlations_circular' traj_id n %}">
+          <img class="avocado" src="/static/avokado/{{traj_id}}/replica/aa/{{n}}.gif" class="figure-img img-fluid rounded" > </a>
+        {% endfor %}
+</div>
+    {% endfor %}
+{% endblock %}
+{% block '_footer' %}
+{% endblock %}

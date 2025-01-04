@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'janin/(?P<pk>\d+)/(?P<chain>\w)/$', janin, name="janin"),
     url(r'corr/(\d+)$', corr, name="corr"),
     url(r'changepoints/(\d+)$', changepoints, name="changepoints"),
+    url(r'paths/(\d+)$', paths, name="paths"),
 ]

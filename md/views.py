@@ -412,3 +412,13 @@ def changepoints(request,traj_id):
             'trajectories':trajectories, 
             'hubs':hubs, 
             })
+
+# Temporal paths
+def paths(request,traj_id):
+    trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
+    paths = json.load(open('/mnt/supermicro/avocado/%s/paths_%s.json' %(traj_id,traj_id),'r'))
+    return render(request, 'md/paths.html',
+            {'traj_id': traj_id, 
+            'trajectories':trajectories, 
+            'paths':paths, 
+            })
