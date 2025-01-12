@@ -97,9 +97,10 @@
         <svg id="svg"></svg>
         <button id="toggle-correlated" class="btn btn-info float-right">Toggle correlated!</button>
     </div>
-    <div class="col-md-5">
+    <div id="changepoints" class="col-md-5">
         <div id="cpts-div"></div>
-        <svg id="cpts" style="height:500px;width:500px;border:1px solid grey;"></svg></div>
+        <svg id="cpts" style="height:500px;width:500px;border:1px solid grey;"></svg>
+        <svg id="barcode" style="height:500px;width:500px;"></svg>
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -116,13 +117,46 @@
     const line = d3.line().x(d=>d[0]).y(d=>d[1]).curve(d3.curveLinear);
     var corr = [];
     var all_correlated = {{all_correlated}};
-    var hubs = {{hubs}};
+    var hubs = {{cpts_by_number}};
     var changepoints = {{cpts|safe}};
+    var neighbours7 = {{neighbours7|safe}};
     const conservation_scale = d3.scaleSequential([1,Math.max(...Object.values(hubs))], d3.interpolateTurbo);
     const size_scale = d3.scaleLinear([1,Math.max(...Object.values(hubs))],[8,25]);
-    const cpts_color_scale = d3.scaleSequential([0,6], d3.interpolateRdBu);
+    const cpts_color_scale = d3.scaleSequential([0,6], d3.interpolateTurbo);
     const cpts_size_scale = d3.scaleLinear([0,6],[4,40]);
 
+//function get_changepoints (n) { var r = changepoints.filter(i => i['aa'] == n)[0]; return r.cpts;}
+function get_changepoints (n) {
+    var nbrs = neighbours7[n];
+    var cpts = changepoints.filter(i => i['aa'] == n)[0].cpts; 
+    //console.log(cpts);
+    var out = [];
+    var i = 0;
+    for (c of cpts) { out.push({'i':i,'n':n,'t':c.t,'s':c.s});}
+    for (n of nbrs) { 
+                    var l = changepoints.filter(j => j['aa'] == n);
+                        if (l.length !== 0) {
+                            i+=1;
+                            for (cc of l[0].cpts) {
+                                out.push({'i':i,'n':+n,'t':cc.t,'s':cc.s}); 
+                            }
+                        }
+                    }
+    console.log(out);
+    return out;
+    }
+
+function barcode(e,n) {
+    var svg = d3.select('svg#barcode');
+    var cpts1 = get_changepoints(n);
+    svg.selectAll('line').data(cpts1).join('line').
+        attr('x1', d => 500 * d.t).
+        attr('y1', d => 3 + d.i*30).
+        attr('x2', d => 500 * d.t).
+        attr('y2', d => 30 + d.i*30).
+        attr('stroke-width', d => 2*d.s).
+        attr('stroke', d => cpts_color_scale(d.s));
+    }
 
 function toggleCorrleated() {
     for (i of all_correlated) { $('#c'+i).toggleClass('allc')};
@@ -218,7 +252,6 @@ function get_corr() {
     });
 };
 
-
 function get_data() {
     d3.json('/md/coords/').then( function( data ) {
         return data;
@@ -294,7 +327,8 @@ function draw_chain(c) {
         .data(coords)
         .enter()
         .append( "circle" )
-        .on('click', (e,d) => showchpts(e,d[3]))
+        //.on('click', (e,d) => showchpts(e,d[3]))
+        .on('click', function(e,d) {barcode(e,d[3]); showchpts(e,d[3]);})
         .on('mouseout', (e,d) => hide(e,d))
         .attr("cx", function(d) { return d[0]})
         .attr("cy", function(d) { return d[1]})
