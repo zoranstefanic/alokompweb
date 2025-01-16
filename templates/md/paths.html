@@ -5,24 +5,65 @@
 <style>
     body {background:#fff;}
     .container {max-width:100%;}
-    .figure {
-    width:30px;
-    }
-    .avocado {border:1px solid #ddd;width:200px;}
+    .avocado {border:0.1px solid #ddd;width:100px;}
+   
+   #pathtable {
+    width:70%;
+    margin:auto;
+    } 
+
+   #pathtable td {
+    padding:0px;
+    padding-top:1px;
+    border-top:none;
+    } 
 </style>
 {% endblock %}
 
 {% block 'content' %}
 {% include "md/menu.html" %}
 <h1>Temporal paths for <a href="{% url 'MDtrajectoryView' traj_id %}">{{traj_id}}</a></h1>
-    {% for p in paths %}
-<div class="row" style="margin-bottom:5px;">
-        {% for n in p %}
-          <a href="{%url 'correlations_circular' traj_id n %}">
+<table id="pathtable" class="table">
+<thead>
+<tr>
+    <th>MD avocado plots</th>
+    <th>Path length</th>
+    <th>Total path weight</th>
+</tr></thead>
+{% for p in paths %}
+<tr>
+        <td>
+        {% for n in p.0 %}
+        <a href="{%url 'correlations_circular' traj_id n %}">
           <img class="avocado" src="/static/avokado/{{traj_id}}/replica/aa/{{n}}.gif" class="figure-img img-fluid rounded" > </a>
         {% endfor %}
-</div>
-    {% endfor %}
+        </td>
+        <td>{{p.0|length}}</td>
+        <td>{{p.1|floatformat:7}}</td>
+</tr>
+{% endfor %}
+</tr>
+</table>
 {% endblock %}
+  {% block 'extra_scripts' %}
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src='/static/js/jquery.tablesorter.js'></script>
+    <script>
+        $(function() {
+          $("#pathtable").tablesorter();
+        });
+    </script>
+    <script>
+    var scaler = d3.interpolateOranges;
+    //scaler = d3.interpolatePiYG;
+    weight_scale = d3.scaleSequential([0,0.2], scaler);
+    num_scale = d3.scaleSequential([0,15], scaler);
+    //$('span.weight>b').each(function(){$(this).css('color',weight_scale($(this).html())); });
+    $('tr > td:nth-child(3)').each(function(){$(this).css('background-color',weight_scale($(this).html())); });
+    $('tr > td:nth-child(2)').each(function(){$(this).css('background-color',num_scale($(this).html())); });
+    //numscale = d3.scaleSequential([0,300], scaler);
+    //$('tr > td:nth-child(4)').each(function(){$(this).css('background-color',numscale($(this).html())); });
+    </script>
+  {% endblock %}
 {% block '_footer' %}
 {% endblock %}

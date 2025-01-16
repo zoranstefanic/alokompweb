@@ -100,7 +100,7 @@
     <div id="changepoints" class="col-md-5">
         <div id="cpts-div"></div>
         <svg id="cpts" style="height:500px;width:500px;border:1px solid grey;"></svg>
-        <svg id="barcode" style="height:500px;width:500px;"></svg>
+        <svg id="barcode" style="height:1000px;width:500px;"></svg>
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -119,15 +119,15 @@
     var all_correlated = {{all_correlated}};
     var hubs = {{cpts_by_number}};
     var changepoints = {{cpts|safe}};
-    var neighbours7 = {{neighbours7|safe}};
+    var neighbours = {{neighbours|safe}};
     const conservation_scale = d3.scaleSequential([1,Math.max(...Object.values(hubs))], d3.interpolateTurbo);
-    const size_scale = d3.scaleLinear([1,Math.max(...Object.values(hubs))],[8,25]);
+    const size_scale = d3.scaleLinear([1,Math.max(...Object.values(hubs))],[5,20]);
     const cpts_color_scale = d3.scaleSequential([0,6], d3.interpolateTurbo);
     const cpts_size_scale = d3.scaleLinear([0,6],[4,40]);
 
 //function get_changepoints (n) { var r = changepoints.filter(i => i['aa'] == n)[0]; return r.cpts;}
 function get_changepoints (n) {
-    var nbrs = neighbours7[n];
+    var nbrs = neighbours[n];
     var cpts = changepoints.filter(i => i['aa'] == n)[0].cpts; 
     //console.log(cpts);
     var out = [];
@@ -151,10 +151,11 @@ function barcode(e,n) {
     var cpts1 = get_changepoints(n);
     svg.selectAll('line').data(cpts1).join('line').
         attr('x1', d => 500 * d.t).
-        attr('y1', d => 3 + d.i*30).
+        attr('y1', d =>  1 + d.i*19).
         attr('x2', d => 500 * d.t).
-        attr('y2', d => 30 + d.i*30).
-        attr('stroke-width', d => 2*d.s).
+        attr('y2', d => 19 + d.i*19).
+        attr('stroke-width', d => 1.8*d.s).
+        attr('opacity', 0.8).
         attr('stroke', d => cpts_color_scale(d.s));
     }
 
@@ -328,7 +329,8 @@ function draw_chain(c) {
         .enter()
         .append( "circle" )
         //.on('click', (e,d) => showchpts(e,d[3]))
-        .on('click', function(e,d) {barcode(e,d[3]); showchpts(e,d[3]);})
+        //.on('click', function(e,d) {barcode(e,d[3]); showchpts(e,d[3]);})
+        .on('mouseover', function(e,d) {barcode(e,d[3]); showchpts(e,d[3]);})
         .on('mouseout', (e,d) => hide(e,d))
         .attr("cx", function(d) { return d[0]})
         .attr("cy", function(d) { return d[1]})

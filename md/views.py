@@ -392,7 +392,7 @@ def janin_corr(request,traj_id):
 # Changepoints 
 def changepoints(request,traj_id):
     trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
-    neighbours7 = json.load(open('/mnt/supermicro/avocado/neighbours7.json','r'))
+    neighbours = json.load(open('/mnt/supermicro/avocado/neighbours15.json','r'))
     corr = json.load(open('/mnt/supermicro/avocado/%s/correlations.json' %traj_id,'r'))
     cpts = json.load(open('/mnt/supermicro/avocado/%s/changepoints_%s.json' %(traj_id,traj_id),'r'))
     all_correlated = list(set([s['source'] for s in corr]))
@@ -403,13 +403,13 @@ def changepoints(request,traj_id):
             'cpts': cpts,  
             'trajectories':trajectories, 
             'cpts_by_number':cpts_by_number, 
-            'neighbours7':neighbours7, 
+            'neighbours':neighbours, 
             })
 
 # Temporal paths
 def paths(request,traj_id):
     trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
-    paths = json.load(open('/mnt/supermicro/avocado/%s/paths_%s.json' %(traj_id,traj_id),'r'))
+    paths = json.load(open('/mnt/supermicro/avocado/%s/dijkstra_paths_%s.json' %(traj_id,traj_id),'r'))
     return render(request, 'md/paths.html',
             {'traj_id': traj_id, 
             'trajectories':trajectories, 
