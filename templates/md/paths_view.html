@@ -30,22 +30,23 @@
 
     .path1 {
       fill: none;
-      stroke: green;
-      stroke-width: 10px;
+      stroke: navy;
+      stroke-width: 8px;
       stroke-linecap: round;
       stroke-linejoin: round;
-      opacity:0.2;
+      opacity:0.5;
     }
 
     .pathlist {
     margin:2px;
     display:inline-flex;
+    color:white;
     }
 
     #pathlist_div {
     margin:5px;
-    width:500px;
-    height:500px;
+    width:800px;
+    height:800px;
     border: 1px solid black;
     overflow:scroll;
     }
@@ -117,8 +118,10 @@
     </div>
     <div id="changepoints" class="col-md-5">
         <div id="cpts-div"></div>
+       <h3>List of paths ({{paths|length}} out of {{total}}) sorted by decreasing length.</h3>
+        <p>Paths are colored by weight, click to show. Lower number means faster paths. Change number of paths in url.</p>
        <div id="pathlist_div">
-       {% for p in paths%}<span class="pathlist" onmouseover="draw_path(JSON.parse(this.dataset.path));" data-path="{{p.0}}" data-weight="{{p.1}}"><i class="bi bi-bezier"></i> {{p.1|floatformat:3}}</span>{%endfor%}
+       {% for p in paths%}<span class="pathlist" onclick="draw_path(JSON.parse(this.dataset.path));" data-path="{{p.0}}" data-weight="{{p.1}}"><i class="bi bi-bezier" style="color:blue;"></i> {{p.1|floatformat:3}}</span>{%endfor%}
         </div>
         <svg id="barcode" style="height:1000px;width:500px;"></svg>
     </div>
@@ -136,9 +139,12 @@
 
 const opacity_scale = d3.scaleLinear([-30,30],[0.2,1]);
 const line = d3.line().x(d=>d[0]).y(d=>d[1]).curve(d3.curveLinear);
-const line_paths = d3.line().x(d=>d[0]).y(d=>d[1]).curve(d3.curveLinear);
+const line_paths = d3.line().x(d=>d[0]).y(d=>d[1]).curve(d3.curveLinear); //curveStep, curveBase, curveNatural are also possible here
 const cpts_color_scale = d3.scaleSequential([0,6], d3.interpolateTurbo);
 const cpts_size_scale = d3.scaleLinear([0,6],[4,40]);
+var scaler = d3.interpolateTurbo;
+const weight_scale = d3.scaleSequential([0,0.2], scaler);
+$('.pathlist').each(function(){$(this).css('background',weight_scale(this.dataset.weight))});
 let crds;
 
 function saveSvg(textToWrite, fileNameToSaveAs, fileType) {
