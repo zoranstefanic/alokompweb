@@ -50,6 +50,10 @@
     border: 1px solid black;
     overflow:scroll;
     }
+    
+    #avocados {
+    width:100%;
+    }
 
     .analysis_img {
       border:blue 1px solid;
@@ -74,9 +78,9 @@
     }
 
     .minigif {
-    width:150px;
+    width:80px;
     border:#aaa 1px solid;
-    padding:-1px;
+    margin:1px;
     }
 
     circle:hover {opacity:1;}
@@ -112,24 +116,21 @@
 {% block 'content' %}
 {% include "md/menu.html" %}
 <h1>Paths for trajectory <a href="{% url 'MDtrajectoryView' traj_id %}">{{traj_id}}</a></h1>
+        <div class="row"><div class="col-md-12"><div id="avocados"></div></div></div>
 <div class="row">
     <div class="col-md-7">
         <svg id="svg"></svg>
     </div>
     <div id="changepoints" class="col-md-5">
-        <div id="cpts-div"></div>
        <h3>List of paths ({{paths|length}} out of {{total}}) sorted by decreasing length.</h3>
         <p>Paths are colored by weight, click to show. Lower number means faster paths. Change number of paths in url.</p>
        <div id="pathlist_div">
-       {% for p in paths%}<span class="pathlist" onclick="draw_path(JSON.parse(this.dataset.path));" data-path="{{p.0}}" data-weight="{{p.1}}"><i class="bi bi-bezier" style="color:blue;"></i> {{p.1|floatformat:3}}</span>{%endfor%}
+       {% for p in paths%}<span class="pathlist" onclick="draw_path(JSON.parse(this.dataset.path));" onmouseover="show_avocados_for_path(JSON.parse(this.dataset.path))" data-path="{{p.0}}" data-weight="{{p.1}}"><i class="bi bi-arrow-right" style="color:blue;"></i> {{p.1|floatformat:3}}</span>{%endfor%}
         </div>
         <svg id="barcode" style="height:1000px;width:500px;"></svg>
     </div>
 <div class="row">
-    <div class="col-md-6">
-    </div>
-    <div class="col-md-6 canvas_div">
-        <canvas id="canvas"></canvas>
+    <div class="col-md-12">
     </div>
 </div>
 {% endblock %}
@@ -265,6 +266,17 @@ function draw_path(p) {
     .attr('class','path1')
     .attr("opacity",0.8);
 }
+
+function show_avocados_for_path (d) {
+    console.log(d);
+    var div = d3.select('#avocados');
+    //var source = '<a href="https://alokomp.irb.hr/md/correlations_circular/{{traj_id}}/' + d +'"><img class="aagif" src=' + '"https://alokomp.irb.hr/static/avokado/{{traj_id}}/replica/aa/' + d +'.gif" alt="None" /img></a><hr>';
+    var source = '';
+    for (dd of d) {
+        source += '<img class="minigif" src=' + '"https://alokomp.irb.hr/static/avokado/{{traj_id}}/replica/aa/' + dd +'.gif" /img>';
+    };
+    div.html(source);
+    }
 
 function draw_chain(c) {
     d3.json('/md/coords/').then( function( data ) {
