@@ -1,0 +1,303 @@
+{% extends 'pdbase/base.html' %}
+{% block 'title' %}Paths for trajectory {{traj_id}}{% endblock%}
+
+{% block 'extra_css' %}
+<style>
+    body {background:#fff;}
+    .container {max-width:100%;}
+
+    #svg {
+    width:1100px;
+    height:1000px;
+    margin:5px;
+    /*background: #eee;*/
+    }
+
+    .chainA circle {fill:blue;}
+    .chainB circle {fill:red;}
+    .chainC circle {fill:green;}
+    .chainD circle {fill:orange;}
+    .chainE circle {fill:violet;}
+    .chainF circle {fill:purple;}
+
+    svg path {
+      fill: none;
+      stroke: grey;
+      stroke-width: 2px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .path1 {
+      fill: none;
+      stroke: green;
+      stroke-width: 10px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity:0.2;
+    }
+
+    .pathlist {
+    margin:2px;
+    display:inline-flex;
+    }
+
+    #pathlist_div {
+    margin:5px;
+    width:500px;
+    height:500px;
+    border: 1px solid black;
+    overflow:scroll;
+    }
+
+    .analysis_img {
+      border:blue 1px solid;
+      margin: 1px;
+      width:100%;
+      z-index:-100;
+    }
+    .analysis_div {
+      z-index:-110;
+    }
+    
+
+    #cpts-div{
+        float:right;
+    }
+
+    .aagif {
+    width:250px;
+    border:blue 0.5px solid;
+    margin-top:10px;
+    display:block;
+    }
+
+    .minigif {
+    width:150px;
+    border:#aaa 1px solid;
+    padding:-1px;
+    }
+
+    circle:hover {opacity:1;}
+
+    circle.highlight {
+        /*fill: lime;*/
+        /*r:15;*/ 
+        /*opacity:1;*/
+        stroke-width:3px;
+        stroke:black;
+    }
+
+    circle.allc {
+        /*fill: red;*/
+        /*r:12;*/
+        stroke-width:2px;
+        stroke: black;
+        opacity:0.8;
+    }
+
+    circle.corr {
+        fill: green;
+        r:15; 
+        stroke-width:3px;
+        opacity:1;
+    }
+    .canvas_div {
+        z-index:-1000;
+    }
+</style>
+{% endblock %}
+
+{% block 'content' %}
+{% include "md/menu.html" %}
+<h1>Paths for trajectory <a href="{% url 'MDtrajectoryView' traj_id %}">{{traj_id}}</a></h1>
+<div class="row">
+    <div class="col-md-7">
+        <svg id="svg"></svg>
+    </div>
+    <div id="changepoints" class="col-md-5">
+        <div id="cpts-div"></div>
+       <div id="pathlist_div">
+       {% for p in paths%}<span class="pathlist" onmouseover="draw_path(JSON.parse(this.dataset.path));" data-path="{{p.0}}" data-weight="{{p.1}}"><i class="bi bi-bezier"></i> {{p.1|floatformat:3}}</span>{%endfor%}
+        </div>
+        <svg id="barcode" style="height:1000px;width:500px;"></svg>
+    </div>
+<div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6 canvas_div">
+        <canvas id="canvas"></canvas>
+    </div>
+</div>
+{% endblock %}
+{% block 'extra_scripts' %}
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+
+const opacity_scale = d3.scaleLinear([-30,30],[0.2,1]);
+const line = d3.line().x(d=>d[0]).y(d=>d[1]).curve(d3.curveLinear);
+const line_paths = d3.line().x(d=>d[0]).y(d=>d[1]).curve(d3.curveLinear);
+const cpts_color_scale = d3.scaleSequential([0,6], d3.interpolateTurbo);
+const cpts_size_scale = d3.scaleLinear([0,6],[4,40]);
+let crds;
+
+function saveSvg(textToWrite, fileNameToSaveAs, fileType) {
+    let textFileAsBlob = new Blob([textToWrite], { type: fileType });
+    let downloadLink = document.createElement('a');
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = 'Download File';
+    
+    if (window.webkitURL != null) {
+        downloadLink.href = window.webkitURL.createObjectURL(
+            textFileAsBlob
+        );
+    } else {
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        downloadLink.style.display = 'none';
+        document.body.appendChild(downloadLink);
+    }
+    
+    downloadLink.click();
+}
+
+function styleAsString() {
+    var s = '<style>';
+    for (r of document.styleSheets[3].rules) {
+        s += r.cssText;
+    }
+    return s+'</style>';
+};
+
+const svgbtn = document.querySelector('button#get-SVG');
+svgbtn.addEventListener('click', function () {
+    var svgNode = document.querySelector('svg');
+    var svgString = (new XMLSerializer()).serializeToString(svgNode);
+    svgString = svgString.slice(0,49) + styleAsString() + svgString.slice(49);
+    //console.log(svgString);
+    saveSvg(svgString, {{traj_id}}+'.svg','text/svg');
+});
+
+function triggerDownload(imgURI) {
+    const a = document.createElement('a');
+    a.download = '{{traj_id}}.png'; // filename
+    a.target = '_blank';
+    a.href = imgURI;
+    // trigger download button
+    // (set `bubbles` to false here.
+    // or just `a.click()` if you don't care about bubbling)
+    a.dispatchEvent(new MouseEvent('click', {
+    view: window,
+    bubbles: false,
+    cancelable: true
+    }));
+}
+
+const btn = document.querySelector('button#get-PNG');
+btn.addEventListener('click', function () {
+    var svgNode = document.querySelector('svg');
+    var svgString = (new XMLSerializer()).serializeToString(svgNode);
+    svgString = svgString.slice(0,49) + styleAsString() + svgString.slice(49);
+    //console.log(svgString);
+    const svgBlob = new Blob([svgString], {
+    type: 'image/svg+xml;charset=utf-8'
+    });
+    const DOMURL = window.URL || window.webkitURL || window;
+    const url = DOMURL.createObjectURL(svgBlob);
+    const image = new Image();
+    image.width = svgNode.width.baseVal.value;
+    image.height = svgNode.height.baseVal.value;
+    image.src = url;
+    image.onload = function () {
+    const canvas = document.getElementById('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0);
+    DOMURL.revokeObjectURL(url);
+    const imgURI = canvas
+      .toDataURL('image/png')
+      .replace('image/png', 'image/octet-stream');
+    triggerDownload(imgURI);
+    };
+});
+
+function hide(e,d) {
+    d3.selectAll('circle.corr')
+    .classed('corr',false);
+}
+
+let zoom = d3.zoom().on('zoom', handleZoom);
+
+function handleZoom(e) {
+    d3.selectAll('#svg g')
+    .attr('transform', e.transform);
+}
+
+function initZoom() {
+    d3.select('#svg')
+    .call(zoom);
+}
+
+function set_coords(data) {
+    d3.json('/md/coords/').then( function( data ) {
+        crds = data;
+    });   
+}
+
+function flat_coordinates(n) {
+    var chain = 'ABCDEF'[Math.floor(n/233)];
+    return [crds[chain][n%233][0]*10+550, crds[chain][n%233][1]*10+500]; 
+}
+
+function draw_path(p) {
+    var path_coords = [];
+    for (n of p) {path_coords.push(flat_coordinates(n));};  
+    d3.select('#svg')
+    .append('g')
+    .append('path') 
+    .attr('d', line_paths(path_coords))
+    .attr('class','path1')
+    .attr("opacity",0.8);
+}
+
+function draw_chain(c) {
+    d3.json('/md/coords/').then( function( data ) {
+    coords = data[c];
+    var offset = {'A':0,'B':233,'C':466,'D':699,'E':932,'F':1165};
+    coords = coords.map((x,i) => [x[0]*10+550,x[1]*10+500,x[2],i+1+offset[c]]); 
+
+    d3.select('#svg')
+    .append('g')
+    .append('path') // add a path to the existing svg
+    .attr('d', line(coords))
+    .attr("opacity",0.8);
+
+    d3.select( "#svg" )
+    .append('g')
+    .selectAll( "circle" )
+    .data(coords)
+    .enter()
+    .append( "circle" )
+    .attr("cx", function(d) { return d[0]})
+    .attr("cy", function(d) { return d[1]})
+    .attr("fill", "blue")
+    .attr("r",5)
+    .attr("opacity",0.5)
+    .attr("id", function(d,i) { return ""+d[3] })
+    });
+}
+
+function run(){
+    for (c of ['A','B','C','D','E','F']) {
+        draw_chain(c);
+    };
+}
+
+set_coords();
+run();
+initZoom();
+handleZoom();
+</script>
+{% endblock %}
+{% block '_footer' %}
+{% endblock %}

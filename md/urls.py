@@ -35,4 +35,5 @@ urlpatterns = [
     url(r'corr/(\d+)$', corr, name="corr"),
     url(r'changepoints/(\d+)$', changepoints, name="changepoints"),
     url(r'paths/(\d+)$', paths, name="paths"),
+    url(r'paths/(\d+)/(\d+)$', paths_view, name="paths_view"),
 ]

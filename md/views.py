@@ -409,9 +409,22 @@ def changepoints(request,traj_id):
 # Temporal paths
 def paths(request,traj_id):
     trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
-    paths = json.load(open('/mnt/supermicro/avocado/%s/dijkstra_paths_%s.json' %(traj_id,traj_id),'r'))
+    paths = json.load(open('/mnt/supermicro/avocado/%s/filterd_dijkstra_paths_%s.json' %(traj_id,traj_id),'r'))
     return render(request, 'md/paths.html',
             {'traj_id': traj_id, 
             'trajectories':trajectories, 
             'paths':paths, 
+            })
+
+def paths_view(request,traj_id,n):
+    trajectories = '1184 1192 1234 1242 1306 1314 1458 1643 1651 1659 1697 1706 1714 1717 1725 1733 1745 1753 1761 1807 1815 1821 1831 1839'.split()
+    paths = json.load(open('/mnt/supermicro/avocado/%s/filterd_dijkstra_paths_%s.json' %(traj_id,traj_id),'r'))
+    paths = sorted(paths,key=lambda a: len(a[0]),reverse=True)
+    paths = paths[:int(n)]
+    #paths.reverse()
+    return render(request, 'md/paths_view.html',
+            {'traj_id': traj_id, 
+            'trajectories':trajectories, 
+            'paths':paths, 
+            #'paths':paths, 
             })

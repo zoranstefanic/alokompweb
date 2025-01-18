@@ -32,6 +32,17 @@
     </li>
 </ul>
 
+
+<ul class="navbar-nav">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Paths</a>
+        <div class="dropdown-menu">
+        {% for i in trajectories %} 
+            <a class="dropdown-item" href="{%url 'paths_view' i 100 %}">{{i}}</a> 
+        {% endfor %}
+        </div>
+    </li>
+</ul>
 <a class="dropdown-item" href="{%url 'paths' traj_id %}">Temporal paths <i class="bi bi-arrow-90deg-right"></i></a>
 
 <ul class="navbar-nav ml-auto">
