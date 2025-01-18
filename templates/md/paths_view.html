@@ -37,6 +37,15 @@
       opacity:0.5;
     }
 
+    .allpaths {
+      fill: none;
+      stroke: violet;
+      stroke-width: 8px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity:0.1;
+    }
+
     .pathlist {
     margin:2px;
     display:inline-flex;
@@ -116,7 +125,8 @@
 {% block 'content' %}
 {% include "md/menu.html" %}
 <h1>Paths for trajectory <a href="{% url 'MDtrajectoryView' traj_id %}">{{traj_id}}</a></h1>
-        <div class="row"><div class="col-md-12"><div id="avocados"></div></div></div>
+        <button class="btn btn-danger" onclick="draw_all_paths()">Draw all {{paths|length}} paths!</button>
+      <div class="row"><div class="col-md-12"><div id="avocados"></div></div></div>
 <div class="row">
     <div class="col-md-7">
         <svg id="svg"></svg>
@@ -131,6 +141,9 @@
     </div>
 <div class="row">
     <div class="col-md-12">
+    <div class="canvas_div">
+        <canvas id="canvas"></canvas>
+    </div>
     </div>
 </div>
 {% endblock %}
@@ -147,6 +160,7 @@ var scaler = d3.interpolateTurbo;
 const weight_scale = d3.scaleSequential([0,0.2], scaler);
 $('.pathlist').each(function(){$(this).css('background',weight_scale(this.dataset.weight))});
 let crds;
+var paths_list = {{paths_list}};
 
 function saveSvg(textToWrite, fileNameToSaveAs, fileType) {
     let textFileAsBlob = new Blob([textToWrite], { type: fileType });
@@ -256,19 +270,25 @@ function flat_coordinates(n) {
     return [crds[chain][n%233][0]*10+550, crds[chain][n%233][1]*10+500]; 
 }
 
-function draw_path(p) {
+function draw_path(p,cl="path1") {
     var path_coords = [];
     for (n of p) {path_coords.push(flat_coordinates(n));};  
     d3.select('#svg')
     .append('g')
     .append('path') 
     .attr('d', line_paths(path_coords))
-    .attr('class','path1')
-    .attr("opacity",0.8);
+    .attr('class',cl)
 }
 
+function draw_all_paths() {
+    for (p of paths_list) {
+    draw_path(p,cl="allpaths");
+    }
+}
+
+
 function show_avocados_for_path (d) {
-    console.log(d);
+    //console.log(d);
     var div = d3.select('#avocados');
     //var source = '<a href="https://alokomp.irb.hr/md/correlations_circular/{{traj_id}}/' + d +'"><img class="aagif" src=' + '"https://alokomp.irb.hr/static/avokado/{{traj_id}}/replica/aa/' + d +'.gif" alt="None" /img></a><hr>';
     var source = '';

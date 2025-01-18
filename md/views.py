@@ -422,9 +422,11 @@ def paths_view(request,traj_id,n):
     paths = sorted(paths,key=lambda a: len(a[0]),reverse=True)
     total = len(paths)
     paths = paths[:int(n)]
+    paths_list = [p[0] for p in paths]
     return render(request, 'md/paths_view.html',
             {'traj_id': traj_id, 
             'trajectories':trajectories, 
             'paths':paths, 
+            'paths_list':paths_list, 
             'total':total, 
             })
