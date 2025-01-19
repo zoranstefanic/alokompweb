@@ -184,13 +184,11 @@ function triggerDownload(imgURI) {
     }));
 }
 
-
 const btn = document.querySelector('button#get-PNG');
 btn.addEventListener('click', function () {
     var svgNode = document.querySelector('svg');
     var svgString = (new XMLSerializer()).serializeToString(svgNode);
     svgString = svgString.slice(0,49) + styleAsString() + svgString.slice(49);
-    //console.log(svgString);
     const svgBlob = new Blob([svgString], {
     type: 'image/svg+xml;charset=utf-8'
     });

@@ -44,6 +44,7 @@
 </ul>
 
 <ul class="navbar-nav">
+<a href="#"> <button class="btn btn-info" id="get-PNG">PNG</button></a>
 <li>For this trajectory:</li>
 <li><a class="dropdown-item" href="{%url 'corrd3_all' traj_id %}"><button class="btn btn-success"><i class="bi bi-file"></i></button></a></li>
 <li><a class="dropdown-item" href="{%url 'paths_view' traj_id 1000 %}"><button class="btn btn-info"><i class="bi bi-arrow-right"></i></button></a></li>
@@ -53,7 +54,6 @@
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Save </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#"> <button id="get-PNG">PNG</button></a>
             <a class="dropdown-item" href="#"> <button id="get-SVG">SVG</button></a>
             <a class="dropdown-item" href="{%url 'graph_plot' traj_id %}">View old graph <i class="bi bi-bounding-box-circles"></i></button></a>
         </div>
