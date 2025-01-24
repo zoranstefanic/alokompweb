@@ -30,7 +30,7 @@
 
     .path1 {
       fill: none;
-      stroke: navy;
+      stroke: orange;
       stroke-width: 8px;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -39,8 +39,8 @@
 
     .allpaths {
       fill: none;
-      stroke: navy;
-      stroke-width: 8px;
+      stroke: #d81b60;
+      stroke-width: 6px;
       stroke-linecap: round;
       stroke-linejoin: round;
       opacity:0.1;
@@ -272,7 +272,7 @@ function flat_coordinates(n) {
 
 function draw_path(p,cl="path1") {
     var path_coords = [];
-    for (n of p) {path_coords.push(flat_coordinates(n));};  
+    for (n of p) {path_coords.push(flat_coordinates(n-1));}; // XXX BUG of long paths!! Changed n to n-1 !!
     d3.select('#svg')
     .append('g')
     .append('path') 
